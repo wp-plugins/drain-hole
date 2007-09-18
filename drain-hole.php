@@ -315,6 +315,7 @@ class DrainholePlugin extends DH_Plugin
 	{
 		if (isset ($_POST['save']))
 		{
+			$_POST = stripslashes_deep ($_POST);
 			$file = DH_File::get ($id);
 			
 			DH_Version::create ($file, $_POST['version'], 0, mktime (0, 0, 0, intval ($_POST['month']), intval ($_POST['day']), intval ($_POST['year'])), $_POST['reason']);

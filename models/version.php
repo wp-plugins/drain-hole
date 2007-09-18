@@ -38,7 +38,7 @@ class DH_Version
 		global $wpdb;
 		
 		$data = array ();
-		$rows = $wpdb->get_results ("SELECT * FROM {$wpdb->prefix}drainhole_version WHERE file_id=$id AND id!=$current ORDER BY created_at DESC LIMIT 0,$limit", ARRAY_A);
+		$rows = $wpdb->get_results ("SELECT * FROM {$wpdb->prefix}drainhole_version WHERE file_id=$id ORDER BY created_at DESC LIMIT 0,$limit", ARRAY_A);
 		if ($rows)
 		{
 			foreach ($rows AS $row)

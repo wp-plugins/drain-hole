@@ -770,7 +770,6 @@ class DH_File
 		// Sort out any SVN business
 		if ($this->svn && $svnupdate)
 		{
-			echo 'YES';
 			$options = get_option ('drainhole_options');
 			if ($options && isset ($options['svn']) && $options['svn'])
 			{
@@ -778,7 +777,7 @@ class DH_File
 
 				$svn = new DH_SVN ($this->svn, $options['svn']);
 				$svn->update ($this->file ($hole));
-print_r ($svn);
+
 				if ($svn->version ())
 					$version = $svn->version ();
 			}
@@ -821,6 +820,7 @@ print_r ($svn);
 	// Return true if the version has a file, false otherwise
 	function has_version ($version, $hole)
 	{
+		echo $this->version_id." ".$version;
 		if ($this->version_id == $version || file_exists ($this->file ($hole, $version)))
 			return true;
 		return false;
