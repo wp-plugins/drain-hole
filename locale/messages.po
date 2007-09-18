@@ -1,0 +1,668 @@
+# A download management and monitoring plugin with statistics and file protection
+# Copyright (C) 2007 John Godley
+# This file is distributed under the same license as the Drain Hole package.
+# John Godley, http://urbangiraffe.com/, 2007.
+#
+#, fuzzy
+msgid	""
+msgstr	"Project-Id-Version: Drain Hole 2\n"
+	"Report-Msgid-Bugs-To: \n"
+	"POT-Creation-Date: 2007-09-18 15:59+0800\n"
+	"PO-Revision-Date: 2007-MO-DA HO:MI+ZONE\n"
+	"Last-Translator: John Godley http://urbangiraffe.com/\n"
+	"Language-Team: LANGUAGE <LL@li.org>\n"
+	"MIME-Version: 1.0\n"
+	"Content-Type: text/plain; charset=UTF8\n"
+	"Content-Transfer-Encoding: 8bit\n"
+	"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: view/admin/hole_item.php:5
+#, php-format
+msgid	"%d file"
+msgid_plural	"%d files"
+msgstr[0]	""
+msgstr[1]	""
+
+#: drain-hole.php:354
+#, php-format
+msgid	"%d new file was found"
+msgid_plural	"%d new files were found"
+msgstr[0]	""
+msgstr[1]	""
+
+#: view/admin/version.php:5
+#, php-format
+msgid	"%s ago"
+msgstr	""
+
+#: view/admin/versions.php:62
+msgid	"(D/M/Y)"
+msgstr	""
+
+#: view/drain-hole/default_show.php:25
+msgid	"<br/><small>Powered by <a href=\"http://urbangiraffe.com/plugins/"
+	"drain-hole/\">Drain Hole</a></small>"
+msgstr	""
+
+#: ajax.php:27
+msgid	"<p style=\"color: red\">That function is not defined</p>"
+msgstr	""
+
+#: ajax.php:19
+msgid	"<p style=\"color: red\">You are not allowed access to this resource</"
+	"p>"
+msgstr	""
+
+#: view/admin/hole_edit.php:12 view/admin/hole_new.php:10
+msgid	"Access Level"
+msgstr	""
+
+#: view/admin/hole_edit.php:28
+msgid	"Access error URL"
+msgstr	""
+
+#: view/admin/files.php:55
+msgid	"Add A File"
+msgstr	""
+
+#: view/admin/options.php:22
+msgid	"Add code to track downloads"
+msgstr	""
+
+#: view/admin/versions.php:44
+msgid	"Add to history"
+msgstr	""
+
+#: view/admin/kitten.php:3
+msgid	"All it takes is <strong>$16 to keep the kittens happy</strong> and "
+	"act as an incentive for me to carry on writing other free software."
+msgstr	""
+
+#: view/admin/hole_edit.php:15 view/admin/hole_new.php:13
+msgid	"Anybody - no login required"
+msgstr	""
+
+#: view/admin/head.php:6
+msgid	"Are you sure you want to delete this Drain Hole and all files?"
+msgstr	""
+
+#: view/admin/head.php:7
+msgid	"Are you sure you want to delete this version?"
+msgstr	""
+
+#: view/admin/files_edit.php:36
+msgid	"Auto-detect"
+msgstr	""
+
+#: view/admin/chart_holes.php:21
+msgid	"Bar chart"
+msgstr	""
+
+#: view/admin/files.php:19
+msgid	"Branch"
+msgstr	""
+
+#: view/admin/files_edit.php:56 view/admin/hole_edit.php:42
+#: view/admin/new_version.php:41 view/admin/versions_edit.php:25
+msgid	"Cancel"
+msgstr	""
+
+#: view/admin/stats.php:43
+msgid	"Cancelled"
+msgstr	""
+
+#: view/admin/chart_files.php:11 view/admin/chart_holes.php:11
+msgid	"Chart"
+msgstr	""
+
+#: view/admin/files.php:20 view/admin/holes.php:18
+msgid	"Charts"
+msgstr	""
+
+#: view/admin/downloads.php:69
+msgid	"Clear Downloads"
+msgstr	""
+
+#: view/admin/stats.php:62
+msgid	"Clear Statisitics"
+msgstr	""
+
+#: view/admin/stats.php:59
+msgid	"Clear Statistics For This File"
+msgstr	""
+
+#: view/admin/downloads.php:66
+msgid	"Clear all downloads"
+msgstr	""
+
+#: view/admin/files.php:76
+msgid	"Create &amp; upload"
+msgstr	""
+
+#: view/admin/holes.php:73
+msgid	"Create Drain Hole"
+msgstr	""
+
+#: view/admin/versions.php:13
+msgid	"Created"
+msgstr	""
+
+#: view/admin/new_version.php:8
+msgid	"Current version"
+msgstr	""
+
+#: view/admin/chart_files.php:19 view/admin/chart_holes.php:26
+msgid	"Daily"
+msgstr	""
+
+#: view/admin/versions.php:58 view/admin/versions_edit.php:12
+msgid	"Date"
+msgstr	""
+
+#: view/admin/time_days.php:1
+msgid	"Day"
+msgstr	""
+
+#: view/admin/files_edit.php:27
+msgid	"Default"
+msgstr	""
+
+#: view/admin/holes.php:19
+msgid	"Delete"
+msgstr	""
+
+#: view/admin/hole_item.php:26 view/admin/options.php:48
+msgid	"Delete Drain Hole"
+msgstr	""
+
+#: view/admin/files_edit.php:12
+msgid	"Description"
+msgstr	""
+
+#: view/admin/hole_edit.php:8 view/admin/hole_new.php:6
+#: view/admin/holes.php:66
+msgid	"Directory"
+msgstr	""
+
+#: view/admin/chart_files.php:16 view/admin/chart_holes.php:17
+msgid	"Display"
+msgstr	""
+
+#: view/drain-hole/default_show.php:6
+msgid	"Download"
+msgstr	""
+
+#: view/admin/stats.php:14
+msgid	"Download At"
+msgstr	""
+
+#: view/admin/downloads.php:4 view/admin/stats.php:4
+msgid	"Download Statistics for"
+msgstr	""
+
+#: models/file.php:375
+#, php-format
+msgid	"Download version %s of %s"
+msgstr	""
+
+#: view/admin/downloads.php:15
+msgid	"Downloaded At"
+msgstr	""
+
+#: view/admin/downloads.php:6 view/admin/submenu.php:4
+msgid	"Downloads"
+msgstr	""
+
+#: view/admin/chart_holes.php:13
+msgid	"Downloads as percentage"
+msgstr	""
+
+#: view/admin/chart_files.php:13
+msgid	"Downloads over time"
+msgstr	""
+
+#: view/admin/chart_holes.php:14
+msgid	"Downloads over time (grouped)"
+msgstr	""
+
+#: drain-hole.php:197
+msgid	"Drain Hole"
+msgstr	""
+
+#: view/admin/version.php:2
+msgid	"Drain Hole News"
+msgstr	""
+
+#: view/admin/options.php:2
+msgid	"Drain Hole Options"
+msgstr	""
+
+#: models/auditor.php:78
+msgid	"Drain Hole created"
+msgstr	""
+
+#: models/auditor.php:74
+msgid	"Drain Hole database installed"
+msgstr	""
+
+#: models/auditor.php:86
+msgid	"Drain Hole file upload"
+msgstr	""
+
+#: models/auditor.php:39
+msgid	"Drain Hole management"
+msgstr	""
+
+#: view/admin/holes.php:56
+msgid	"Drain Hole provides a central download repository.  You upload files "
+	"into a specified directory (the drain hole), and it\n"
+	"\tprovides download access to the directory at a given URL, along "
+	"with monitoring of download statistics and configurable "
+	"permissions.  Direct access to the files is not allowed."
+msgstr	""
+
+#: models/auditor.php:82
+msgid	"Drain Hole scan"
+msgstr	""
+
+#: view/admin/holes.php:4
+msgid	"Drain Holes"
+msgstr	""
+
+#: view/admin/holes.php:16 view/admin/versions.php:16
+msgid	"Edit"
+msgstr	""
+
+#: view/admin/hole_item.php:11
+msgid	"Edit Drain Hole"
+msgstr	""
+
+#: view/admin/options.php:11
+msgid	"Enter 0 for no limit.  File hits are not cleared"
+msgstr	""
+
+#: view/admin/downloads.php:17 view/admin/files.php:15
+#: view/admin/new_version.php:4 view/admin/versions.php:15
+msgid	"File"
+msgstr	""
+
+#: view/admin/chart_files.php:6
+#, php-format
+msgid	"File Charts for %s"
+msgstr	""
+
+#: view/admin/files_item.php:8
+msgid	"File is missing"
+msgstr	""
+
+#: view/admin/hole_edit.php:12 view/admin/hole_new.php:10
+msgid	"File security"
+msgstr	""
+
+#: view/admin/files_edit.php:4
+msgid	"Filename"
+msgstr	""
+
+#: view/admin/holes.php:17
+msgid	"Files"
+msgstr	""
+
+#: view/admin/submenu.php:2
+msgid	"Files &amp; Holes"
+msgstr	""
+
+#: view/admin/files.php:6
+msgid	"Files are stored in"
+msgstr	""
+
+#: view/admin/files.php:4
+msgid	"Files for"
+msgstr	""
+
+#: models/upgrade.php:170
+msgid	"First version"
+msgstr	""
+
+#: view/admin/files_edit.php:51
+msgid	"Force access level"
+msgstr	""
+
+#: view/admin/files_edit.php:48
+msgid	"Force download"
+msgstr	""
+
+#: view/admin/options.php:21
+msgid	"Google Analytics tracking"
+msgstr	""
+
+#: view/admin/files.php:17 view/admin/files_edit.php:16
+#: view/admin/versions.php:12 view/admin/versions_edit.php:8
+msgid	"Hits"
+msgstr	""
+
+#: view/admin/chart_holes.php:6
+#, php-format
+msgid	"Hole Charts for %s"
+msgstr	""
+
+#: view/admin/chart_files.php:18 view/admin/chart_holes.php:25
+msgid	"Hourly"
+msgstr	""
+
+#: view/admin/options.php:9
+msgid	"How many days to keep access statistics for"
+msgstr	""
+
+#: plugin.php:591
+msgid	"How many widgets would you like?"
+msgstr	""
+
+#: view/admin/options.php:35
+msgid	"I hereby testify that I have supported this plugin.  If I check this "
+	"option and haven't supported this plugin then a squad of winged "
+	"monkeys will be sent to drop things on my head."
+msgstr	""
+
+#: view/admin/files.php:14 view/admin/versions.php:10
+msgid	"ID"
+msgstr	""
+
+#: view/admin/downloads.php:19 view/admin/stats.php:15
+msgid	"IP"
+msgstr	""
+
+#: view/admin/files_edit.php:24
+msgid	"Icon"
+msgstr	""
+
+#: view/admin/kitten.php:29
+msgid	"If you 'mistakenly' said you supported the author without actually "
+	"doingso then not only are the kittens still crying, but their "
+	"stomachs ache and they all feel miserable."
+msgstr	""
+
+#: view/admin/new_version.php:31
+msgid	"Keep previous"
+msgstr	""
+
+#: view/admin/options.php:32
+msgid	"Kitten protection"
+msgstr	""
+
+#: view/admin/files_edit.php:33
+msgid	"MIME Type"
+msgstr	""
+
+#: view/admin/time_months.php:1
+msgid	"Month"
+msgstr	""
+
+#: view/admin/chart_files.php:20 view/admin/chart_holes.php:27
+msgid	"Monthly"
+msgstr	""
+
+#: view/admin/files_edit.php:8
+msgid	"Name"
+msgstr	""
+
+#: view/admin/holes.php:54
+msgid	"New Drain Hole"
+msgstr	""
+
+#: view/admin/files.php:62
+msgid	"New filename"
+msgstr	""
+
+#: view/admin/files.php:57
+msgid	"New files can be added by uploading here (if the directory has "
+	"appropriate write-permissions), or by uploading with an FTP client "
+	"and 'scanning' the directory for changes."
+msgstr	""
+
+#: view/admin/new_version.php:12
+msgid	"New version"
+msgstr	""
+
+#: models/pager.php:385
+msgid	"Next"
+msgstr	""
+
+#: view/admin/versions_item.php:10
+msgid	"No"
+msgstr	""
+
+#: view/admin/downloads.php:61
+msgid	"No files have been downloaded!"
+msgstr	""
+
+#: view/admin/files.php:69
+msgid	"Optional, an empty file suitable for later upload or SVN will "
+	"otherwise be created"
+msgstr	""
+
+#: view/admin/files.php:63
+msgid	"Optional, uploaded filename will be used if not given"
+msgstr	""
+
+#: view/admin/files_edit.php:45 view/admin/submenu.php:3
+msgid	"Options"
+msgstr	""
+
+#: view/admin/pager.php:17
+msgid	"Per page"
+msgstr	""
+
+#: view/admin/chart_holes.php:20
+msgid	"Pie chart"
+msgstr	""
+
+#: models/pager.php:384
+msgid	"Previous"
+msgstr	""
+
+#: view/admin/hole_edit.php:17 view/admin/hole_new.php:15
+msgid	"Purchased - via WP Shopper"
+msgstr	""
+
+#: view/admin/files.php:77
+msgid	"Re-scan"
+msgstr	""
+
+#: view/admin/versions.php:54 view/admin/versions_edit.php:20
+msgid	"Reason"
+msgstr	""
+
+#: view/admin/versions.php:14
+msgid	"Reason for version"
+msgstr	""
+
+#: view/admin/hole_edit.php:28
+msgid	"Redirect on access error"
+msgstr	""
+
+#: view/admin/downloads.php:21
+msgid	"Referrer"
+msgstr	""
+
+#: view/admin/hole_edit.php:8 view/admin/hole_new.php:6
+#: view/admin/holes.php:66
+msgid	"Relative to root"
+msgstr	""
+
+#: view/admin/hole_edit.php:4 view/admin/hole_new.php:2
+#: view/admin/holes.php:62
+msgid	"Relative to site root"
+msgstr	""
+
+#: view/admin/files_edit.php:20
+msgid	"SVN"
+msgstr	""
+
+#: view/admin/new_version.php:23
+msgid	"SVN Update"
+msgstr	""
+
+#: plugin.php:598 view/admin/files_edit.php:56 view/admin/hole_edit.php:41
+#: view/admin/new_version.php:40 view/admin/versions.php:67
+#: view/admin/versions_edit.php:25
+msgid	"Save"
+msgstr	""
+
+#: view/admin/options.php:40
+msgid	"Save options"
+msgstr	""
+
+#: view/admin/pager.php:14
+msgid	"Search"
+msgstr	""
+
+#: view/admin/new_version.php:34
+msgid	"Selecting this will retain the previous version"
+msgstr	""
+
+#: view/admin/chart_files.php:25
+msgid	"Show"
+msgstr	""
+
+#: view/drain-hole/default_show.php:18
+msgid	"Size"
+msgstr	""
+
+#: view/admin/stats.php:16
+msgid	"Speed"
+msgstr	""
+
+#: view/admin/options.php:8
+msgid	"Statistic retention"
+msgstr	""
+
+#: view/admin/hole_edit.php:34
+msgid	"Stop hot-links"
+msgstr	""
+
+#: drain-hole.php:449
+msgid	"The Drain Hole was not created - you must supply a unique URL and "
+	"directory"
+msgstr	""
+
+#: drain-hole.php:445
+msgid	"The Drain Hole was successfully created"
+msgstr	""
+
+#: view/admin/stats.php:54
+msgid	"There are no statistics for this file!"
+msgstr	""
+
+#: view/admin/versions.php:39
+msgid	"There are no versions to display!"
+msgstr	""
+
+#: view/admin/options.php:50
+msgid	"This operation removes all data associated with Drain Hole and "
+	"disables the plugin.  It does not delete any files"
+msgstr	""
+
+#: view/admin/stats.php:17
+msgid	"Time Taken"
+msgstr	""
+
+#: view/admin/hole_edit.php:4 view/admin/hole_new.php:2
+#: view/admin/holes.php:62
+msgid	"URL"
+msgstr	""
+
+#: view/admin/options.php:26
+msgid	"Update notification"
+msgstr	""
+
+#: view/admin/new_version.php:26
+msgid	"Update the download from SVN (using version info if applicable)"
+msgstr	""
+
+#: view/admin/files.php:18 view/drain-hole/default_show.php:14
+msgid	"Updated"
+msgstr	""
+
+#: view/admin/files.php:68
+msgid	"Upload a file"
+msgstr	""
+
+#: view/admin/downloads.php:20
+msgid	"User"
+msgstr	""
+
+#: view/admin/files.php:16 view/admin/versions.php:11
+#: view/admin/versions.php:50 view/admin/versions_edit.php:4
+#: view/drain-hole/default_show.php:10
+msgid	"Version"
+msgstr	""
+
+#: view/admin/new_version.php:16
+msgid	"Version history"
+msgstr	""
+
+#: view/admin/versions.php:2
+#, php-format
+msgid	"Version history for %s"
+msgstr	""
+
+#: view/admin/hole_item.php:3 view/admin/hole_item.php:16
+#: view/admin/hole_item.php:17
+msgid	"View files"
+msgstr	""
+
+#: view/admin/options.php:27
+msgid	"Whether to check for updates"
+msgstr	""
+
+#: view/admin/time_years.php:1
+msgid	"Year"
+msgstr	""
+
+#: view/admin/versions_item.php:8
+msgid	"Yes"
+msgstr	""
+
+#: view/admin/holes.php:68
+msgid	"You are advised to pick a directory outside of your "
+	"<code>public_html</code>"
+msgstr	""
+
+#: view/admin/versions.php:45
+msgid	"You can add to the history of a file.  This allows you to include "
+	"some history of a file before Drain Hole was used"
+msgstr	""
+
+#: view/admin/kitten.php:2
+msgid	"You can help support the author by sending a donation.  Every file "
+	"that is downloaded without support will cause a <strong>kitten to "
+	"cry</strong>."
+msgstr	""
+
+#: view/admin/kitten.php:27
+msgid	"Your help stopping kittens from crying is appreciated!"
+msgstr	""
+
+#: drain-hole.php:480
+msgid	"Your options have been updated"
+msgstr	""
+
+#: view/admin/hole_item.php:27
+msgid	"delete"
+msgstr	""
+
+#: view/admin/hole_item.php:17
+msgid	"files"
+msgstr	""
+
+#: view/admin/pager.php:24
+msgid	"go"
+msgstr	""
+
+#: view/admin/hole_new.php:23
+msgid	"on access error redirect to URL"
+msgstr	""
+
+#: view/admin/hole_item.php:22
+msgid	"view"
+msgstr	""
