@@ -750,14 +750,14 @@ class DH_File
 		return $this->version;
 	}
 	
-	function create_new_version ($version, $branch, $reason, $svnupdate = false)
+	function create_new_version ($version, $branch, $reason, $dontbranch = false, $svnupdate = false)
 	{
 		global $wpdb;
 		
 		$hole = DH_Hole::get ($this->hole_id);
 		
 		// Branch our copy
-		if ($branch)
+		if ($dontbranch === false && $branch)
 		{
 			if ($hole && $this->exists ($hole))
 			{
@@ -770,6 +770,7 @@ class DH_File
 		// Sort out any SVN business
 		if ($this->svn && $svnupdate)
 		{
+			echo 'YES';
 			$options = get_option ('drainhole_options');
 			if ($options && isset ($options['svn']) && $options['svn'])
 			{
@@ -777,17 +778,23 @@ class DH_File
 
 				$svn = new DH_SVN ($this->svn, $options['svn']);
 				$svn->update ($this->file ($hole));
-
+print_r ($svn);
 				if ($svn->version ())
 					$version = $svn->version ();
 			}
 		}
 
 		// Store details in a version branch
-		$version = DH_Version::create ($this, $version, $this->hits - DH_Version::total_hits ($this->id), '', $reason);
+		if ($dontbranch === false)
+		{
+			$version = DH_Version::create ($this, $version, $this->hits - DH_Version::total_hits ($this->id), '', $reason);
 
-		// Update our details
-		$wpdb->query ("UPDATE {$wpdb->prefix}drainhole_files SET updated_at=NOW(), version_id='$version' WHERE id={$this->id}");
+			// Update our details
+			$wpdb->query ("UPDATE {$wpdb->prefix}drainhole_files SET updated_at=NOW(), version_id='$version' WHERE id={$this->id}");
+		}
+		else
+			$wpdb->query ("UPDATE {$wpdb->prefix}drainhole_version SET version='$version', created_at=NOW() WHERE id={$this->version_id}");
+		
 		return true;
 	}
 

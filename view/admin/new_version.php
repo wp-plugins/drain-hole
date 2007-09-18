@@ -26,6 +26,13 @@
 					<span class="sub"><?php _e ('Update the download from SVN (using version info if applicable)', 'drainhole'); ?></span>
 				</td>
 			</tr>
+			<tr>
+				<th align="right"><?php _e ('Don\'t branch', 'drainhole'); ?>:</th>
+				<td>
+					<input tabindex="3" type="checkbox" name="donotbranch"/>
+					<span class="sub"><?php _e ('Just update current version', 'drainhole'); ?></span>
+				</td>
+			</tr>
 		<?php endif; ?>
 		<tr>
 			<th align="right"><?php _e ('Keep previous', 'drainhole'); ?>:</th>

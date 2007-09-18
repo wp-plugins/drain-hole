@@ -102,7 +102,7 @@ class DH_AJAX extends DH_Plugin
 	{
 		$file = DH_File::get ($id);
 		if ($file)
-			$file->create_new_version ($_POST['new_version'], isset ($_POST['branch']) ? true : false, $_POST['reason'], isset ($_POST['svn']) ? true : false);
+			$file->create_new_version ($_POST['new_version'], isset ($_POST['branch']) ? true : false, $_POST['reason'], isset ($_POST['donotbranch']) ? true : false, isset ($_POST['svn']) ? true : false);
 	}
 	
 	function edit_version ($id)
@@ -118,7 +118,11 @@ class DH_AJAX extends DH_Plugin
 	
 	function show_version ($id)
 	{
-		$this->render_admin ('versions_item', array ('version' => DH_Version::get ($id)));
+		$version = DH_Version::get ($id);
+		$file    = DH_File::get ($version->file_id);
+		$hole    = DH_Hole::get ($file->hole_id);
+		
+		$this->render_admin ('versions_item', array ('version' => $version, 'hole' => $hole, 'file' => $file));
 	}
 	
 	function delete_version ($id)
