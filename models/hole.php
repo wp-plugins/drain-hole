@@ -70,7 +70,8 @@ class DH_Hole
 				DH_File::delete ($file->id);
 		}
 		
-		if (is_writable ($hole->directory))
+		$options = get_options ('drainhole_options');
+		if (isset ($options['delete_file']) && $options['delete_file'] && is_writable ($hole->directory))
 		{
 			@unlink ($hole->directory.'/.htaccess');
 			@rmdir ($hole->directory);

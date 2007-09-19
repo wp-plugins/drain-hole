@@ -78,7 +78,7 @@ class DH_SVN
 				else
 				{
 					$data = file_get_contents ($item);
-					$zipper->addFile (stripcslashes ($data), substr ($item, strlen ($base) + 1));
+					$zipper->addFile (stripcslashes ($data), str_replace ('.zip.tmp', '', basename ($base)).DIRECTORY_SEPARATOR.substr ($item, strlen ($base) + 1));
 				}
 			}
 		}

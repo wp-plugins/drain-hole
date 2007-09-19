@@ -66,7 +66,9 @@ class DH_File
 		$hole = DH_Hole::get ($file->hole_id);
 		
 		// Remove the file first
-		@unlink ($file->file ($hole));
+		$options = get_options ('drainhole_options');
+		if (isset ($options['delete_file']) && $options['delete_file'])
+			@unlink ($file->file ($hole));
 		
 		global $wpdb;
 		$wpdb->query ("DELETE FROM {$wpdb->prefix}drainhole_files WHERE id='$id'");
@@ -76,7 +78,8 @@ class DH_File
 	{
 		DH_Access::delete_by_version ($version);
 		
-		if (file_exists ($this->file ($hole, $version)))
+		$options = get_options ('drainhole_options');
+		if (isset ($options['delete_file']) && $options['delete_file'] && file_exists ($this->file ($hole, $version)))
 			@unlink ($this->file ($hole, $version));
 	}
 	
@@ -698,20 +701,24 @@ class DH_File
 	
 	function rmdir ($dir)
 	{
-		$files = glob (rtrim ($dir,'/')."*");
-		if (count ($files) > 0)
+		$options = get_options ('drainhole_options');
+		if (isset ($options['delete_file']) && $options['delete_file'])
 		{
-			foreach ($files AS $file)
+			$files = glob (rtrim ($dir,'/')."*");
+			if (count ($files) > 0)
 			{
-				if (is_file ($file))
+				foreach ($files AS $file)
+				{
+					if (is_file ($file))
+						@unlink ($file);
+				}
+
+				foreach ($files AS $file)
 					@unlink ($file);
 			}
-
-			foreach ($files AS $file)
-				@unlink ($file);
-		}
 		
-		rmdir ($dir);
+			rmdir ($dir);
+		}
 	}
 	
 	

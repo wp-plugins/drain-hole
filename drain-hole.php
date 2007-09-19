@@ -15,6 +15,7 @@ Author URI: http://urbangiraffe.com/
 1.1.3 - Add show hole tag
 1.1.4 - Add template tag and Widget
 2.0.0 - Major new version with support for SVN, versions, and charting
+2.0.1 - Fix bug in SVN zip production
 
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
@@ -474,6 +475,7 @@ class DrainholePlugin extends DH_Plugin
 				'update' => isset ($_POST['update']) ? true : false,
 				'days'   => intval ($_POST['days']),
 				'kitten' => isset ($_POST['kitten']) ? true : false,
+				'delete_file' => isset ($_POST['delete_file']) ? true : false,
 				'svn'    => $_POST['svn']
 			);
 			

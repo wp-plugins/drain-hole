@@ -29,7 +29,15 @@
 				</td>
 		</tr>
 		<tr>
-			<th width="220" align="right"><?php _e ('Kitten protection', 'drainhole'); ?>:</th>
+			<th width="220" align="right" valign="top"><?php _e ('Allow file deletion', 'drainhole'); ?>:</th>
+			<td>
+				<input type="checkbox" name="delete_file"<?php $this->checked ($options, 'delete_file') ?>/>
+				<span class="sub"><?php _e ('Enabling this will allow Drain Hole to delete physical files', 'drainhole'); ?></span>
+			</td>
+		</tr>
+		
+		<tr>
+			<th width="220" align="right" valign="top"><?php _e ('Kitten protection', 'drainhole'); ?>:</th>
 			<td>
 				<input type="checkbox" name="kitten"<?php $this->checked ($options, 'kitten') ?>/>
 				<span class="sub"><?php _e ('I hereby testify that I have supported this plugin.  If I check this option and haven\'t supported this plugin then a squad of winged monkeys will be sent to drop things on my head.', 'drainhole'); ?></span>
