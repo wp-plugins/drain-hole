@@ -12,7 +12,7 @@
 // Lesser General Public License for more details.
 // ======================================================================================
 // @author     John Godley (http://urbangiraffe.com)
-// @version    0.1.18
+// @version    0.1.19
 // @copyright  Copyright &copy; 2007 John Godley, All Rights Reserved
 // ======================================================================================
 // 0.1.6 - Corrected WP locale functions
@@ -28,6 +28,7 @@
 // 0.1.16 - Add support for homedir in realpath
 // 0.1.17 - Added widget class
 // 0.1.18 - Expand checked function
+// 0.1.19 - Make url() cope with sites with no trailing slash
 // ======================================================================================
 
 
@@ -336,7 +337,8 @@ class DH_Plugin
 			$url = substr ($this->plugin_base, strlen (realpath (ABSPATH)));
 			if (DIRECTORY_SEPARATOR != '/')
 				$url = str_replace (DIRECTORY_SEPARATOR, '/', $url);
-			$url = get_bloginfo ('wpurl').$url;
+
+			$url = get_bloginfo ('wpurl').'/'.ltrim ($url, '/');
 		
 			// Do an SSL check - only works on Apache
 			global $is_IIS;

@@ -66,7 +66,7 @@ else if ($type == 'files')
 			
 			$csv[] = $drainhole->csv_escape ($file->file);
 			$csv[] = $drainhole->csv_escape ($file->version);
-			$csv[] = $drainhole->csv_escape ($file->downloads);
+			$csv[] = $drainhole->csv_escape ($file->hits);
 			$csv[] = $drainhole->csv_escape (date ('Y-m-d', $file->updated_at));
 			$csv[] = $drainhole->csv_escape (date ('H:i', $file->updated_at));
 			

@@ -4,7 +4,7 @@ Plugin Name: Drain Hole
 Plugin URI: http://urbangiraffe.com/plugins/drain-hole/
 Description: A download management and monitoring plugin with statistics and file protection
 Author: John Godley
-Version: 2.0.1
+Version: 2.0.2
 Author URI: http://urbangiraffe.com/
 ============================================================================================================
 
@@ -16,6 +16,7 @@ Author URI: http://urbangiraffe.com/
 1.1.4 - Add template tag and Widget
 2.0.0 - Major new version with support for SVN, versions, and charting
 2.0.1 - Fix bug in SVN zip production, add option to disable file delete
+2.0.2 - Zip file was removing slashes.  Display of hits fixed to show all versions
 
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
@@ -526,7 +527,7 @@ class DrainholePlugin extends DH_Plugin
 		$text = str_replace ('$size$', $file->bytes ($file->filesize ($hole)), $text);
 		$text = str_replace ('$desc$', $file->description, $text);
 		$text = str_replace ('$updated$', date (get_option ('date_format'), $file->updated_at), $text);
-		$text = str_replace ('$hits$', number_format ($file->downloads), $text);
+		$text = str_replace ('$hits$', number_format ($file->hits), $text);
 		$text = str_replace ('$version$', $file->version, $text);
 		$text = str_replace ('$icon$', $file->icon ($hole, $this->url (), $options['google']), $text);
 		return $text;
@@ -591,7 +592,7 @@ class DrainholePlugin extends DH_Plugin
 				else if ($cmd == 'version')
 					return $file->version;
 				else if ($cmd == 'hits')
-					return number_format ($file->downloads);
+					return number_format ($file->hits);
 				else if ($cmd == 'url')
 					return $file->url ($hole, $args == '' ? basename ($file->file) : $args, $options['google']);
 				else if ($cmd == 'href')
