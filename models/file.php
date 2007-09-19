@@ -827,7 +827,6 @@ class DH_File
 	// Return true if the version has a file, false otherwise
 	function has_version ($version, $hole)
 	{
-		echo $this->version_id." ".$version;
 		if ($this->version_id == $version || file_exists ($this->file ($hole, $version)))
 			return true;
 		return false;
