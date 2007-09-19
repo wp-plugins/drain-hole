@@ -379,9 +379,9 @@ class DH_File
 			
 		$url = $this->url_ref ($hole, false, $version);
 		if ($google)
-			return '<a title="'.htmlspecialchars ($title).'" onclick="if (window.urchinTracker) urchinTracker (\''.$url.'\');" href="'.$this->url_ref ($hole).'">'.$this->name ($text)."</a>";
+			return '<a rel="nofollow" title="'.htmlspecialchars ($title).'" onclick="if (window.urchinTracker) urchinTracker (\''.$url.'\');" href="'.$this->url_ref ($hole).'">'.$this->name ($text)."</a>";
 		else
-			return '<a title="'.htmlspecialchars ($title).'" href="'.$url.'">'.$this->name ($text)."</a>";
+			return '<a rel="nofollow" title="'.htmlspecialchars ($title).'" href="'.$url.'">'.$this->name ($text)."</a>";
 	}
 	
 	function url_ref ($hole, $baseonly = false, $version = '')
