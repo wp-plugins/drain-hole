@@ -66,7 +66,7 @@ class DH_File
 		$hole = DH_Hole::get ($file->hole_id);
 		
 		// Remove the file first
-		$options = get_options ('drainhole_options');
+		$options = get_option ('drainhole_options');
 		if (isset ($options['delete_file']) && $options['delete_file'])
 			@unlink ($file->file ($hole));
 		
@@ -78,7 +78,7 @@ class DH_File
 	{
 		DH_Access::delete_by_version ($version);
 		
-		$options = get_options ('drainhole_options');
+		$options = get_option ('drainhole_options');
 		if (isset ($options['delete_file']) && $options['delete_file'] && file_exists ($this->file ($hole, $version)))
 			@unlink ($this->file ($hole, $version));
 	}
@@ -701,7 +701,7 @@ class DH_File
 	
 	function rmdir ($dir)
 	{
-		$options = get_options ('drainhole_options');
+		$options = get_option ('drainhole_options');
 		if (isset ($options['delete_file']) && $options['delete_file'])
 		{
 			$files = glob (rtrim ($dir,'/')."*");
