@@ -49,6 +49,8 @@ class DH_File
 		$this->updated_at = mysql2date ('U', $this->updated_at);
 		$this->created_at = mysql2date ('U', $this->created_at);
 		$this->options    = unserialize ($this->options);
+		if (!is_array ($this->options))
+			$this->options = array ();
 	}
 	
 	

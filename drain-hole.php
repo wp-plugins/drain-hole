@@ -4,7 +4,7 @@ Plugin Name: Drain Hole
 Plugin URI: http://urbangiraffe.com/plugins/drain-hole/
 Description: A download management and monitoring plugin with statistics and file protection
 Author: John Godley
-Version: 2.0.4
+Version: 2.0.5
 Author URI: http://urbangiraffe.com/
 ============================================================================================================
 
@@ -19,6 +19,7 @@ Author URI: http://urbangiraffe.com/
 2.0.2 - Zip file was removing slashes.  Display of hits fixed to show all versions
 2.0.3 - Add missing database columns
 2.0.4 - Track down first-time hole creation problem
+2.0.5 - Once more unto the breach
 
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
