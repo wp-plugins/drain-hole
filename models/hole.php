@@ -94,11 +94,11 @@ class DH_Hole
 		global $wpdb;
 		
 		$sql  = "SELECT @holes.*,SUM(@files.hits) AS hits,COUNT(@files.id) AS files FROM @holes ";
-		$sql .= "INNER JOIN @files ON @holes.id=@files.hole_id AND @holes.id=".$id;
+		$sql .= "LEFT JOIN @files ON @holes.id=@files.hole_id AND @holes.id=".$id;
 		$sql .= " GROUP BY @holes.id ";
 		
 		$sql = str_replace ('@', $wpdb->prefix.'drainhole_', $sql);
-		
+
 		$row = $wpdb->get_row ($sql, ARRAY_A);
 		if ($row)
 			return new DH_Hole ($row);
