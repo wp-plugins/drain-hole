@@ -4,7 +4,7 @@
 // version database is just a history, the files table is always the latest count
 class DH_Upgrade
 {
-	function run ()
+	function run ($desired)
 	{
 		global $wpdb;
 		
@@ -24,25 +24,24 @@ class DH_Upgrade
 				$this->upgrade_from_0 ();
 
 				$version = 1;
-				update_option ('drainhole_version', $version);
 			}
 			else
-			{
 				$this->create_tables_2 ();	// Installing from scratch
-				
-				update_option ('drainhole_version', 2);
-			}
 		}
 		
 		// Upgrading from version 1.1.x => 1.2
-//		if ($version == 1)
+		if ($version == 1)
 		{
 			$this->create_tables_2 ();
 			$this->upgrade_from_1 ();
-
-			$version = 2;
-			update_option ('drainhole_version', $version);
 		}
+		else if ($version == 2)
+		{
+			$this->create_tables_2 ();
+			$this->upgrade_from_2 ();
+		}
+
+		update_option ('drainhole_version', $desired);
 	}
 	
 	function create_tables_1 ()
@@ -100,6 +99,7 @@ class DH_Upgrade
 			`hits` int(10) unsigned NOT NULL,
 		  `updated_at` datetime NOT NULL,
 		  `options` mediumtext,
+		  `svn` varchar(150) default NULL,
 		  PRIMARY KEY  (`id`),
 		  KEY `file` (`file`)
 		)");
@@ -112,6 +112,8 @@ class DH_Upgrade
 		  `ip` int(10) unsigned NOT NULL,
 		  `time_taken` int(10) unsigned default NULL,
 		  `referrer` varchar(150) default NULL,
+			`user_id` int(10) unsigned NOT NULL,
+		  `version_id` int(10) unsigned NOT NULL default '0',
 		  PRIMARY KEY  (`id`)
 		)");
 
@@ -121,6 +123,7 @@ class DH_Upgrade
 		  `directory` varchar(200) NOT NULL,
 		  `role` varchar(30) default NULL,
  			`role_error_url` varchar(100) default NULL,
+  		`hotlink` tinyint(4) NOT NULL default '0',
 		  PRIMARY KEY  (`id`)
 		)");
 		
@@ -135,6 +138,12 @@ class DH_Upgrade
 		)");
 	}
 	
+	function upgrade_from_2 ()
+	{
+		global $wpdb;
+		$wpdb->query ("ALTER TABLE `{$wpdb->prefix}drainhole_holes` ADD `hotlink` tinyint NOT NULL DEFAULT '0' ");
+	}
+	
 	function upgrade_from_1 ()
 	{
 		global $wpdb;
@@ -146,9 +155,9 @@ class DH_Upgrade
 		$wpdb->query ("ALTER TABLE `{$wpdb->prefix}drainhole_files` ADD `name` varchar(150) NOT NULL default '';");
 		$wpdb->query ("ALTER TABLE `{$wpdb->prefix}drainhole_files` ADD `description` TEXT default NULL;");
 		$wpdb->query ("ALTER TABLE `{$wpdb->prefix}drainhole_files` ADD	`version_id` int(11) unsigned NOT NULL;");
-		$wpdb->query ("ALTER TABLE `{$wpdb->prefix}drainhole_access` ADD `version_id` int UNSIGNED NOT NULL DEFAULT '0';");
 		$wpdb->query ("ALTER TABLE `{$wpdb->prefix}drainhole_files` ADD `options` mediumtext DEFAULT NULL ;");
 		$wpdb->query ("ALTER TABLE `{$wpdb->prefix}drainhole_files` ADD `svn` varchar(150) DEFAULT NULL ;");
+		$wpdb->query ("ALTER TABLE `{$wpdb->prefix}drainhole_access` ADD `version_id` int UNSIGNED NOT NULL DEFAULT '0';");
 
 		// Change columns in drainhole_files for: file
 		$wpdb->query ("ALTER TABLE `{$wpdb->prefix}drainhole_files` CHANGE `file` `file` varchar(150) NOT NULL default '';");
