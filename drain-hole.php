@@ -4,7 +4,7 @@ Plugin Name: Drain Hole
 Plugin URI: http://urbangiraffe.com/plugins/drain-hole/
 Description: A download management and monitoring plugin with statistics and file protection
 Author: John Godley
-Version: 2.0.5
+Version: 2.0.6
 Author URI: http://urbangiraffe.com/
 ============================================================================================================
 
@@ -20,6 +20,7 @@ Author URI: http://urbangiraffe.com/
 2.0.3 - Add missing database columns
 2.0.4 - Track down first-time hole creation problem
 2.0.5 - Once more unto the breach
+2.0.6 - Statistic retention saving
 
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
@@ -182,12 +183,12 @@ class DrainholePlugin extends DH_Plugin
 	
 	function upgrade ()
 	{
-		if (get_option ('drainhole_version') != 3)
+		if (get_option ('drainhole_version') != 4)
 		{
 			include (dirname (__FILE__).'/models/upgrade.php');
 			
 			$upgrade = new DH_Upgrade ();
-			$upgrade->run (3);
+			$upgrade->run (4);
 		}
 	}
 

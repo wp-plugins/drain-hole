@@ -41,6 +41,7 @@ class DH_Upgrade
 			$this->upgrade_from_2 ();
 		}
 
+		DH_Hole::flush ();
 		update_option ('drainhole_version', $desired);
 	}
 	

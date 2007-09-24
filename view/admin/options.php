@@ -7,7 +7,7 @@
 		<tr>
 			<th width="220" align="right"><?php _e ('Statistic retention', 'drainhole'); ?>:<br/>
 				<span class="sub"><?php _e ('How many days to keep access statistics for', 'drainhole'); ?></span></th>
-			<td><input type="text" size="5" name="stats" value="<?php echo $options['days'] ?>"/> 
+			<td><input type="text" size="5" name="days" value="<?php echo $options['days'] ?>"/> 
 				<span class="sub"><?php _e ('Enter 0 for no limit.  File hits are not cleared', 'drainhole'); ?></span></td>
 		</tr>
 
