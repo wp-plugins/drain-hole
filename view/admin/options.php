@@ -35,7 +35,13 @@
 				<span class="sub"><?php _e ('Enabling this will allow Drain Hole to delete physical files', 'drainhole'); ?></span>
 			</td>
 		</tr>
-		
+		<tr>
+			<th width="220" align="right" valign="top"><?php _e ('Create .htaccess in holes', 'drainhole'); ?>:</th>
+			<td>
+				<input type="checkbox" name="htaccess"<?php $this->checked ($options, 'htaccess') ?>/>
+				<span class="sub"><?php _e ('Enabling this will allow Drain Hole to create .htaccess in holes for further protection', 'drainhole'); ?></span>
+			</td>
+		</tr>
 		<tr>
 			<th width="220" align="right" valign="top"><?php _e ('Kitten protection', 'drainhole'); ?>:</th>
 			<td>

@@ -28,7 +28,7 @@ class DH_File
 	var $hole_id;
 	var $file;
 	var $version;
-	var $downloads;
+	var $hits;
 	
 	
 	/**
@@ -735,7 +735,7 @@ class DH_File
 	{
 		global $wpdb;
 	
-		$rows = $wpdb->get_results ("SELECT * FROM {$wpdb->prefix}drainhole_files ORDER BY downloads DESC LIMIT 0,$count", ARRAY_A);
+		$rows = $wpdb->get_results ("SELECT * FROM {$wpdb->prefix}drainhole_files ORDER BY hits DESC LIMIT 0,$count", ARRAY_A);
 		$data = array ();
 		if ($rows)
 		{
@@ -832,6 +832,13 @@ class DH_File
 		if ($this->version_id == $version || file_exists ($this->file ($hole, $version)))
 			return true;
 		return false;
+	}
+	
+	function svn ()
+	{
+		if (substr ($this->svn, 0, 4) == 'http')
+			return '<a rel="nofollow" href="'.$this->svn.'">SVN</a>';
+		return '';
 	}
 }
 ?>

@@ -130,6 +130,11 @@ class DH_AJAX extends DH_Plugin
 		$version = DH_Version::get ($id);
 		$version->delete ();
 	}
+	
+	function editor ($id)
+	{
+		$this->render_admin ('editor', array ('files' => DH_File::get_all ()));
+	}
 }
 
 $id  = $_GET['id'];

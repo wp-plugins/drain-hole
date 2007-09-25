@@ -4,7 +4,7 @@ Plugin Name: Drain Hole
 Plugin URI: http://urbangiraffe.com/plugins/drain-hole/
 Description: A download management and monitoring plugin with statistics and file protection
 Author: John Godley
-Version: 2.0.6
+Version: 2.0.7
 Author URI: http://urbangiraffe.com/
 ============================================================================================================
 
@@ -21,6 +21,7 @@ Author URI: http://urbangiraffe.com/
 2.0.4 - Track down first-time hole creation problem
 2.0.5 - Once more unto the breach
 2.0.6 - Statistic retention saving
+2.0.7 - Option to disable .htaccess creation, ability to show SVN in templates, TinyMCE
 
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
@@ -76,8 +77,10 @@ class DrainholePlugin extends DH_Plugin
 			{
 				wp_enqueue_script ('prototype');
 				wp_enqueue_script ('scriptaculous');
-				$this->add_filter ('admin_head');
+				$this->add_action ('admin_head');
 			}
+			else if (strstr ($_SERVER['REQUEST_URI'], 'post.php') || strstr ($_SERVER['REQUEST_URI'], 'post-new.php') || strstr ($_SERVER['REQUEST_URI'], 'page-new.php') || strstr ($_SERVER['REQUEST_URI'], 'page.php'))
+				$this->add_action ('admin_head', 'admin_head_post');
 
 			$this->auditor = new DH_Auditor;
 			$this->register_activation (__FILE__);
@@ -98,7 +101,7 @@ class DrainholePlugin extends DH_Plugin
 	
 	function version ()
 	{
-		return 1;
+		return 2;
 	}
 	
 	function parse_request ($request)
@@ -213,6 +216,12 @@ class DrainholePlugin extends DH_Plugin
 	function admin_head ()
 	{
 		$this->render_admin ('head');
+	}
+	
+	function admin_head_post ()
+	{
+		if (user_can_richedit ())
+			$this->render_admin ('head_post');
 	}
 	
 	/**
@@ -476,12 +485,13 @@ class DrainholePlugin extends DH_Plugin
 		{
 			$options = array
 			(
-				'google' => isset ($_POST['google']) ? true : false,
-				'update' => isset ($_POST['update']) ? true : false,
-				'days'   => intval ($_POST['days']),
-				'kitten' => isset ($_POST['kitten']) ? true : false,
+				'google'      => isset ($_POST['google']) ? true : false,
+				'update'      => isset ($_POST['update']) ? true : false,
+				'htaccess'    => isset ($_POST['htaccess']) ? true : false,
+				'days'        => intval ($_POST['days']),
+				'kitten'      => isset ($_POST['kitten']) ? true : false,
 				'delete_file' => isset ($_POST['delete_file']) ? true : false,
-				'svn'    => $_POST['svn']
+				'svn'         => $_POST['svn']
 			);
 			
 			update_option ('drainhole_options', $options);
@@ -534,6 +544,7 @@ class DrainholePlugin extends DH_Plugin
 		$text = str_replace ('$hits$', number_format ($file->hits), $text);
 		$text = str_replace ('$version$', $file->version, $text);
 		$text = str_replace ('$icon$', $file->icon ($hole, $this->url (), $options['google']), $text);
+		$text = str_replace ('$svn$', $file->svn (), $text);
 		return $text;
 	}
 	
@@ -601,6 +612,8 @@ class DrainholePlugin extends DH_Plugin
 					return $file->url ($hole, $args == '' ? basename ($file->file) : $args, $options['google']);
 				else if ($cmd == 'href')
 					return $file->url_ref ($hole);
+				else if ($cmd == 'svn')
+					return $file->svn ();
 				else if ($cmd == 'updated')
 					return date (get_option ('date_format'), $file->updated_at);
 				else if ($cmd == 'size')
@@ -682,4 +695,17 @@ function the_drainhole_stats ($count = 5)
 
 $drainhole = new DrainholePlugin ();
 
+function mymce ($plugins)
+{
+	$plugins[] = 'drainhole';
+	return $plugins;
+}
+
+function mymcebuttons ($buttons)
+{
+	$buttons[] = 'drainhole';
+	return $buttons;
+}
+add_filter ('mce_plugins', 'mymce');
+add_filter ('mce_buttons', 'mymcebuttons');
 ?>

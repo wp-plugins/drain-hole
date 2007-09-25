@@ -94,11 +94,10 @@ class DH_Hole
 		global $wpdb;
 		
 		$sql  = "SELECT @holes.*,SUM(@files.hits) AS hits,COUNT(@files.id) AS files FROM @holes ";
-		$sql .= "LEFT JOIN @files ON @holes.id=@files.hole_id AND @holes.id=".$id;
+		$sql .= "LEFT JOIN @files ON @holes.id=@files.hole_id WHERE @holes.id=".$id;
 		$sql .= " GROUP BY @holes.id ";
 		
 		$sql = str_replace ('@', $wpdb->prefix.'drainhole_', $sql);
-
 		$row = $wpdb->get_row ($sql, ARRAY_A);
 		if ($row)
 			return new DH_Hole ($row);
@@ -205,9 +204,13 @@ class DH_Hole
 			{
 				if (wp_mkdir_p ($directory))
 				{
-					$fp = @fopen ($directory.'/.htaccess', 'w+');
-					fwrite ($fp, $this->capture_admin ('htaccess', array ('index' => realpath (ABSPATH).'/index.php')));
-					@fclose ($fp);
+					$options = get_option ('drainhole_options');
+					if ($options && isset ($options['htaccess']) && $options['htaccess'])
+					{
+						$fp = @fopen ($directory.'/.htaccess', 'w+');
+						fwrite ($fp, $this->capture_admin ('htaccess', array ('index' => realpath (ABSPATH).'/index.php')));
+						@fclose ($fp);
+					}
 				}
 			}
 			
@@ -322,7 +325,7 @@ class DH_Hole
 	  $dir = escapeshellcmd ($dir);
 
 	  $files = glob ("$dir/*"); 
-		if (count ($files) > 0)
+		if (count ($files) > 0 && is_array ($files))
 		{
 		  foreach ($files AS $file) 
 		  { 
@@ -349,7 +352,7 @@ class DH_Hole
 		$files = DH_Hole::get_files ($this->directory);
 
 		// Add any new files into the hole
-		if (count ($files) > 0)
+		if (count ($files) > 0 && is_array ($files))
 		{
 			foreach ($files AS $file)
 			{
