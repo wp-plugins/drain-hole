@@ -4,10 +4,9 @@ Plugin Name: Drain Hole
 Plugin URI: http://urbangiraffe.com/plugins/drain-hole/
 Description: A download management and monitoring plugin with statistics and file protection
 Author: John Godley
-Version: 2.0.7
+Version: 2.0.8
 Author URI: http://urbangiraffe.com/
 ============================================================================================================
-
 1.0   - Initial version
 1.1   - Make relocatable, use Redirection plugin, Google Analytics hookup, multiple drain holes, statistics,
         better tag effeciency
@@ -22,7 +21,7 @@ Author URI: http://urbangiraffe.com/
 2.0.5 - Once more unto the breach
 2.0.6 - Statistic retention saving
 2.0.7 - Option to disable .htaccess creation, ability to show SVN in templates, TinyMCE
-
+2.0.8 - Change order of permalinks so downloads are always first
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -95,6 +94,7 @@ class DrainholePlugin extends DH_Plugin
 		$this->add_filter ('rewrite_rules_array');
 		$this->add_filter ('parse_request');
 		$this->add_filter ('query_vars');
+//		$this->add_filter
 		
 		$this->widget = new DH_Widget ('Drainhole Statistics');
 	}
@@ -153,17 +153,20 @@ class DrainholePlugin extends DH_Plugin
 		// Here we insert all our files into the rewrite rules
 		$files = DH_File::get_all ();
 		$holes = DH_Hole::get_everything ();
-		
+
 		if (count ($holes) > 0)
 		{
 			foreach ($holes AS $hole)
 				$newholes[$hole->id] = $hole;
+				
 			$holes = $newholes;
 		
 			if (count ($files) > 0)
 			{
 				foreach ($files AS $file)
-					$request[ltrim ($file->url_ref ($holes[$file->hole_id], true), '/')] = 'index.php?dhole='.$file->id;
+					$myrequest[ltrim ($file->url_ref ($holes[$file->hole_id], true), '/')] = 'index.php?dhole='.$file->id;
+
+				$request = array_merge ($myrequest, $request);
 			}
 		}
 		

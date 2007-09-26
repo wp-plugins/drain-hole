@@ -35,7 +35,7 @@ class DH_Upgrade
 			$this->create_tables_2 ();
 			$this->upgrade_from_1 ();
 		}
-		else if ($version == 2)
+		else if ($version == 2 || $version == 3)
 		{
 			$this->create_tables_2 ();
 			$this->upgrade_from_2 ();
