@@ -340,7 +340,7 @@ class DH_File
 	function available_icons ()
 	{
 		$files = glob (dirname (__FILE__).'/../icons/*');
-		$files = array_merge ($files, glob (TEMPLATEPATH."/drain-hole/icons/*"));
+		$files = array_merge ($files, glob (TEMPLATEPATH."/view/drain-hole/icons/*"));
 		
 		if (count ($files) > 0)
 		{
