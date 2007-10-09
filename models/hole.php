@@ -197,24 +197,27 @@ class DH_Hole
 			
 		$hotlink = (isset ($data['hotlink']) ? true : false);
 		
-		if (strlen ($url) > 1 && $wpdb->get_var ("SELECT COUNT(*) FROM {$wpdb->prefix}drainhole_holes WHERE url LIKE '$url'") == 0)
+		if (strpos ($url, 'http') === false && strpos ($directory, 'http') === false)
 		{
-			// Try and create the directory and add a .htaccess file to protect it from nefarious users
-			if (!file_exists ($directory))
+			if (strlen ($url) > 1 && $wpdb->get_var ("SELECT COUNT(*) FROM {$wpdb->prefix}drainhole_holes WHERE url LIKE '$url'") == 0)
 			{
-				if (wp_mkdir_p ($directory))
+				// Try and create the directory and add a .htaccess file to protect it from nefarious users
+				if (!file_exists ($directory))
 				{
-					$options = get_option ('drainhole_options');
-					if ($options && isset ($options['htaccess']) && $options['htaccess'])
+					if (wp_mkdir_p ($directory))
 					{
-						$fp = @fopen ($directory.'/.htaccess', 'w+');
-						fwrite ($fp, $this->capture_admin ('htaccess', array ('index' => realpath (ABSPATH).'/index.php')));
-						@fclose ($fp);
+						$options = get_option ('drainhole_options');
+						if ($options === false || !isset ($options['htaccess']) || $options['htaccess'] == true)
+						{
+							$fp = @fopen ($directory.'/.htaccess', 'w+');
+							fwrite ($fp, $this->capture_admin ('htaccess', array ('index' => realpath (ABSPATH).'/index.php')));
+							@fclose ($fp);
+						}
 					}
 				}
-			}
 			
-			return $wpdb->query ("INSERT INTO {$wpdb->prefix}drainhole_holes (url,directory,role,role_error_url,hotlink) VALUES ('$url','$directory',$role,'$url','$hotlink')");
+				return $wpdb->query ("INSERT INTO {$wpdb->prefix}drainhole_holes (url,directory,role,role_error_url,hotlink) VALUES ('$url','$directory',$role,'$url','$hotlink')");
+			}
 		}
 		return false;
 	}

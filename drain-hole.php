@@ -4,7 +4,7 @@ Plugin Name: Drain Hole
 Plugin URI: http://urbangiraffe.com/plugins/drain-hole/
 Description: A download management and monitoring plugin with statistics and file protection
 Author: John Godley
-Version: 2.0.8
+Version: 2.0.9
 Author URI: http://urbangiraffe.com/
 ============================================================================================================
 1.0   - Initial version
@@ -22,6 +22,7 @@ Author URI: http://urbangiraffe.com/
 2.0.6 - Statistic retention saving
 2.0.7 - Option to disable .htaccess creation, ability to show SVN in templates, TinyMCE
 2.0.8 - Change order of permalinks so downloads are always first
+2.0.9 - Fix hole hits
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -185,6 +186,8 @@ class DrainholePlugin extends DH_Plugin
 	{
 		$this->upgrade ();
 		do_action ('drainhole_installed');
+		
+		DH_Hole::flush ();
 	}
 	
 	function upgrade ()
@@ -465,7 +468,7 @@ class DrainholePlugin extends DH_Plugin
 				do_action ('drainhole_hole_created');
 			}
 			else
-				$this->render_message (__ ('The Drain Hole was not created - you must supply a unique URL and directory', 'drainhole'));
+				$this->render_message (__ ('The Drain Hole was not created - you must supply a unique URL (without <code>http://</code> prefix) and directory', 'drainhole'));
 				
 			// Cache the list of holes so we don't need to access the database
 			$holes = DH_Hole::get_as_list ();
@@ -574,11 +577,7 @@ class DrainholePlugin extends DH_Plugin
 			if ($hole)
 			{
 				if ($cmd == 'hits')
-				{
-					$hits = $files = 0;
-					$hole->hole_stats ($files, $hits);
-					return number_format ($hits);
-				}
+					return number_format ($hole->hits);
 				else if ($cmd == 'show' && !$this->excerpt)
 				{
 					$files = DH_File::get_all ($hole->id);

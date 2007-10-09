@@ -12,7 +12,7 @@
 // Lesser General Public License for more details.
 // ======================================================================================
 // @author     John Godley (http://urbangiraffe.com)
-// @version    0.1.19
+// @version    0.1.20
 // @copyright  Copyright &copy; 2007 John Godley, All Rights Reserved
 // ======================================================================================
 // 0.1.6 - Corrected WP locale functions
@@ -29,6 +29,7 @@
 // 0.1.17 - Added widget class
 // 0.1.18 - Expand checked function
 // 0.1.19 - Make url() cope with sites with no trailing slash
+// 0.1.20 - Change init function to prevent overloading
 // ======================================================================================
 
 
@@ -115,10 +116,10 @@ class DH_Plugin
 		$this->plugin_base = rtrim (dirname ($base), '/');
 		$this->plugin_name = $name;
 
-		$this->add_action ('init');
+		$this->add_action ('init', 'load_locale');
 	}
 	
-	function init ()
+	function load_locale ()
 	{
 		// Here we manually fudge the plugin locale as WP doesnt allow many options
 		$locale = get_locale ();

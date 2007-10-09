@@ -376,8 +376,11 @@ class DH_File
 		$versioninfo = $this->version;
 		if ($version)
 			$versioninfo = $version->version;
-			
-		$title = sprintf (__ ('Download version %s of %s', 'drain-hole'), $versioninfo, basename ($this->file));
+		
+		if ($versioninfo)
+			$title = sprintf (__ ('Download version %s of %s', 'drain-hole'), $versioninfo, basename ($this->file));
+		else
+			$title = sprintf (__ ('Download %s', 'drain-hole'), basename ($this->file));
 			
 		$url = $this->url_ref ($hole, false, $version);
 		if ($google)
