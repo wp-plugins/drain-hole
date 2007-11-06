@@ -144,6 +144,21 @@ class DH_File
 		return $data;
 	}
 	
+	function get_recent ($id,$max)
+	{
+		global $wpdb;
+		
+		$rows = $wpdb->get_results ("SELECT * FROM {$wpdb->prefix}drainhole_files WHERE hole_id='$id' ORDER BY updated_at DESC LIMIT 0,$max", ARRAY_A);
+		$data = array ();
+		if ($rows)
+		{
+			foreach ($rows AS $row)
+				$data[] = new DH_File ($row);
+		}
+		
+		return $data;
+	}
+	
 	
 	/**
 	 * Returns all files in a given hole, restricted by a pager
@@ -692,7 +707,10 @@ class DH_File
 				return false;
 		}
 		
-		return true;
+		$result = apply_filters ('drain_hole_access', $this);
+		if (is_object ($result))
+			return true;
+		return $result;
 	}
 	
 	

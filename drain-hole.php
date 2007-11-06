@@ -4,25 +4,26 @@ Plugin Name: Drain Hole
 Plugin URI: http://urbangiraffe.com/plugins/drain-hole/
 Description: A download management and monitoring plugin with statistics and file protection
 Author: John Godley
-Version: 2.0.9
+Version: 2.0.10
 Author URI: http://urbangiraffe.com/
 ============================================================================================================
-1.0   - Initial version
-1.1   - Make relocatable, use Redirection plugin, Google Analytics hookup, multiple drain holes, statistics,
-        better tag effeciency
-1.1.2 - Add Audit Trail methods, add referrer.  Fix database creation bug.  Add custom role support
-1.1.3 - Add show hole tag
-1.1.4 - Add template tag and Widget
-2.0.0 - Major new version with support for SVN, versions, and charting
-2.0.1 - Fix bug in SVN zip production, add option to disable file delete
-2.0.2 - Zip file was removing slashes.  Display of hits fixed to show all versions
-2.0.3 - Add missing database columns
-2.0.4 - Track down first-time hole creation problem
-2.0.5 - Once more unto the breach
-2.0.6 - Statistic retention saving
-2.0.7 - Option to disable .htaccess creation, ability to show SVN in templates, TinyMCE
-2.0.8 - Change order of permalinks so downloads are always first
-2.0.9 - Fix hole hits
+1.0    - Initial version
+1.1    - Make relocatable, use Redirection plugin, Google Analytics hookup, multiple drain holes, statistics,
+         better tag effeciency
+1.1.2  - Add Audit Trail methods, add referrer.  Fix database creation bug.  Add custom role support
+1.1.3  - Add show hole tag
+1.1.4  - Add template tag and Widget
+2.0.0  - Major new version with support for SVN, versions, and charting
+2.0.1  - Fix bug in SVN zip production, add option to disable file delete
+2.0.2  - Zip file was removing slashes.  Display of hits fixed to show all versions
+2.0.3  - Add missing database columns
+2.0.4  - Track down first-time hole creation problem
+2.0.5  - Once more unto the breach
+2.0.6  - Statistic retention saving
+2.0.7  - Option to disable .htaccess creation, ability to show SVN in templates, TinyMCE
+2.0.8  - Change order of permalinks so downloads are always first
+2.0.9  - Fix hole hits
+2.0.10 - Add recent file tag, fix IE7 issue
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -578,6 +579,13 @@ class DrainholePlugin extends DH_Plugin
 			{
 				if ($cmd == 'hits')
 					return number_format ($hole->hits);
+				else if ($cmd == 'recent')
+				{
+					if ($args == 0)
+						$args = 1;
+					$files = DH_File::get_recent ($hole->id, $args);
+					return $this->capture ('show_hole', array ('files' => $files, 'hole' => $hole));
+				}
 				else if ($cmd == 'show' && !$this->excerpt)
 				{
 					$files = DH_File::get_all ($hole->id);

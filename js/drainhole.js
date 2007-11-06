@@ -31,7 +31,7 @@ function edit_hole (item)
 
 function save_hole (item,form)
 {
-  Modalbox.deactivate ();
+//  Modalbox.deactivate ();
   Modalbox.show (wp_base + '?id=' + item + '&cmd=save_hole', { title: 'Saving', overlayOpacity: 0.4, inactiveFade: false, method: 'post', params: Form.serialize (form), afterLoad:function()
     {
       Modalbox.hide ();
@@ -88,7 +88,7 @@ function new_version (item)
 
 function save_new_version (item,form)
 {
-  Modalbox.deactivate ();
+//  Modalbox.deactivate ();
   Modalbox.show (wp_base + '?id=' + item + '&cmd=save_new_version', { title: 'Saving', overlayOpacity: 0.4, inactiveFade: false, method: 'post', params: Form.serialize (form), afterLoad:function()
     {
       Modalbox.hide ();
@@ -116,7 +116,7 @@ function edit_file (item)
 
 function save_file (item,form)
 {
-  Modalbox.deactivate ();
+//  Modalbox.deactivate ();
   Modalbox.show (wp_base + '?id=' + item + '&cmd=save_file&id=' + item,
   {
     title: 'Saving',
@@ -152,7 +152,7 @@ function edit_version (item)
 
 function save_version (item,form)
 {
-  Modalbox.deactivate ();
+//  Modalbox.deactivate ();
   Modalbox.show (wp_base + '?id=' + item + '&cmd=save_version&id=' + item,
   {
     title: 'Saving',
