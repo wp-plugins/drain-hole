@@ -542,7 +542,8 @@ class DH_File
 			set_time_limit(0);
 			readfile ($this->file ($hole, $version));
 
-			DH_Access::finished ($id, $this->filesize ($hole, $version));
+			if ($id)
+				DH_Access::finished ($id, $this->filesize ($hole, $version));
 			exit;
 		}
 	}
@@ -703,7 +704,7 @@ class DH_File
 		if ($hole->hotlink)
 		{
 			// Check that the referrer is from our site
-			if (substr ($_SERVER['HTTP_REFERER'], 0, strlen (get_bloginfo ('home'))) != get_bloginfo ('home'))
+			if (isset ($_SERVER['HTTP_REFERER']) && strlen ($_SERVER['HTTP_REFERER']) > 0 && substr ($_SERVER['HTTP_REFERER'], 0, strlen (get_bloginfo ('home'))) != get_bloginfo ('home'))
 				return false;
 		}
 		
