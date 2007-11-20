@@ -188,7 +188,7 @@ class DH_Hole
 		global $wpdb;
 
 		$url       = wpdb::escape (DH_Hole::sanitize_url ($data['urlx']));
-		$directory = wpdb::escape (DH_Hole::sanitize_dir (realpath ($data['directoryx'])));
+		$directory = wpdb::escape (DH_Hole::sanitize_dir (DH_Plugin::realpath ($data['directoryx'])));
 		$redirect  = wpdb::escape ($data['redirect_urlx']);
 		if ($data['role'] == '-' || $data['role'] == '')
 			$role = 'NULL';
@@ -196,8 +196,7 @@ class DH_Hole
 			$role = "'".$data['role']."'";
 			
 		$hotlink = (isset ($data['hotlink']) ? true : false);
-		
-		if (strpos ($url, 'http') === false && strpos ($directory, 'http') === false)
+		if (preg_match ('@https?://@', $directory, $matches) === 0)
 		{
 			if (strlen ($url) > 1 && $wpdb->get_var ("SELECT COUNT(*) FROM {$wpdb->prefix}drainhole_holes WHERE url LIKE '$url'") == 0)
 			{
@@ -210,7 +209,7 @@ class DH_Hole
 						if ($options === false || !isset ($options['htaccess']) || $options['htaccess'] == true)
 						{
 							$fp = @fopen ($directory.'/.htaccess', 'w+');
-							fwrite ($fp, $this->capture_admin ('htaccess', array ('index' => realpath (ABSPATH).'/index.php')));
+							fwrite ($fp, $this->capture_admin ('htaccess', array ('index' => DH_Plugin::realpath (ABSPATH).'/index.php')));
 							@fclose ($fp);
 						}
 					}
