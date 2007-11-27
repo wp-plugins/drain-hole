@@ -65,7 +65,11 @@
 			<tr>
 			  <th valign="top" align="right" ><?php _e ('Directory', 'drainhole') ?>:<br/><span class="sub"><?php _e ('Relative to root', 'drainhole') ?></span></th>
 			  <td><input style="width: 95%" type="text" name="directoryx" value=""/>
-				<br/><span class="sub"><?php _e ('You are advised to pick a directory outside of your <code>public_html</code>', 'drainhole'); ?></span>
+				<br/>
+				<span class="sub">
+					<?php _e ('You are advised to pick a directory outside of your <code>public_html</code>.  Your current directory is: ', 'drainhole'); ?>
+					<code><?php echo $this->realpath (dirname (ABSPATH));?></code>
+				</span>
 				</td>
 			</tr>
 			<tr>

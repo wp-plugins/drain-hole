@@ -324,7 +324,8 @@ class DH_Hole
 	
 	function get_files ($dir) 
 	{ 
-	  $dir = escapeshellcmd ($dir);
+		if (function_exists ('escapeshellcmd'))
+	  	$dir = escapeshellcmd ($dir);
 
 	  $files = glob ("$dir/*"); 
 		if (count ($files) > 0 && is_array ($files))

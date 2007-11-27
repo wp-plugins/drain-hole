@@ -25,7 +25,7 @@ Author URI: http://urbangiraffe.com/
 2.0.9  - Fix hole hits
 2.0.10 - Add recent file tag, fix IE7 issue
 2.0.11 - Fix an issue with hot-link protection and forced downloads
-2.0.12 - Fix an issue with realpath
+2.0.12 - Fix an issue with some hosts blocking 'escapeshellcmd'
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -98,7 +98,6 @@ class DrainholePlugin extends DH_Plugin
 		$this->add_filter ('rewrite_rules_array');
 		$this->add_filter ('parse_request');
 		$this->add_filter ('query_vars');
-//		$this->add_filter
 		
 		$this->widget = new DH_Widget ('Drainhole Statistics');
 	}
