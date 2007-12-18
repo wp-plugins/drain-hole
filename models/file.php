@@ -133,7 +133,7 @@ class DH_File
 		else
 			$id = '';
 			
-		$rows = $wpdb->get_results ("SELECT * FROM {$wpdb->prefix}drainhole_files $id", ARRAY_A);
+		$rows = $wpdb->get_results ("SELECT * FROM {$wpdb->prefix}drainhole_files $id ORDER BY name,file", ARRAY_A);
 		$data = array ();
 		if ($rows)
 		{
