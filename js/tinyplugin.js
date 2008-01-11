@@ -126,6 +126,4 @@ var TinyMCE_DrainholePlugin = {
 tinyMCE.addPlugin ("drainhole", TinyMCE_DrainholePlugin);
 
 // UK lang variables
-tinyMCE.addToLang('',{
-drainhole_insert : 'Insert Drain Hole tag',
-});
+tinyMCE.addToLang('',{ drainhole_insert : 'Insert Drain Hole tag'});

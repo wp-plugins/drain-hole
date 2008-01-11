@@ -8,8 +8,8 @@
 	<?php if ($file->exists ($hole)) echo date ('jS M, Y', $file->updated_at); else echo '<span class="missing">'.__ ('File is missing','drainhole').'</span>'; ?>
 </td>
 <td align="center">
-	<a href="#newversion" onclick="return new_version (<?php echo $file->id ?>)">new</a>
 	<a href="#newversion" onclick="return new_version (<?php echo $file->id ?>)"><img src="<?php echo $this->url () ?>/images/add.png" width="16" height="16" alt="Add"/></a>
+	<a href="#newversion" onclick="return new_version (<?php echo $file->id ?>)">new</a>
 </td>
 <td align="center">
 	<a href="edit.php?page=drain-hole.php&amp;source=hole&amp;chart=<?php echo $file->id ?>"><img src="<?php echo $this->url () ?>/images/chart.png" width="16" height="16" alt="Chart"/></a>

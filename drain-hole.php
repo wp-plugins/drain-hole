@@ -27,6 +27,7 @@ Author URI: http://urbangiraffe.com/
 2.0.11 - Fix an issue with hot-link protection and forced downloads
 2.0.12 - Fix an issue with some hosts blocking 'escapeshellcmd'
 2.0.13 - Change 'show hole' to display ordered by name
+2.0.14 - Update ModalBox library
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -78,11 +79,7 @@ class DrainholePlugin extends DH_Plugin
 			$this->add_filter ('admin_menu');
 
 			if (strstr ($_SERVER['REQUEST_URI'], 'drain-hole.php'))
-			{
-				wp_enqueue_script ('prototype');
-				wp_enqueue_script ('scriptaculous');
 				$this->add_action ('admin_head');
-			}
 			else if (strstr ($_SERVER['REQUEST_URI'], 'post.php') || strstr ($_SERVER['REQUEST_URI'], 'post-new.php') || strstr ($_SERVER['REQUEST_URI'], 'page-new.php') || strstr ($_SERVER['REQUEST_URI'], 'page.php'))
 				$this->add_action ('admin_head', 'admin_head_post');
 
@@ -168,7 +165,7 @@ class DrainholePlugin extends DH_Plugin
 			if (count ($files) > 0)
 			{
 				foreach ($files AS $file)
-					$myrequest[ltrim ($file->url_ref ($holes[$file->hole_id], true), '/')] = 'index.php?dhole='.$file->id;
+					$myrequest[ltrim (preg_quote ($file->url_ref ($holes[$file->hole_id], true), '@'), '/')] = 'index.php?dhole='.$file->id;
 
 				$request = array_merge ($myrequest, $request);
 			}
