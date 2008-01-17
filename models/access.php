@@ -185,7 +185,7 @@ class DH_Access
 		$sql = "SELECT SQL_CALC_FOUND_ROWS @access.*,@files.file,{$wpdb->users}.user_login FROM @access ";
 		$sql .= "LEFT JOIN @files ON @access.file_id=@files.id ";
 		$sql .= "LEFT JOIN {$wpdb->users} ON @access.user_id={$wpdb->users}.ID";
-		$sql .= $pager->to_limits ('', array ('file.file'));
+		$sql .= $pager->to_limits ('', array ('@files.file'));
 		
 		$sql = str_replace ('@', $wpdb->prefix.'drainhole_', $sql);
 
