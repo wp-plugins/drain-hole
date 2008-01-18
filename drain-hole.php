@@ -552,7 +552,7 @@ class DrainholePlugin extends DH_Plugin
 		$text = str_replace ('$version$', $file->version, $text);
 		$text = str_replace ('$icon$', $file->icon ($hole, $this->url (), $options['google']), $text);
 		$text = str_replace ('$svn$', $file->svn (), $text);
-		$text = str_replace ('$href$', $file->url_ref ($hole));
+		$text = str_replace ('$href$', $file->url_ref ($hole), $text);
 		return $text;
 	}
 	
