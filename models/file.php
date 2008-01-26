@@ -132,8 +132,11 @@ class DH_File
 			$id = "WHERE hole_id='$id'";
 		else
 			$id = '';
-			
-		$rows = $wpdb->get_results ("SELECT * FROM {$wpdb->prefix}drainhole_files $id ORDER BY name,file", ARRAY_A);
+		
+		$sql  = "SELECT @files.*,@version.version,@version.created_at FROM @files LEFT JOIN @version ON @files.version_id=@version.id $id ORDER BY @files.name,@files.file";
+		$sql  = str_replace ('@', "{$wpdb->prefix}drainhole_", $sql);
+		
+		$rows = $wpdb->get_results ($sql, ARRAY_A);
 		$data = array ();
 		if ($rows)
 		{
@@ -148,7 +151,10 @@ class DH_File
 	{
 		global $wpdb;
 		
-		$rows = $wpdb->get_results ("SELECT * FROM {$wpdb->prefix}drainhole_files WHERE hole_id='$id' ORDER BY updated_at DESC LIMIT 0,$max", ARRAY_A);
+		$sql  = "SELECT @files.*,@version.version,@version.created_at FROM @files LEFT JOIN @version ON @files.version_id=@version.id WHERE hole_id='$id' ORDER BY @files.updated_at DESC LIMIT 0,$max";
+		$sql  = str_replace ('@', "{$wpdb->prefix}drainhole_", $sql);
+		
+		$rows = $wpdb->get_results ($sql, ARRAY_A);
 		$data = array ();
 		if ($rows)
 		{

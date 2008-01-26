@@ -4,7 +4,7 @@ Plugin Name: Drain Hole
 Plugin URI: http://urbangiraffe.com/plugins/drain-hole/
 Description: A download management and monitoring plugin with statistics and file protection
 Author: John Godley
-Version: 2.0.15
+Version: 2.0.16
 Author URI: http://urbangiraffe.com/
 ============================================================================================================
 1.0    - Initial version
@@ -29,6 +29,7 @@ Author URI: http://urbangiraffe.com/
 2.0.13 - Change 'show hole' to display ordered by name
 2.0.14 - Update ModalBox library
 2.0.15 - Fix search error, add $href$ tag
+2.0.16 - Add template to show hole
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -589,8 +590,10 @@ class DrainholePlugin extends DH_Plugin
 				}
 				else if ($cmd == 'show' && !$this->excerpt)
 				{
+					if ($args == '')
+						$args = 'show_hole';
 					$files = DH_File::get_all ($hole->id);
-					return $this->capture ('show_hole', array ('files' => $files, 'hole' => $hole));
+					return $this->capture ($args, array ('files' => $files, 'hole' => $hole));
 				}
 			}
 		}
@@ -697,6 +700,11 @@ function the_drainhole_stats ($count = 5)
 	$drainhole->render ('top_downloads', array ('files' => DH_File::get_top_downloads ($count)));
 }
 
+function the_drainhole ($text)
+{
+	global $drainhole;
+	echo $drainhole->the_content ($text);
+}
 
 /**
  * Our one and only instance of the plugin
@@ -717,6 +725,7 @@ function mymcebuttons ($buttons)
 	$buttons[] = 'drainhole';
 	return $buttons;
 }
+
 add_filter ('mce_plugins', 'mymce');
 add_filter ('mce_buttons', 'mymcebuttons');
 ?>
