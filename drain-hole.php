@@ -30,6 +30,7 @@ Author URI: http://urbangiraffe.com/
 2.0.14 - Update ModalBox library
 2.0.15 - Fix search error, add $href$ tag
 2.0.16 - Add template to show hole
+2.0.17 - Add option to hook up to an issue tracker
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -499,7 +500,8 @@ class DrainholePlugin extends DH_Plugin
 				'days'        => intval ($_POST['days']),
 				'kitten'      => isset ($_POST['kitten']) ? true : false,
 				'delete_file' => isset ($_POST['delete_file']) ? true : false,
-				'svn'         => $_POST['svn']
+				'svn'         => $_POST['svn'],
+				'tracker'     => $_POST['tracker']
 			);
 			
 			update_option ('drainhole_options', $options);
@@ -616,6 +618,12 @@ class DrainholePlugin extends DH_Plugin
 						$limit = intval ($args);
 						
 					$versions = DH_Version::get_history ($file->id, $file->version_id, $limit);
+					if (count ($versions) > 0 && $options['tracker'])
+					{
+						foreach ($versions AS $pos => $version)
+							$versions[$pos]->reason = preg_replace ('@\#(\d*)@', '<a href="'.$options['tracker'].'$1">#$1</a>', $version->reason);
+					}
+
 					return $this->capture ('versions', array ('versions' => $versions, 'file' => $file, 'hole' => $hole));
 				}
 				else if ($cmd == 'version')
