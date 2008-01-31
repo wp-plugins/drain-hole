@@ -18,6 +18,12 @@
 			</td>
 		</tr>
 		<tr>
+			<th width="220" align="right">Issue tracker URL:</th>
+			<td>
+				<input type="text" name="tracker" value="<?php echo $options['tracker'] ?>"/>
+			</td>
+		</tr>
+		<tr>
 			<th width="220" align="right"><label for="google"><?php _e ('Google Analytics tracking', 'drainhole'); ?></label>:<br/>
 				<span class="sub"><?php _e ('Add code to track downloads', 'drainhole'); ?></span></th>
 			<td><input type="checkbox" name="google"<?php if ($options['google'] == true) echo ' checked="checked"' ?> id="google"/></td>
