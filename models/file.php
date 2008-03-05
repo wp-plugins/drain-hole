@@ -515,7 +515,7 @@ class DH_File
 		if (function_exists ('finfo_open'))
 		{
 			$finfo = finfo_open (FILEINFO_MIME);
-	    $mime = finfo_file ($finfo, $this->file ());
+	    $mime = finfo_file ($finfo, $this->file ($hole));
 			finfo_close ($finfo);
 		}
 		else if (function_exists ('mime_content_type'))
