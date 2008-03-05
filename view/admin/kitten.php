@@ -1,4 +1,4 @@
-<?php if ($options['kitten'] == false) : ?>
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><?php if ($options['kitten'] == false) : ?>
  <?php _e ('You can help support the author by sending a donation.  Every file that is downloaded without support will cause a <strong>kitten to cry</strong>.', 'drainhole'); ?>
  <?php _e ('All it takes is <strong>$16 to keep the kittens happy</strong> and act as an incentive for me to carry on writing other free software.', 'drainhole'); ?>
 </p>

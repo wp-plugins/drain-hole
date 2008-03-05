@@ -4,7 +4,7 @@ Plugin Name: Drain Hole
 Plugin URI: http://urbangiraffe.com/plugins/drain-hole/
 Description: A download management and monitoring plugin with statistics and file protection
 Author: John Godley
-Version: 2.0.16
+Version: 2.0.18
 Author URI: http://urbangiraffe.com/
 ============================================================================================================
 1.0    - Initial version
@@ -31,6 +31,7 @@ Author URI: http://urbangiraffe.com/
 2.0.15 - Fix search error, add $href$ tag
 2.0.16 - Add template to show hole
 2.0.17 - Add option to hook up to an issue tracker
+2.0.18 - Fix #25, #30, #70, #74.  Added new feature #32, #69, #68
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -100,7 +101,7 @@ class DrainholePlugin extends DH_Plugin
 		$this->add_filter ('parse_request');
 		$this->add_filter ('query_vars');
 		
-		$this->widget = new DH_Widget ('Drainhole Statistics');
+		$this->widget = new DH_Widget ('Drainhole Statistics', 5);
 	}
 	
 	function version ()
@@ -547,15 +548,18 @@ class DrainholePlugin extends DH_Plugin
 	{
 		$options = get_option ('drainhole_options');
 
-		$text = str_replace ('$url$', $file->url ($hole, '', $options['google']), $text);
-		$text = str_replace ('$size$', $file->bytes ($file->filesize ($hole)), $text);
-		$text = str_replace ('$desc$', $file->description, $text);
+		$text = str_replace ('$url$',     $file->url ($hole, '', $options['google']), $text);
+		$text = str_replace ('$size$',    $file->bytes ($file->filesize ($hole)), $text);
+		$text = str_replace ('$desc$',    $file->description, $text);
 		$text = str_replace ('$updated$', date (get_option ('date_format'), $file->updated_at), $text);
-		$text = str_replace ('$hits$', number_format ($file->hits), $text);
+		$text = str_replace ('$hits$',    number_format ($file->hits), $text);
 		$text = str_replace ('$version$', $file->version, $text);
-		$text = str_replace ('$icon$', $file->icon ($hole, $this->url (), $options['google']), $text);
-		$text = str_replace ('$svn$', $file->svn (), $text);
-		$text = str_replace ('$href$', $file->url_ref ($hole), $text);
+		$text = str_replace ('$icon$',    $file->icon ($hole, $this->url (), $options['google']), $text);
+		$text = str_replace ('$svn$',     $file->svn (), $text);
+		$text = str_replace ('$href$',    $file->url_ref ($hole), $text);
+		$text = str_replace ('$name$',    $file->name (), $text); 
+		$text = str_replace ('$iconref$', $file->icon_ref ($this->url ()), $text);
+		$text = str_replace ('$md5$',     md5 ($file->file ($hole)), $text);
 		return $text;
 	}
 	
@@ -630,6 +634,8 @@ class DrainholePlugin extends DH_Plugin
 					return $file->version;
 				else if ($cmd == 'hits')
 					return number_format ($file->hits);
+				else if ($cmd == 'md5')
+					return md5 ($file->file ($hole));
 				else if ($cmd == 'url')
 					return $file->url ($hole, $args == '' ? basename ($file->file) : $args, $options['google']);
 				else if ($cmd == 'href')

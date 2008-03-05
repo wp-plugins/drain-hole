@@ -1,4 +1,4 @@
-<form action="" method="post" onsubmit="return save_new_version(<?php echo $file->id ?>,this)">
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><form action="" method="post" onsubmit="return save_new_version(<?php echo $file->id ?>,this)">
 	<table width="100%">
 		<tr>
 			<th align="right"><?php _e ('File', 'drainhole'); ?>:</th>

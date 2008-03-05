@@ -1,4 +1,4 @@
-<form method="post" action="" onsubmit="return save_hole(<?php echo $hole->id ?>,this)">
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><form method="post" action="" onsubmit="return save_hole(<?php echo $hole->id ?>,this)">
 	<table width="100%">
 		<tr>
 		  <th valign="top" align="right" width="120"><?php _e ('URL', 'drainhole') ?>:<br/><span class="sub"><?php _e ('Relative to site root', 'drainhole') ?></span></th>

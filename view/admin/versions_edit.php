@@ -1,4 +1,4 @@
-<form action="" method="post" onsubmit="return save_version(<?php echo $version->id ?>,this)">
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><form action="" method="post" onsubmit="return save_version(<?php echo $version->id ?>,this)">
 	<table width="100%">
 		<tr>
 			<th align="right" width="80"><?php _e ('Version', 'drainhole'); ?>:</th>

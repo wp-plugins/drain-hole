@@ -1,4 +1,4 @@
-<div class="wrap">
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><div class="wrap">
 	<div class="pagertools"><a href="<?php echo $this->url () ?>/csv.php?id=<?php echo $file->id ?>&amp;type=stats" title="Download as CSV"><img src="<?php echo $this->url () ?>/images/csv.png" width="16" height="16" alt="CSV"/></a></div>
 	<?php if (isset ($file)) :?>
 		<h2><?php _e ('Download Statistics for', 'drainhole'); ?> <?php echo $file->file ?></h2>

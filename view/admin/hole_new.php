@@ -1,4 +1,4 @@
-<tr>
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><tr>
   <th valign="top" align="right" width="100"><?php _e ('URL', 'drainhole') ?>:<br/><span class="sub"><?php _e ('Relative to site root', 'drainhole') ?></span></th>
   <td><input style="width: 95%" type="text" name="urlx" value="<?php echo htmlspecialchars ($url); ?>"/></td>
 </tr>

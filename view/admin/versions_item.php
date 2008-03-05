@@ -1,4 +1,4 @@
-<td align="center"><?php echo $version->id?></td>
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><td align="center"><?php echo $version->id?></td>
 <td align="center"><?php echo $version->version?></td>
 <td align="center"><?php echo $version->hits?></td>
 <td align="center"><?php echo date (get_option ('date_format'), $version->created_at); ?></td>

@@ -322,6 +322,21 @@ class DH_File
 	}
 	
 	
+	function icon_ref ($dir)
+	{
+		if ($this->icon == '')
+			$this->icon = 'download.png';
+			
+		if (file_exists (TEMPLATEPATH."/view/drain-hole/icons/{$this->icon}"))
+			$url  = get_bloginfo ('template_url').'/view/drain-hole/icons/'.$this->icon;
+		else if (file_exists (dirname (FILE)."/../icons/{$this->icon}"))
+			$url  = $dir.'/icons/'.$this->icon;
+		else
+			$url  = $dir.'/images/download.png';
+			
+		return $url;
+	}
+	
 	/**
 	 * Returns an HTML tag for the file's icon.  The icon is first looked for inside the template directory
 	 * <code>view/drain-hole/[chosen icon]</code>, and then inside the plugin's icon directory.
@@ -536,7 +551,7 @@ class DH_File
 
 			// Send out the data
 			header ("Content-Type: $mime");
-			header ("Last-Modified: ".gmdate ("D, d M Y H:i:s", mysql2date ('U', $this->update_at))." GMT");
+			header ("Last-Modified: ".gmdate ("D, d M Y H:i:s", mysql2date ('U', $this->updated_at))." GMT");
 			header ("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 			header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");   // Date in the past
 			header ("Content-Length: ".$this->filesize ($hole, $version));
@@ -545,7 +560,9 @@ class DH_File
 				header ('Content-Disposition: attachment; filename="'.basename ($this->file).'"');
 			header ("Content-Transfer-Encoding: binary");
 	
-			set_time_limit(0);
+			if (!ini_get ('safe_mode'))
+				set_time_limit (0);
+				
 			readfile ($this->file ($hole, $version));
 
 			if ($id)

@@ -1,4 +1,4 @@
-<div class="wrap" style="min-width: 820px">
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><div class="wrap" style="min-width: 820px">
 	<div class="options">
 		<a href="#" onclick="return print_chart ()"><img src="<?php echo $this->url () ?>/images/printer.png" width="16" height="16" alt="Printer"/></a>
 		<a href="<?php echo $chart->source ?>&amp;csv"><img src="<?php echo $this->url () ?>/images/csv.png" width="16" height="16" alt="Csv"/></a>

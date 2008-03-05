@@ -1,4 +1,4 @@
-<?php if (count ($versions) > 0) : ?>
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><?php if (count ($versions) > 0) : ?>
 	<ul>
 		<?php foreach ($versions AS $version) : ?>
 			<li>

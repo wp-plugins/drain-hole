@@ -1,4 +1,4 @@
-<?php if (!empty ($files)) : ?>
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><?php if (!empty ($files)) : ?>
 	<ul>
 <?php foreach ($files AS $file) : ?>
 		<li>

@@ -1,4 +1,4 @@
-<script language="javascript" type="text/javascript" src="<?php bloginfo ('wpurl') ?>/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><script language="javascript" type="text/javascript" src="<?php bloginfo ('wpurl') ?>/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
 <script type="text/javascript" charset="utf-8">
 function dothing ()
 {

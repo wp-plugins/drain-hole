@@ -1,4 +1,4 @@
-<td align="center"><?php echo $file->id ?></td>
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><td align="center"><?php echo $file->id ?></td>
 <td><a href="#" onclick="return edit_file(<?php echo $file->id ?>)"><?php echo $file->name () ?></a></td>
 <td>
 	<a href="edit.php?page=drain-hole.php&amp;version=<?php echo $file->id ?>"><?php echo $file->version; ?></a>

@@ -15,7 +15,8 @@ class DH_SVN
 		$this->url     = $url;
 		$this->svn     = 'svn';
 		
-		set_time_limit (0);
+		if (!ini_get ('safe_mode'))
+			set_time_limit (0);
 	}
 	
 	function update ($file)

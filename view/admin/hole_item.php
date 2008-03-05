@@ -1,4 +1,4 @@
-<td align="center" valign="top"><?php echo $hole->id ?></td>
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><td align="center" valign="top"><?php echo $hole->id ?></td>
 <td id="hole_item_<?php echo $hole->id ?>">
 	<a title="<?php _e ('View files', 'filled-in'); ?>" href="edit.php?page=drain-hole.php&amp;files=<?php echo $hole->id ?>"><?php echo $hole->url ?></a>
 	<?php if ($hole->files > 0) : ?>

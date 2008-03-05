@@ -1,4 +1,4 @@
-<div class="wrap">
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><div class="wrap">
 	<h2><?php _e ('Drain Hole Options', 'drainhole'); ?></h2>
 	
 	<form action="<?php echo $this->ur; ($_SERVER['REQUEST_URI']) ?>" method="post" accept-charset="utf-8">

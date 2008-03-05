@@ -1,4 +1,4 @@
-<div id="pager" class="pager">
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><div id="pager" class="pager">
 	<form method="get" action="<?php echo $this->url ($pager->url) ?>">
 		<input type="hidden" name="page" value="drain-hole.php"/>
 		<?php if (isset ($_GET['files'])) : ?>
