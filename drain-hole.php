@@ -4,7 +4,7 @@ Plugin Name: Drain Hole
 Plugin URI: http://urbangiraffe.com/plugins/drain-hole/
 Description: A download management and monitoring plugin with statistics and file protection
 Author: John Godley
-Version: 2.0.18
+Version: 2.1
 Author URI: http://urbangiraffe.com/
 ============================================================================================================
 1.0    - Initial version
@@ -32,6 +32,7 @@ Author URI: http://urbangiraffe.com/
 2.0.16 - Add template to show hole
 2.0.17 - Add option to hook up to an issue tracker
 2.0.18 - Fix #25, #30, #70, #74.  Added new feature #32, #69, #68
+2.1    - WordPress 2.5 version
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -234,6 +235,32 @@ class DrainholePlugin extends DH_Plugin
 			$this->render_admin ('head_post');
 	}
 	
+	function is_25 ()
+	{
+		global $wp_version;
+		if (version_compare ('2.5', $wp_version) <= 0)
+			return true;
+		return false;
+	}
+	
+	function submenu ($inwrap = false)
+	{
+		// Decide what to do
+	  $url = explode ('?', $_SERVER['REQUEST_URI']);
+	  $url = $url[0];
+		$url .= '?page='.$_GET['page'];
+
+		$sub = isset ($_GET['sub']) ? $_GET['sub'] : '';
+
+		if (!$this->is_25 () && $inwrap == false)
+			$this->render_admin ('submenu', array ('url' => $url, 'sub' => $sub, 'class' => 'id="subsubmenu"'));
+		else if ($this->is_25 () && $inwrap == true)
+			$this->render_admin ('submenu', array ('url' => $url, 'sub' => $sub, 'class' => 'class="subsubsub"', 'trail' => ' | '));
+
+		return $sub;
+	}
+	
+	
 	/**
 	 * Decides which admin page to display, as well as showing any update notifications
 	 *
@@ -245,23 +272,7 @@ class DrainholePlugin extends DH_Plugin
 		$this->clear_stats ();
 		$this->upgrade ();
 		
-		// Decide what to do
-	  $url = explode ('?', $_SERVER['REQUEST_URI']);
-	  $url = $url[0];
-		$url .= '?page='.$_GET['page'];
-
-		$sub = isset ($_GET['sub']) ? $_GET['sub'] : '';
-		
-		$this->render_admin ('submenu', array ('url' => $url, 'sub' => $sub));
-
-		// Display version update message
-		$options = get_option ('drainhole_options');
-		if ($options['update'] == true || !isset ($options['update']) || $options === false)
-		{
-			$version = $this->version_update ('http://urbangiraffe.com/category/software/releases/drain-hole/feed/');
-			if ($version && count ($version->items) > 0)
-				$this->render_admin ('version', array ('rss' => $version));
-		}
+		$sub = $this->submenu ();
 
 		if ($sub == '')
 		{
@@ -326,6 +337,9 @@ class DrainholePlugin extends DH_Plugin
 	
 	function screen_stats ($id)
 	{
+		if (isset ($_POST['clear_downloads']))
+			DH_Access::delete_by_file ($id);
+
 		global $wpdb;
 		
 		$pager = new DH_Pager ($_GET, $_SERVER['REQUEST_URI'], 'created_at', 'DESC', 'drain-hole-downloads', array ('users' => $wpdb->users.'.ID'));
@@ -477,9 +491,13 @@ class DrainholePlugin extends DH_Plugin
 			// Cache the list of holes so we don't need to access the database
 			$holes = DH_Hole::get_as_list ();
 		}
+
+		$parts = parse_url (get_bloginfo ('home'));
+		$base_url = $parts['path'].'/download';
+		$base_directory = $this->realpath (rtrim ($_SERVER['DOCUMENT_ROOT'], '/').'/download').'/';
 		
 		$pager = new DH_Pager ($_GET, $_SERVER['REQUEST_URI'], 'name', 'ASC');
-		$this->render_admin ('holes', array ('holes' => DH_Hole::get_all ($pager), 'pager' => $pager, 'options' => get_option ('drainhole_options')));
+		$this->render_admin ('holes', array ('holes' => DH_Hole::get_all ($pager), 'pager' => $pager, 'options' => get_option ('drainhole_options'), 'base_url' => $base_url, 'base_directory' => $base_directory, 'home' => $parts['path']));
 	}
 	
 	

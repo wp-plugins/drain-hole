@@ -1,7 +1,8 @@
-<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><div class="wrap">
-	<div class="pagertools"><a href="<?php echo $this->url () ?>/csv.php?id=<?php echo $hole->id ?>&amp;type=files" title="Download as CSV"><img src="<?php echo $this->url () ?>/images/csv.png" width="16" height="16" alt="CSV"/></a></div>
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
+<div class="wrap">
+	<h2><?php _e ('Drain Hole | Files for', 'drainhole'); ?> <?php echo $hole->url; ?> <a href="<?php echo $this->url () ?>/csv.php?id=<?php echo $hole->id ?>&amp;type=files" title="Download as CSV"><img src="<?php echo $this->url () ?>/images/csv.png" width="16" height="16" alt="CSV"/></a></h2>
 	
-	<h2><?php _e ('Files for', 'drainhole'); ?> <?php echo $hole->url; ?></h2>
+	<?php $this->submenu (true); ?>
 	
 	<p><?php _e ('Files are stored in', 'drainhole'); ?> <code><?php echo $hole->directory; ?></code></p>
 	

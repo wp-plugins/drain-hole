@@ -39,12 +39,12 @@ color: #120097;
 .files th
 {
 text-align: left;
-background-color: #C7C7C7;
+background-color: #999;
 }
 
 .files td, .files th
 {
-padding: 3px;
+padding: 3px 5px;
 }
 
 .files tr
@@ -59,7 +59,7 @@ background-color: white;
 
 .files .alt
 {
-background-color: #efefef;
+background-color: #ddd;
 }
 
 
@@ -111,6 +111,11 @@ vertical-align: top;
 color: black;
 }
 
+.holes th
+{
+background-color: #aaa;  
+}
+
 .holes th, .holes th a
 {
 color: #22246F;  
@@ -144,7 +149,7 @@ color: red;
 
 .holes .alt
 {
-background-color: #eee;
+background-color: #ddd;
 }
 /*
 .holes
@@ -288,3 +293,29 @@ display: block;
 text-align: center;
 }
 
+.example
+{
+margin: 10px auto;
+background-color: #E9D698;
+padding: 0px;
+border-collapse: collapse;
+}
+
+.example th
+{
+padding: 2px 5px;
+background-color: #B49C4C;
+}
+
+.example td
+{
+font-family: "Courier New", Courier, mono;
+padding: 5px;
+}
+
+.example td strong
+{
+color: red;
+/*text-decoration: underline;*/
+border-bottom: 2px solid red;
+}

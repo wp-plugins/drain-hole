@@ -1,5 +1,7 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><div class="wrap">
-	<h2><?php _e ('Drain Hole Options', 'drainhole'); ?></h2>
+	<h2><?php _e ('Drain Hole | Options', 'drainhole'); ?></h2>
+	
+	<?php $this->submenu (true); ?>
 	
 	<form action="<?php echo $this->ur; ($_SERVER['REQUEST_URI']) ?>" method="post" accept-charset="utf-8">
 	<table width="100%">
@@ -20,19 +22,13 @@
 		<tr>
 			<th width="220" align="right">Issue tracker URL:</th>
 			<td>
-				<input type="text" name="tracker" value="<?php echo $options['tracker'] ?>"/>
+				<input size="50" type="text" name="tracker" value="<?php echo $options['tracker'] ?>"/>
 			</td>
 		</tr>
 		<tr>
 			<th width="220" align="right"><label for="google"><?php _e ('Google Analytics tracking', 'drainhole'); ?></label>:<br/>
 				<span class="sub"><?php _e ('Add code to track downloads', 'drainhole'); ?></span></th>
 			<td><input type="checkbox" name="google"<?php if ($options['google'] == true) echo ' checked="checked"' ?> id="google"/></td>
-		</tr>
-		<tr>
-			<th width="220" align="right"><label for="update"><?php _e ('Update notification', 'drainhole'); ?>:</label><br/>
-				<span class="sub"><?php _e ('Whether to check for updates', 'drainhole'); ?></span></th>
-			<td><input type="checkbox" size="5" name="update" id="update"<?php if ($options['update'] == true) echo ' checked="checked"' ?>/> 
-				</td>
 		</tr>
 		<tr>
 			<th width="220" align="right" valign="top"><?php _e ('Allow file deletion', 'drainhole'); ?>:</th>
@@ -57,7 +53,7 @@
 		</tr>
 		<tr>
 			<th width="220" align="right"></th>
-			<td><input type="submit" name="options" value="<?php _e ('Save options', 'drainhole'); ?>"/></td>
+			<td><input class="button-secondary" type="submit" name="options" value="<?php _e ('Save options', 'drainhole'); ?>"/></td>
 		</tr>
 	</table>
 
@@ -72,6 +68,6 @@
 	<form action="<?php echo $this->url ($_SERVER['REQUEST_URI']) ?>" method="post" accept-charset="utf-8">
 		
 
-		<input type="submit" value="Delete" name="delete"/>
+		<input class="button-secondary" type="submit" value="Delete" name="delete"/>
 	</form>
 </div>

@@ -183,3 +183,37 @@ function delete_version (item)
 	
 	return false;
 }
+
+function update_dir_warning (text)
+{
+	if (text.startsWith (wp_dh_base_home) == true && $('error_dir').style.display == 'none')
+		Element.show ('error_dir');
+	else if (text.startsWith (wp_dh_base_home) == false && $('error_dir').style.display != 'none')
+		Element.hide ('error_dir');	
+}
+
+function dirKey (event)
+{
+	var element = '/' + event.element ().value.replace (/^\/*/, '').replace (/\/*$/, '') + '/';
+	
+	update_dir_warning (element);
+		
+	$('base_dir').innerHTML = element.stripTags ();
+}
+
+function update_url_warning (text)
+{
+	if (text.startsWith (wp_dh_home_url) == false && $('error_url').style.display == 'none')
+		Element.show ('error_url');
+	else if (text.startsWith (wp_dh_home_url) == true && $('error_url').style.display != 'none')
+		Element.hide ('error_url');
+}
+
+function urlKey (event)
+{
+	var element = '/' + event.element ().value.replace (/^\/*/, '').replace (/\/*$/, '');
+
+	update_url_warning (element);
+		
+	$('base_url').innerHTML = escape (element);
+}

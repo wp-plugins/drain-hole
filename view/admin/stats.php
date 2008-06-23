@@ -1,7 +1,8 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><?php $size = $file->filesize ($hole); ?>
 <div class="wrap">
-	<div class="pagertools"><a href="<?php echo $this->url () ?>/csv.php?id=<?php echo $file->id ?>&amp;type=stats" title="Download as CSV"><img src="<?php echo $this->url () ?>/images/csv.png" width="16" height="16" alt="CSV"/></a></div>
-	<h2><?php _e ('Download Statistics for', 'drainhole'); ?> <?php echo $file->file ?></h2>
+	<h2><?php _e ('Drain Hole | Statistics for', 'drainhole'); ?> <?php echo $file->file ?> <a href="<?php echo $this->url () ?>/csv.php?id=<?php echo $file->id ?>&amp;type=stats" title="Download as CSV"><img src="<?php echo $this->url () ?>/images/csv.png" width="16" height="16" alt="CSV"/></a></h2>
+	
+	<?php $this->submenu (true); ?>
 	
 	<?php if ($pager->total > 25) :?>
 	<?php $this->render_admin ('pager', array ('pager' => $pager)); ?>

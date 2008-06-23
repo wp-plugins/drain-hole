@@ -329,7 +329,7 @@ class DH_File
 			
 		if (file_exists (TEMPLATEPATH."/view/drain-hole/icons/{$this->icon}"))
 			$url  = get_bloginfo ('template_url').'/view/drain-hole/icons/'.$this->icon;
-		else if (file_exists (dirname (FILE)."/../icons/{$this->icon}"))
+		else if (@file_exists (dirname (FILE)."/../icons/{$this->icon}"))
 			$url  = $dir.'/icons/'.$this->icon;
 		else
 			$url  = $dir.'/images/download.png';

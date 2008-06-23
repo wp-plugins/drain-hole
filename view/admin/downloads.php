@@ -1,10 +1,15 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><div class="wrap">
-	<div class="pagertools"><a href="<?php echo $this->url () ?>/csv.php?id=<?php echo $file->id ?>&amp;type=stats" title="Download as CSV"><img src="<?php echo $this->url () ?>/images/csv.png" width="16" height="16" alt="CSV"/></a></div>
+	<h2>
 	<?php if (isset ($file)) :?>
-		<h2><?php _e ('Download Statistics for', 'drainhole'); ?> <?php echo $file->file ?></h2>
+		<?php _e ('Drain Hole | Statistics for', 'drainhole'); ?> <a href="<?php echo $file->url_ref ($hole); ?>" title="<?php echo htmlspecialchars ($hole->directory.'/'.$file->file) ?>" onclick="return edit_file(<?php echo $file->id ?>)"><?php echo $file->file ?></a>
 	<?php else : ?>
-		<h2><?php _e ('Downloads', 'drainhole'); ?></h2>
+		<?php _e ('Drain Hole | Downloads', 'drainhole'); ?>
 	<?php endif; ?>
+	
+	<a href="<?php echo $this->url () ?>/csv.php?id=<?php echo $file->id ?>&amp;type=stats" title="Download as CSV"><img src="<?php echo $this->url () ?>/images/csv.png" width="16" height="16" alt="CSV"/></a>
+	</h2>
+	
+	<?php $this->submenu (true); ?>
 	
 	<?php $this->render_admin ('pager', array ('pager' => $pager)); ?>
 	
@@ -39,9 +44,9 @@
 		<?php endif; ?>
 		
 		<tbody>
-		<?php foreach ($stats AS $stat) : ?>
-		<tr id="stat_<?php echo $stat->id ?>">
-			<td><?php echo date (str_replace ('F', 'M', get_option ('date_format')), $stat->created_at); ?> - <?php echo date ('H:i', $stat->created_at)?></td>
+		<?php foreach ($stats AS $pos => $stat) : ?>
+		<tr id="stat_<?php echo $stat->id ?>"<?php if ($pos % 2 == 1) echo ' class="alt"' ?>>
+			<td><?php echo date ('H:i', $stat->created_at - (get_option ('gmt_offset') * 60 * 60))?> - <?php echo date (str_replace ('F', 'M', get_option ('date_format')), $stat->created_at); ?></td>
 			<?php if (!isset ($file)) : ?>
 			<td><?php echo htmlspecialchars ($stat->file); ?></td>
 			<?php endif; ?>
@@ -64,8 +69,8 @@
 
 <div class="wrap">
 	<h2><?php _e ('Clear all downloads', 'drainhole'); ?></h2>
-	
+	<br/>
 	<form action="<?php echo $this->url ($_SERVER['REQUEST_URI']) ?>" method="post" accept-charset="utf-8">
-		<input type="submit" name="clear_downloads" value="<?php _e ('Clear Downloads', 'drainhole'); ?>"/>
+		<input class="button-secondary" type="submit" name="clear_downloads" value="<?php _e ('Clear Downloads', 'drainhole'); ?>"/>
 	</form>
 </div>

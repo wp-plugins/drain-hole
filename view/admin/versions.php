@@ -1,7 +1,8 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><div class="wrap">
 	<h2><?php printf (__ ('Version history for %s', 'drainhole'), '<a href="edit.php?page=drain-hole.php&files='.$file->hole_id.'">'.$file->name ().'</a>'); ?></h2>
-	
-		<?php $this->render_admin ('pager', array ('pager' => $pager)); ?>
+
+	<?php $this->submenu (true); ?>
+	<?php $this->render_admin ('pager', array ('pager' => $pager)); ?>
 		
 	<?php if (count ($versions) > 0) : ?>
 		<table class="holes">

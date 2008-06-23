@@ -5,6 +5,8 @@
 	</div>
 	<h2><?php printf (__ ('File Charts for %s', 'drainhole'), $file->name ()); ?></h2>
 
+	<?php $this->submenu (true); ?>
+	
 	<div style="margin: 0 auto; width: 810px">
 		<form action="<?php echo $base ?>" method="get" accept-charset="utf-8">
 			<p>
