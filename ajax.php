@@ -16,7 +16,7 @@ class DH_AJAX extends DH_Plugin
 	function DH_AJAX ($id, $command)
 	{
 		if (!current_user_can ('edit_plugins'))
-			die (__ ('<p style="color: red">You are not allowed access to this resource</p>', 'drainhole'));
+			die (__ ('<p style="color: red">You are not allowed access to this resource</p>', 'drain-hole'));
 		
 		$_POST = stripslashes_deep ($_POST);
 		
@@ -24,7 +24,7 @@ class DH_AJAX extends DH_Plugin
 		if (method_exists ($this, $command))
 			$this->$command ($id);
 		else
-			die (__('<p style="color: red">That function is not defined</p>', 'drainhole'));
+			die (__('<p style="color: red">That function is not defined</p>', 'drain-hole'));
 	}
 
 	function delete_hole ($id)

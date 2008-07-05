@@ -13,7 +13,7 @@ class Charts extends DH_Plugin
 		$this->swf = $base.'/lib/charts/charts.swf';
 		$this->lib = $base.'/lib/charts/charts_library/';
 		
-		$this->register_plugin ('drainhole', (dirname (__FILE__)));
+		$this->register_plugin ('drain-hole', (dirname (__FILE__)));
 	}
 	
 	function set_source ($source)
@@ -65,7 +65,7 @@ class Charts extends DH_Plugin
 		}
 		
 		if ($url)
-			return '<div class="right"><a href="'.str_replace ('&', '&amp;', $url).'">next &raquo;</a></div>';
+			return '<div class="right"><a href="'.str_replace ('&', '&amp;', $url).'">'.__ ('next', 'drain-hole').' &raquo;</a></div>';
 		return '';
 	}
 	
@@ -104,7 +104,7 @@ class Charts extends DH_Plugin
 		}
 		
 		if ($url)
-			return '<div class="left"><a href="'.str_replace ('&', '&amp;', $url).'">&laquo; previous</a></div>';
+			return '<div class="left"><a href="'.str_replace ('&', '&amp;', $url).'">&laquo; '.__ ('previous', 'drain-hole').'</a></div>';
 		return '';
 	}
 	

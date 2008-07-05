@@ -1,9 +1,9 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><div class="wrap">
 	<h2>
 	<?php if (isset ($file)) :?>
-		<?php _e ('Drain Hole | Statistics for', 'drainhole'); ?> <a href="<?php echo $file->url_ref ($hole); ?>" title="<?php echo htmlspecialchars ($hole->directory.'/'.$file->file) ?>" onclick="return edit_file(<?php echo $file->id ?>)"><?php echo $file->file ?></a>
+		<?php _e ('Drain Hole | Statistics for', 'drain-hole'); ?> <a href="<?php echo $file->url_ref ($hole); ?>" title="<?php echo htmlspecialchars ($hole->directory.'/'.$file->file) ?>" onclick="return edit_file(<?php echo $file->id ?>)"><?php echo $file->file ?></a>
 	<?php else : ?>
-		<?php _e ('Drain Hole | Downloads', 'drainhole'); ?>
+		<?php _e ('Drain Hole | Downloads', 'drain-hole'); ?>
 	<?php endif; ?>
 	
 	<a href="<?php echo $this->url () ?>/csv.php?id=<?php echo $file->id ?>&amp;type=stats" title="Download as CSV"><img src="<?php echo $this->url () ?>/images/csv.png" width="16" height="16" alt="CSV"/></a>
@@ -17,13 +17,13 @@
 	<table class="files">
 		<thead>
 			<tr>
-				<th><?php echo $pager->sortable ('created_at', __ ('Downloaded At', 'drainhole')) ?></th>
+				<th><?php echo $pager->sortable ('created_at', __ ('Downloaded At', 'drain-hole')) ?></th>
 				<?php if (!isset ($file)) : ?>
-				<th><?php echo $pager->sortable ('file', __ ('File', 'drainhole')) ?></th>
+				<th><?php echo $pager->sortable ('file', __ ('File', 'drain-hole')) ?></th>
 				<?php endif; ?>
-				<th><?php echo $pager->sortable ('ip', __ ('IP', 'drainhole')) ?></th>
-				<th><?php echo $pager->sortable ('users', __ ('User', 'drainhole')) ?></th>
-				<th><?php echo $pager->sortable ('referrer', __ ('Referrer', 'drainhole')); ?></th>
+				<th><?php echo $pager->sortable ('ip', __ ('IP', 'drain-hole')) ?></th>
+				<th><?php echo $pager->sortable ('users', __ ('User', 'drain-hole')) ?></th>
+				<th><?php echo $pager->sortable ('referrer', __ ('Referrer', 'drain-hole')); ?></th>
 				<th width="16"></th>
 			</tr>
 		</thead>
@@ -63,14 +63,14 @@
 		<img src="<?php echo $this->url () ?>/images/loading.gif" alt="loading" width="32" height="32"/>
 	</div>
 	<?php else : ?>
-	<p><?php _e ('No files have been downloaded!', 'drainhole'); ?></p>
+	<p><?php _e ('No files have been downloaded!', 'drain-hole'); ?></p>
 	<?php endif; ?>
 </div>
 
 <div class="wrap">
-	<h2><?php _e ('Clear all downloads', 'drainhole'); ?></h2>
+	<h2><?php _e ('Clear all downloads', 'drain-hole'); ?></h2>
 	<br/>
 	<form action="<?php echo $this->url ($_SERVER['REQUEST_URI']) ?>" method="post" accept-charset="utf-8">
-		<input class="button-secondary" type="submit" name="clear_downloads" value="<?php _e ('Clear Downloads', 'drainhole'); ?>"/>
+		<input class="button-secondary" type="submit" name="clear_downloads" value="<?php _e ('Clear Downloads', 'drain-hole'); ?>"/>
 	</form>
 </div>

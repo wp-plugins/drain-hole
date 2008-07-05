@@ -11,7 +11,7 @@
 include ('../../../wp-config.php');
 
 if (!current_user_can ('edit_plugins'))
-	die ('<p style="color: red">You are not allowed access to this resource</p>', 'drainhole');
+	die ('<p style="color: red">You are not allowed access to this resource</p>', 'drain-hole');
 		
 $id   = intval ($_GET['id']);
 $type = $_GET['type'];

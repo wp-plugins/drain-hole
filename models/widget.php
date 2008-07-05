@@ -36,11 +36,11 @@ class DH_Widget extends Widget
 		?>
 		<table>
 			<tr>
-				<th>Title:</th>
+				<th><?php _e ('Title', 'drain-hole') ?>:</th>
 				<td><input type="text" name="<?php echo $this->config_name ('title', $pos) ?>" value="<?php echo htmlspecialchars ($config['title']) ?>"/></td>
 			</tr>
 			<tr>
-				<th>Count:</th>
+				<th><?php _e ('Count', 'drain-hole') ?>:</th>
 				<td><input type="text" name="<?php echo $this->config_name ('count', $pos) ?>" value="<?php echo $config['count'] ?>"/></td>
 			</tr>
 		</table>

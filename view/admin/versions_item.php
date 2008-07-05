@@ -5,9 +5,9 @@
 <td><?php echo htmlspecialchars ($version->reason); ?></td>
 <td align="center">
 	<?php if ($file->has_version ($version->id, $hole)) : ?>
-		<?php _e ('Yes', 'drainhole'); ?>
+		<?php _e ('Yes', 'drain-hole'); ?>
 	<?php else : ?>
-		<?php _e ('No', 'drainhole'); ?>
+		<?php _e ('No', 'drain-hole'); ?>
 	<?php endif; ?>
 </td>
 <td align="center"><a href="#" onclick="return edit_version(<?php echo $version->id ?>)">edit</a> <a href="#" onclick="return edit_version(<?php echo $version->id ?>)"><img src="<?php echo $this->url () ?>/images/edit.png" width="16" height="16" alt="Edit"/></a></td>

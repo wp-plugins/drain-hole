@@ -23,11 +23,11 @@ function dothing ()
 </select>
 
 <select name="display" id="drain_display">
-	<option value="show">Show file template</option>
-	<option value="url">Show file URL</option>
-	<option value="version">Show file version</option>
-	<option value="svn">Show file SVN</option>
-	<option value="hits">Show file hits</option>
+	<option value="show"><?php _e ('Show file template', 'drain-hole'): ?></option>
+	<option value="url"><?php _e ('Show file URL', 'drain-hole'); ?></option>
+	<option value="version"><?php _e ('Show file version', 'drain-hole'); ?></option>
+	<option value="svn"><?php _e ('Show file SVN', 'drain-hole'); ?></option>
+	<option value="hits"><?php _e ('Show file hits', 'drain-hole'); ?></option>
 </select>
 <br/><br/>
 <input type="submit" name="thing" value="<?php _e ('Add Drain Hole tag', 'drain-hole'); ?>"  onclick="return dothing ();"/>

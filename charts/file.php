@@ -60,7 +60,7 @@ if (current_user_can ('administrator'))
 				$chart['legend_label'] = array ('alpha' => 0, 'size' => 0);
 				$chart['chart_type'] = 'line';
 				
-				$text = sprintf ('Hourly downloads over time (%1s %2d, %3d)', $wp_locale->get_month (intval ($_GET['month'])), intval ($_GET['day']), intval ($_GET['year']));
+				$text = sprintf (__ ('Hourly downloads over time (%1s %2d, %3d)', 'drain-hole'), $wp_locale->get_month (intval ($_GET['month'])), intval ($_GET['day']), intval ($_GET['year']));
 			}
 		}
 		else if ($_GET['display'] == 'daily')
@@ -93,7 +93,7 @@ if (current_user_can ('administrator'))
 				else
 					$chart['chart_type'] = 'column';
 				
-				$text = sprintf ('Daily downloads over time (%1s %2s)', $wp_locale->get_month (intval ($_GET['month'])), intval ($_GET['year']));
+				$text = sprintf (__ ('Daily downloads over time (%1s %2s)', 'drain-hole'), $wp_locale->get_month (intval ($_GET['month'])), intval ($_GET['year']));
 			}
 		}
 		else if ($_GET['display'] == 'monthly')
@@ -123,7 +123,7 @@ if (current_user_can ('administrator'))
 				else
 					$chart['chart_type'] = 'column';
 				
-				$text = sprintf ('Monthly downloads over time (%2s)', intval ($_GET['year']));
+				$text = sprintf (__ ('Monthly downloads over time (%2s)', 'drain-hole'), intval ($_GET['year']));
 			}
 			
 		}
@@ -183,7 +183,7 @@ if (current_user_can ('administrator'))
 				$chart['legend_label'] = array ('alpha' => 0, 'size' => 0);
 				$chart['chart_type'] = 'line';
 				
-				$text = sprintf ('Hourly downloads over time (%1s %2d, %3d)', $wp_locale->get_month (intval ($_GET['month'])), intval ($_GET['day']), intval ($_GET['year']));
+				$text = sprintf (__ ('Hourly downloads over time (%1s %2d, %3d)', 'drain-hole'), $wp_locale->get_month (intval ($_GET['month'])), intval ($_GET['day']), intval ($_GET['year']));
 			}
 		}
 		else if ($_GET['display'] == 'daily')
@@ -215,7 +215,7 @@ if (current_user_can ('administrator'))
 				else
 					$chart['chart_type'] = 'column';
 				
-				$text = sprintf ('Daily downloads over time (%1s %2s)', $wp_locale->get_month (intval ($_GET['month'])), intval ($_GET['year']));
+				$text = sprintf (__ ('Daily downloads over time (%1s %2s)', 'drain-hole'), $wp_locale->get_month (intval ($_GET['month'])), intval ($_GET['year']));
 			}
 		}
 		else if ($_GET['display'] == 'monthly')
@@ -244,7 +244,7 @@ if (current_user_can ('administrator'))
 				else
 					$chart['chart_type'] = 'column';
 				
-				$text = sprintf ('Monthly downloads over time (%2s)', intval ($_GET['year']));
+				$text = sprintf (__ ('Monthly downloads over time (%2s)', 'drain-hole'), intval ($_GET['year']));
 			}
 			
 		}

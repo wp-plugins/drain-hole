@@ -1,5 +1,5 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><div class="wrap">
-	<h2><?php _e ('Drain Hole | Options', 'drainhole'); ?></h2>
+	<h2><?php _e ('Drain Hole | Options', 'drain-hole'); ?></h2>
 	
 	<?php $this->submenu (true); ?>
 	
@@ -7,53 +7,53 @@
 	<table width="100%">
 
 		<tr>
-			<th width="220" align="right"><?php _e ('Statistic retention', 'drainhole'); ?>:<br/>
-				<span class="sub"><?php _e ('How many days to keep access statistics for', 'drainhole'); ?></span></th>
+			<th width="220" align="right"><?php _e ('Statistic retention', 'drain-hole'); ?>:<br/>
+				<span class="sub"><?php _e ('How many days to keep access statistics for', 'drain-hole'); ?></span></th>
 			<td><input type="text" size="5" name="days" value="<?php echo $options['days'] ?>"/> 
-				<span class="sub"><?php _e ('Enter 0 for no limit.  File hits are not cleared', 'drainhole'); ?></span></td>
+				<span class="sub"><?php _e ('Enter 0 for no limit.  File hits are not cleared', 'drain-hole'); ?></span></td>
 		</tr>
 
 		<tr>
-			<th width="220" align="right">SVN path:</th>
+			<th width="220" align="right"><?php _e ('SVN path', 'drain-hole'); ?>:</th>
 			<td>
 				<input size="50" type="text" name="svn" value="<?php echo $options['svn'] ?>"/>
 			</td>
 		</tr>
 		<tr>
-			<th width="220" align="right">Issue tracker URL:</th>
+			<th width="220" align="right"><?php _e ('Issue tracker URL', 'drain-hole'); ?>:</th>
 			<td>
 				<input size="50" type="text" name="tracker" value="<?php echo $options['tracker'] ?>"/>
 			</td>
 		</tr>
 		<tr>
-			<th width="220" align="right"><label for="google"><?php _e ('Google Analytics tracking', 'drainhole'); ?></label>:<br/>
-				<span class="sub"><?php _e ('Add code to track downloads', 'drainhole'); ?></span></th>
+			<th width="220" align="right"><label for="google"><?php _e ('Google Analytics tracking', 'drain-hole'); ?></label>:<br/>
+				<span class="sub"><?php _e ('Add code to track downloads', 'drain-hole'); ?></span></th>
 			<td><input type="checkbox" name="google"<?php if ($options['google'] == true) echo ' checked="checked"' ?> id="google"/></td>
 		</tr>
 		<tr>
-			<th width="220" align="right" valign="top"><?php _e ('Allow file deletion', 'drainhole'); ?>:</th>
+			<th width="220" align="right" valign="top"><?php _e ('Allow file deletion', 'drain-hole'); ?>:</th>
 			<td>
 				<input type="checkbox" name="delete_file"<?php $this->checked ($options, 'delete_file') ?>/>
-				<span class="sub"><?php _e ('Enabling this will allow Drain Hole to delete physical files', 'drainhole'); ?></span>
+				<span class="sub"><?php _e ('Enabling this will allow Drain Hole to delete physical files', 'drain-hole'); ?></span>
 			</td>
 		</tr>
 		<tr>
-			<th width="220" align="right" valign="top"><?php _e ('Create .htaccess in holes', 'drainhole'); ?>:</th>
+			<th width="220" align="right" valign="top"><?php _e ('Create .htaccess in holes', 'drain-hole'); ?>:</th>
 			<td>
 				<input type="checkbox" name="htaccess"<?php $this->checked ($options, 'htaccess') ?>/>
-				<span class="sub"><?php _e ('Enabling this will allow Drain Hole to create .htaccess in holes for further protection', 'drainhole'); ?></span>
+				<span class="sub"><?php _e ('Enabling this will allow Drain Hole to create .htaccess in holes for further protection', 'drain-hole'); ?></span>
 			</td>
 		</tr>
 		<tr>
-			<th width="220" align="right" valign="top"><?php _e ('Kitten protection', 'drainhole'); ?>:</th>
+			<th width="220" align="right" valign="top"><?php _e ('Kitten protection', 'drain-hole'); ?>:</th>
 			<td>
 				<input type="checkbox" name="kitten"<?php $this->checked ($options, 'kitten') ?>/>
-				<span class="sub"><?php _e ('I hereby testify that I have supported this plugin.  If I check this option and haven\'t supported this plugin then a squad of winged monkeys will be sent to drop things on my head.', 'drainhole'); ?></span>
+				<span class="sub"><?php _e ('I hereby testify that I have supported this plugin.  If I check this option and haven\'t supported this plugin then a squad of winged monkeys will be sent to drop things on my head.', 'drain-hole'); ?></span>
 			</td>
 		</tr>
 		<tr>
 			<th width="220" align="right"></th>
-			<td><input class="button-secondary" type="submit" name="options" value="<?php _e ('Save options', 'drainhole'); ?>"/></td>
+			<td><input class="button-secondary" type="submit" name="options" value="<?php _e ('Save options', 'drain-hole'); ?>"/></td>
 		</tr>
 	</table>
 
@@ -61,9 +61,9 @@
 </div>
 
 <div class="wrap">
-	<h2><?php _e ('Delete Drain Hole', 'drainhole'); ?></h2>
+	<h2><?php _e ('Delete Drain Hole', 'drain-hole'); ?></h2>
 	
-	<p><?php _e ('This operation removes all data associated with Drain Hole and disables the plugin.  It does not delete any files', 'drainhole'); ?></p>
+	<p><?php _e ('This operation removes all data associated with Drain Hole and disables the plugin.  It does not delete any files', 'drain-hole'); ?></p>
 	
 	<form action="<?php echo $this->url ($_SERVER['REQUEST_URI']) ?>" method="post" accept-charset="utf-8">
 		

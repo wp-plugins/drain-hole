@@ -11,16 +11,16 @@
 		<input type="hidden" name="sub" value="<?php echo $_GET['sub'] ?>"/>
 		<input type="hidden" name="curpage" value="<?php echo $pager->current_page () ?>"/>
 
-		<?php _e ('Search', 'drainhole'); ?>: 
+		<?php _e ('Search', 'drain-hole'); ?>: 
 		<input type="text" name="search" value="<?php echo htmlspecialchars ($_GET['search']) ?>"/>
 
-		<?php _e ('Per page', 'drainhole') ?>: 
+		<?php _e ('Per page', 'drain-hole') ?>: 
 		<select name="perpage">
 			<?php foreach ($pager->steps AS $step) : ?>
 		  	<option value="<?php echo $step ?>"<?php if ($pager->per_page == $step) echo ' selected="selected"' ?>><?php echo $step ?></option>
 			<?php endforeach; ?>
 		</select>
 		
-		<input type="submit" name="go" value="<?php _e ('go', 'drainhole') ?>"/>
+		<input type="submit" name="go" value="<?php _e ('go', 'drain-hole') ?>"/>
 	</form>
 </div>

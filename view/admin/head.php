@@ -2,8 +2,8 @@
 	var wp_base             = '<?php echo $this->url () ?>/ajax.php';
 	var wp_dh_loading       = '<img src="<?php echo $this->url () ?>/images/progress.gif" width="50" height="16" alt="Progress"/>';
 	var wp_dh_url           = '<?php echo $this->url () ?>/charts/';
-	var wp_dh_deletehole    = '<?php _e ('Are you sure you want to delete this Drain Hole and all files?', 'drainhole') ?>';
-	var wp_dh_deleteversion = '<?php _e ('Are you sure you want to delete this version?', 'drainhole') ?>';
+	var wp_dh_deletehole    = '<?php _e ('Are you sure you want to delete this Drain Hole and all files?', 'drain-hole') ?>';
+	var wp_dh_deleteversion = '<?php _e ('Are you sure you want to delete this version?', 'drain-hole') ?>';
 </script>
 <script type="text/javascript" charset="utf-8" src="<?php echo $this->url () ?>/js/drainhole.js?version=<?php echo $this->version () ?>"></script>
 <script src="<?php echo $this->url () ?>/js/prototype.js" type="text/javascript" charset="utf-8"></script>

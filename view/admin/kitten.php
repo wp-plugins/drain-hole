@@ -1,6 +1,6 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><?php if ($options['kitten'] == false) : ?>
- <?php _e ('You can help support the author by sending a donation.  Every file that is downloaded without support will cause a <strong>kitten to cry</strong>.', 'drainhole'); ?>
- <?php _e ('All it takes is <strong>$16 to keep the kittens happy</strong> and act as an incentive for me to carry on writing other free software.', 'drainhole'); ?>
+ <?php _e ('You can help support the author by sending a donation.  Every file that is downloaded without support will cause a <strong>kitten to cry</strong>.', 'drain-hole'); ?>
+ <?php _e ('All it takes is <strong>$16 to keep the kittens happy</strong> and act as an incentive for me to carry on writing other free software.', 'drain-hole'); ?>
 </p>
 
 <p><img class="kitten" src="<?php echo $this->url () ?>/images/kitten.jpg" width="150" height="204" alt="Kitten"/></p>
@@ -24,7 +24,7 @@
 <input type="image" class="kitten" style="border: none" src="https://www.paypal.com/en_US/i/btn/x-click-butcc-donate.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
 </form>
 <?php else : ?>
-	<p><?php _e ('Your help stopping kittens from crying is appreciated!', 'search-unleashed'); ?></p>
+	<p><?php _e ('Your help stopping kittens from crying is appreciated!', 'drain-hole'); ?></p>
 	
-	<p><?php _e ('If you \'mistakenly\' said you supported the author without actually doingso then not only are the kittens still crying, but their stomachs ache and they all feel miserable.', 'search-unleashed'); ?></p>
+	<p><?php _e ('If you \'mistakenly\' said you supported the author without actually doing so then not only are the kittens still crying, but their stomachs ache and they all feel miserable.', 'drain-hole'); ?></p>
 <?php endif; ?>

@@ -8,7 +8,7 @@
 </td>
 <td align="center"><a href="edit.php?page=drain-hole.php&amp;stats=<?php echo $file->id ?>"><?php echo $file->hits ?></a></td>
 <td>
-	<?php if ($file->exists ($hole)) echo date ('jS M, Y', $file->updated_at); else echo '<span class="missing">'.__ ('File is missing','drainhole').'</span>'; ?>
+	<?php if ($file->exists ($hole)) echo date ('jS M, Y', $file->updated_at); else echo '<span class="missing">'.__ ('File is missing','drain-hole').'</span>'; ?>
 </td>
 <td align="center">
 	<a href="#newversion" onclick="return new_version (<?php echo $file->id ?>)"><img src="<?php echo $this->url () ?>/images/add.png" width="16" height="16" alt="Add"/></a>

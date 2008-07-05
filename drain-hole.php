@@ -33,6 +33,7 @@ Author URI: http://urbangiraffe.com/
 2.0.17 - Add option to hook up to an issue tracker
 2.0.18 - Fix #25, #30, #70, #74.  Added new feature #32, #69, #68
 2.1    - WordPress 2.5 version
+2.1.1  - Å
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -102,7 +103,7 @@ class DrainholePlugin extends DH_Plugin
 		$this->add_filter ('parse_request');
 		$this->add_filter ('query_vars');
 		
-		$this->widget = new DH_Widget ('Drainhole Statistics', 5);
+		$this->widget = new DH_Widget (__ ('Drainhole Statistics', 'drain-hole'), 5);
 	}
 	
 	function version ()
@@ -214,7 +215,7 @@ class DrainholePlugin extends DH_Plugin
 	
 	function admin_menu ()
 	{
-   	add_management_page (__("Drain Hole", 'drainhole'), __("Drain Hole", 'drainhole'), "administrator", basename (__FILE__), array (&$this, "admin_screen"));
+   	add_management_page (__("Drain Hole", 'drain-hole'), __("Drain Hole", 'drain-hole'), "administrator", basename (__FILE__), array (&$this, "admin_screen"));
 	}
 	
 	
@@ -358,7 +359,7 @@ class DrainholePlugin extends DH_Plugin
 			$file = DH_File::get ($id);
 			
 			DH_Version::create ($file, $_POST['version'], 0, mktime (0, 0, 0, intval ($_POST['month']), intval ($_POST['day']), intval ($_POST['year'])), $_POST['reason']);
-			$this->render_message ('Your version was added succesfully');
+			$this->render_message (__ ('Your version was added succesfully', 'drain-hole'));
 		}
 		
 		$file = DH_File::get ($id);
@@ -389,9 +390,9 @@ class DrainholePlugin extends DH_Plugin
 			DH_Hole::flush ();
 			
 			if ($scanned == 0)
-				$this->render_message ('No new files were found');
+				$this->render_message (__ ('No new files were found', 'drain-hole'));
 			else if ($scanned == 1)
-				$this->render_message (sprintf (__ngettext ('%d new file was found', '%d new files were found', $scanned, 'drainhole'), $scanned));
+				$this->render_message (sprintf (__ngettext ('%d new file was found', '%d new files were found', $scanned, 'drain-hole'), $scanned));
 		}
 		else if (isset ($_POST['upload']))
 		{
@@ -400,11 +401,11 @@ class DrainholePlugin extends DH_Plugin
 			{
 				DH_Hole::flush ();
 				
-				$this->render_message ('Your files were successfully updated', 'drainhole');
+				$this->render_message ('Your files were successfully updated', 'drain-hole');
 				do_action ('drainhole_upload', $hole);
 			}
 			else
-				$this->render_error ('Your files were not updated', 'drainhole');
+				$this->render_error ('Your files were not updated', 'drain-hole');
 		}
 		
 		$pager = new DH_Pager ($_GET, $_SERVER['REQUEST_URI'], 'file', 'ASC', 'drainhole-files');
@@ -482,11 +483,11 @@ class DrainholePlugin extends DH_Plugin
 			{
 				DH_Hole::flush ();
 				
-				$this->render_message (__ ('The Drain Hole was successfully created', 'drainhole'));
+				$this->render_message (__ ('The Drain Hole was successfully created', 'drain-hole'));
 				do_action ('drainhole_hole_created');
 			}
 			else
-				$this->render_message (__ ('The Drain Hole was not created - you must supply a unique URL (without <code>http://</code> prefix) and directory', 'drainhole'));
+				$this->render_message (__ ('The Drain Hole was not created - you must supply a unique URL (without <code>http://</code> prefix) and directory', 'drain-hole'));
 				
 			// Cache the list of holes so we don't need to access the database
 			$holes = DH_Hole::get_as_list ();
@@ -524,7 +525,7 @@ class DrainholePlugin extends DH_Plugin
 			);
 			
 			update_option ('drainhole_options', $options);
-			$this->render_message (__ ('Your options have been updated', 'drainhole'));
+			$this->render_message (__ ('Your options have been updated', 'drain-hole'));
 		}
 		else if (isset ($_POST['delete']))
 		{
@@ -533,7 +534,7 @@ class DrainholePlugin extends DH_Plugin
 			$upgrade = new DH_Upgrade ();
 			$upgrade->delete (__FILE__);
 			
-			$this->render_message ('Drain Hole has been removed', 'drainhole');
+			$this->render_message ('Drain Hole has been removed', 'drain-hole');
 		}
 		
 		$options = get_option ('drainhole_options');
