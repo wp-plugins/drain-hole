@@ -26,6 +26,19 @@
 			</td>
 		</tr>
 		<tr>
+			<th width="220" align="right"><?php _e ('Default version no.', 'drain-hole'); ?>:</th>
+			<td>
+				<input size="50" type="text" name="default_version" value="<?php echo $options['default_version'] ?>"/>
+			</td>
+		</tr>
+		<tr>
+			<th width="220" align="right"><?php _e ('Default file name', 'drain-hole'); ?>:</th>
+			<td>
+				<input size="50" type="text" name="default_name" value="<?php echo $options['default_name'] ?>"/>
+				<span class="sub"><code>$FILENAME$</code> and <code>$EXTENSION$</code> will be replaced by the file's real name and extension</span>
+			</td>
+		</tr>
+		<tr>
 			<th width="220" align="right"><label for="google"><?php _e ('Google Analytics tracking', 'drain-hole'); ?></label>:<br/>
 				<span class="sub"><?php _e ('Add code to track downloads', 'drain-hole'); ?></span></th>
 			<td><input type="checkbox" name="google"<?php if ($options['google'] == true) echo ' checked="checked"' ?> id="google"/></td>

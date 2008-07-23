@@ -4,7 +4,7 @@ Plugin Name: Drain Hole
 Plugin URI: http://urbangiraffe.com/plugins/drain-hole/
 Description: A download management and monitoring plugin with statistics and file protection
 Author: John Godley
-Version: 2.1.2
+Version: 2.1.3
 Author URI: http://urbangiraffe.com/
 ============================================================================================================
 1.0    - Initial version
@@ -35,6 +35,7 @@ Author URI: http://urbangiraffe.com/
 2.1    - WordPress 2.5 version
 2.1.1  - Forgot
 2.1.2  - WP 2.6
+2.1.3  - Add default version and file name
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -515,14 +516,16 @@ class DrainholePlugin extends DH_Plugin
 		{
 			$options = array
 			(
-				'google'      => isset ($_POST['google']) ? true : false,
-				'update'      => isset ($_POST['update']) ? true : false,
-				'htaccess'    => isset ($_POST['htaccess']) ? true : false,
-				'days'        => intval ($_POST['days']),
-				'kitten'      => isset ($_POST['kitten']) ? true : false,
-				'delete_file' => isset ($_POST['delete_file']) ? true : false,
-				'svn'         => $_POST['svn'],
-				'tracker'     => $_POST['tracker']
+				'google'          => isset ($_POST['google']) ? true : false,
+				'update'          => isset ($_POST['update']) ? true : false,
+				'htaccess'        => isset ($_POST['htaccess']) ? true : false,
+				'days'            => intval ($_POST['days']),
+				'kitten'          => isset ($_POST['kitten']) ? true : false,
+				'delete_file'     => isset ($_POST['delete_file']) ? true : false,
+				'svn'             => $_POST['svn'],
+				'tracker'         => $_POST['tracker'],
+				'default_version' => $_POST['default_version'],
+				'default_name'    => $_POST['default_name']
 			);
 			
 			update_option ('drainhole_options', $options);

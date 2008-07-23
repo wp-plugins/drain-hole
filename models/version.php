@@ -27,7 +27,7 @@ class DH_Version
 			$reason = '"'.wpdb::escape ($reason).'"';
 		else
 			$reason = 'NULL';
-			
+
 		$version = wpdb::escape ($version);
 		$wpdb->query ("INSERT INTO {$wpdb->prefix}drainhole_version (file_id,version,hits,created_at,reason) VALUES ('{$file->id}','$version','$hits',$created_at,$reason)");
 		return $wpdb->insert_id;
