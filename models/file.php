@@ -113,6 +113,8 @@ class DH_File
 				$name = $options['default_name'];
 				
 				$parts = pathinfo (basename ($file));
+				if (!isset ($parts['filename']))
+          $parts['filename'] = substr ($parts['basename'], 0, strpos ($parts['basename'], '.'));
 
 				$name = str_replace ('$FILENAME$', $parts['filename'], $name);
 				$name = str_replace ('$EXTENSION$', $parts['extension'], $name);
