@@ -103,7 +103,7 @@ class DH_File
 		{
 			$options = get_option ('drainhole_options');
 			$version = '0.1';
-			$name    = 'NULL';
+			$name    = $file;
 			
 			if (isset ($options['default_version']) && $options['default_version'] != '')
 				$version = $options['default_version'];
@@ -119,12 +119,12 @@ class DH_File
 				$name = str_replace ('$FILENAME$', $parts['filename'], $name);
 				$name = str_replace ('$EXTENSION$', $parts['extension'], $name);
 				
-				$name = "'".wpdb::escape ($name)."'";
+				$name = wpdb::escape ($name);
 			}
 
 			// Now create the file
 			$file = wpdb::escape (DH_Hole::sanitize_dir (ltrim ($file, '/')));
-			$wpdb->query ("INSERT INTO {$wpdb->prefix}drainhole_files (hole_id,file,updated_at,name) VALUES ($hole,'$file',NOW(),$name)");
+			$wpdb->query ("INSERT INTO {$wpdb->prefix}drainhole_files (hole_id,file,updated_at,name) VALUES ($hole,'$file',NOW(),'$name')");
 
 			// Create version information
 			$file = DH_File::get ($wpdb->insert_id);
