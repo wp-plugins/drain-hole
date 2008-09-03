@@ -9,7 +9,10 @@
  * @copyright Copyright (C) John Godley
  **/
 
-include ('../../../wp-config.php');
+if (file_exists ('../../../wp-load.php'))
+	include ('../../../wp-load.php');
+else
+	include ('../../../wp-config.php');
 
 class DH_AJAX extends DH_Plugin
 {
