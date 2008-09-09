@@ -529,6 +529,7 @@ class DH_File
 	
 	function mime_type ($hole)
 	{
+		$mime = '';
 		if ($this->mime != '')
 			return $this->mime;
 			
@@ -536,7 +537,7 @@ class DH_File
 		if (function_exists ('finfo_open'))
 		{
 			$finfo = finfo_open (FILEINFO_MIME);
-	    $mime = finfo_file ($finfo, $this->file ($hole));
+		    $mime = finfo_file ($finfo, $this->file ($hole));
 			finfo_close ($finfo);
 		}
 		else if (function_exists ('mime_content_type'))
@@ -544,12 +545,14 @@ class DH_File
 		else
 		{
 			include (dirname (__FILE__).'/mime_types.php');
-			
+
 			if (isset ($extension_to_mime[$info['extension']]))
 				$mime = $extension_to_mime[$info['extension']];
-			else
-				$mime = 'application/x-download';
 		}
+
+		if (!$mime)
+			$mime = 'application/octet-steam';
+		
 		return $mime;
 	}
 	
@@ -569,11 +572,10 @@ class DH_File
 			
 			// Detect MIME type
 			$mime = $this->mime_type ($hole);
-
 			// Send out the data
 			header ("Content-Type: $mime");
 			header ("Last-Modified: ".gmdate ("D, d M Y H:i:s", mysql2date ('U', $this->updated_at))." GMT");
-			header ("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+			header ("Cache-Control: must-revalidate, post-check=0, pre-check=0"); // HTTP/1.1
 			header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");   // Date in the past
 			header ("Content-Length: ".$this->filesize ($hole, $version));
 			

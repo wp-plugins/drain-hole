@@ -4,7 +4,7 @@ Plugin Name: Drain Hole
 Plugin URI: http://urbangiraffe.com/plugins/drain-hole/
 Description: A download management and monitoring plugin with statistics and file protection
 Author: John Godley
-Version: 2.1.5
+Version: 2.1.7
 Author URI: http://urbangiraffe.com/
 ============================================================================================================
 1.0    - Initial version
@@ -38,6 +38,8 @@ Author URI: http://urbangiraffe.com/
 2.1.3  - Add default version and file name
 2.1.4  - DH scanning
 2.1.5  - Better custom 2.6 support
+2.1.6  - Default MIME type
+2.1.7  - Allow spaces in version number
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -127,6 +129,7 @@ class DrainholePlugin extends DH_Plugin
 				$version = '';
 				if (preg_match ('/version=(.*)/', $_SERVER['REQUEST_URI'], $matches) > 0)
 				{
+					$matches[1] = urldecode ($matches[1]);
 					$version = DH_Version::get_by_file_and_version ($file->id, $matches[1]);
 					if ($version === false)
 					{
@@ -172,10 +175,18 @@ class DrainholePlugin extends DH_Plugin
 				
 			$holes = $newholes;
 		
+			$base = parse_url (get_option ('home'));
+			$base = ltrim ($base['path'], '/');
 			if (count ($files) > 0)
 			{
 				foreach ($files AS $file)
-					$myrequest[ltrim (preg_quote ($file->url_ref ($holes[$file->hole_id], true), '@'), '/')] = 'index.php?dhole='.$file->id;
+				{
+					$filename = ltrim (preg_quote ($file->url_ref ($holes[$file->hole_id], true), '@'), '/');
+					if (substr ($filename, 0, strlen ($base)) == $base)
+						$filename = substr ($filename, strlen ($base) + 1);
+					
+					$myrequest[$filename] = 'index.php?dhole='.$file->id;
+				}
 
 				$request = array_merge ($myrequest, $request);
 			}
