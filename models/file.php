@@ -551,7 +551,7 @@ class DH_File
 		}
 
 		if (!$mime)
-			$mime = 'application/octet-steam';
+			$mime = 'application/octet-stream';
 		
 		return $mime;
 	}
