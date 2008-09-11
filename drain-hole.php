@@ -40,7 +40,7 @@ Author URI: http://urbangiraffe.com/
 2.1.5  - Better custom 2.6 support
 2.1.6  - Default MIME type
 2.1.7  - Allow spaces in version number
-2.1.8  - Fix typo in mime type
+2.1.8  - Fix problem with truncated URLs on some sites
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -184,7 +184,7 @@ class DrainholePlugin extends DH_Plugin
 				{
 					$filename = ltrim (preg_quote ($file->url_ref ($holes[$file->hole_id], true), '@'), '/');
 					if (substr ($filename, 0, strlen ($base)) == $base)
-						$filename = substr ($filename, strlen ($base) + 1);
+						$filename = ltrim (substr ($filename, strlen ($base)), '/');
 					
 					$myrequest[$filename] = 'index.php?dhole='.$file->id;
 				}
