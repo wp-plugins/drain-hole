@@ -908,5 +908,16 @@ class DH_File
 			return '<a rel="nofollow" href="'.$this->svn.'">SVN</a>';
 		return '';
 	}
+	
+	/**
+	* Returns the modification time of a file from fs
+	*
+	* @param DH_Hole $hole Hole in which the file lives
+	* @return int Timestamp
+	**/
+	function fs_time ($hole, $version = '')
+	{
+		return @filemtime ($this->file ($hole, $version));
+	}
 }
 ?>
