@@ -12,7 +12,7 @@
 // Lesser General Public License for more details.
 // ======================================================================================
 // @author     John Godley (http://urbangiraffe.com)
-// @version    0.1.25
+// @version    0.1.27
 // @copyright  Copyright &copy; 2007 John Godley, All Rights Reserved
 // ======================================================================================
 // 0.1.6  - Corrected WP locale functions
@@ -35,6 +35,8 @@
 // 0.1.23 - Make widget count work better, fix widgets in K2
 // 0.1.24 - Make realpath better
 // 0.1.25 - Support for new WP2.6 config location
+// 0.1.26 - Add description to widget class
+// 0.1.27 - Realpath on windows again
 // ======================================================================================
 
 
@@ -412,7 +414,7 @@ class DH_Plugin
 	
 	function realpath ($path)
 	{
-		if (function_exists ('realpath'))
+		if (function_exists ('realpath') && DIRECTORY_SEPARATOR == '/')
 			return realpath ($path);
 		else if (DIRECTORY_SEPARATOR == '/')
 		{
@@ -484,11 +486,11 @@ if (!function_exists ('pr'))
 	}
 }
 
-if (!class_exists ('DH_Widget_Class'))
+if (!class_exists ('Widget_DH'))
 {
-	class DH_Widget_Class
+	class Widget_DH
 	{
-		function DH_Widget_Class ($name, $max = 1, $id = '', $args = '')
+		function Widget_DH ($name, $max = 1, $id = '', $args = '')
 		{
 			$this->name        = $name;
 			$this->id          = $id;
@@ -554,9 +556,16 @@ if (!class_exists ('DH_Widget_Class'))
 		function args ()
 		{
 			if ($this->args)
-				return $args;
-			return array ('classname' => '');
+				$args = $this->args;
+			else
+				$args = array ('classname' => '');
+
+			if ($this->description ())
+				$args['description'] = $this->description ();
+			return $args;
 		}
+
+		function description () { return ''; }
 		
 		function name ($pos)
 		{
