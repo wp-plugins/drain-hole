@@ -486,11 +486,11 @@ if (!function_exists ('pr'))
 	}
 }
 
-if (!class_exists ('DH_Widget_Class'))
+if (!class_exists ('Widget_DH'))
 {
-	class DH_Widget_Class
+	class Widget_DH
 	{
-		function DH_Widget_Class ($name, $max = 1, $id = '', $args = '')
+		function Widget_DH ($name, $max = 1, $id = '', $args = '')
 		{
 			$this->name        = $name;
 			$this->id          = $id;

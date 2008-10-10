@@ -4,7 +4,7 @@ Plugin Name: Drain Hole
 Plugin URI: http://urbangiraffe.com/plugins/drain-hole/
 Description: A download management and monitoring plugin with statistics and file protection
 Author: John Godley
-Version: 2.1.11
+Version: 2.1.12
 Author URI: http://urbangiraffe.com/
 ============================================================================================================
 1.0    - Initial version
@@ -43,6 +43,7 @@ Author URI: http://urbangiraffe.com/
 2.1.9  - Fix problem with truncated URLs on some sites
 2.1.10 - Add file modification time
 2.1.11 - Update plugin base class
+2.1.12 - Allow for sites with open_basedir restrictions
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -497,7 +498,7 @@ class DrainholePlugin extends DH_Plugin
 		if (isset ($_POST['create']))
 		{
 			$_POST = stripslashes_deep ($_POST);
-			if (DH_Hole::create ($_POST))
+			if (($result = DH_Hole::create ($_POST)) === true)
 			{
 				DH_Hole::flush ();
 				
@@ -505,18 +506,23 @@ class DrainholePlugin extends DH_Plugin
 				do_action ('drainhole_hole_created');
 			}
 			else
-				$this->render_message (__ ('The Drain Hole was not created - you must supply a unique URL (without <code>http://</code> prefix) and directory', 'drain-hole'));
+				$this->render_message (__ ('The Drain Hole was not created - ', 'drain-hole').$result);
 				
 			// Cache the list of holes so we don't need to access the database
 			$holes = DH_Hole::get_as_list ();
 		}
 
 		$parts = parse_url (get_bloginfo ('home'));
-		$base_url = $parts['path'].'/download';
+		$path = '';
+		if (isset ($parts['path']))
+			$path = $parts['path'];
+			
+		$base_url = $path.'/download';
+
 		$base_directory = $this->realpath (rtrim ($_SERVER['DOCUMENT_ROOT'], '/').'/download').'/';
-		
+
 		$pager = new DH_Pager ($_GET, $_SERVER['REQUEST_URI'], 'name', 'ASC');
-		$this->render_admin ('holes', array ('holes' => DH_Hole::get_all ($pager), 'pager' => $pager, 'options' => get_option ('drainhole_options'), 'base_url' => $base_url, 'base_directory' => $base_directory, 'home' => $parts['path']));
+		$this->render_admin ('holes', array ('holes' => DH_Hole::get_all ($pager), 'pager' => $pager, 'options' => get_option ('drainhole_options'), 'base_url' => $base_url, 'base_directory' => $base_directory, 'home' => $path));
 	}
 	
 	
@@ -737,6 +743,36 @@ class DrainholePlugin extends DH_Plugin
 			$value = '"'.$value.'"';
 		return $value;
 	}
+	
+		function realpath ($path)
+		{
+			if (DIRECTORY_SEPARATOR == '/')
+			{
+				$path = preg_replace ('/^~/', $_SERVER['DOCUMENT_ROOT'], $path);
+
+		    // canonicalize
+		    $path = explode (DIRECTORY_SEPARATOR, $path);
+		    $newpath = array ();
+		    for ($i = 0; $i < sizeof ($path); $i++)
+				{
+					if ($path[$i] === '' || $path[$i] === '.')
+						continue;
+
+					if ($path[$i] === '..')
+					{
+						array_pop ($newpath);
+						continue;
+					}
+
+					array_push ($newpath, $path[$i]);
+		    }
+
+		    $finalpath = DIRECTORY_SEPARATOR.implode (DIRECTORY_SEPARATOR, $newpath);
+	      return $finalpath;
+			}
+
+			return $path;
+		}
 }
 
 

@@ -190,37 +190,69 @@ class DH_Hole
 		$url       = wpdb::escape (DH_Hole::sanitize_url ($data['urlx']));
 		$directory = wpdb::escape (DH_Hole::sanitize_dir (DH_Plugin::realpath ($data['directoryx'])));
 		$redirect  = wpdb::escape ($data['redirect_urlx']);
-		if ($data['role'] == '-' || $data['role'] == '')
+		if (isset ($data['role']) && ($data['role'] == '-' || $data['role'] == ''))
 			$role = 'NULL';
 		else
 			$role = "'".$data['role']."'";
-			
+
+//		error_reporting (E_ALL);
+//		ini_set("display_errors", 1);
+
 		$hotlink = (isset ($data['hotlink']) ? true : false);
-		if (preg_match ('@https?://@', $directory, $matches) === 0)
+		if (strlen ($directory) > 0 && preg_match ('@https?://@', $directory, $matches) === 0)
 		{
 			if (strlen ($url) > 1 && $wpdb->get_var ("SELECT COUNT(*) FROM {$wpdb->prefix}drainhole_holes WHERE url LIKE '$url'") == 0)
 			{
-				// Try and create the directory and add a .htaccess file to protect it from nefarious users
-				if (!file_exists ($directory))
-				{
-					if (wp_mkdir_p ($directory))
+					// Try and create the directory and add a .htaccess file to protect it from nefarious users
+					if (!@file_exists ($directory))
 					{
-						$options = get_option ('drainhole_options');
-						if ($options === false || !isset ($options['htaccess']) || $options['htaccess'] == true)
+						$last = error_get_last ();
+						$result = DH_Hole::can_create_dir ($directory);
+						if ($result === true)
 						{
-							$fp = @fopen ($directory.'/.htaccess', 'w+');
-							fwrite ($fp, $this->capture_admin ('htaccess', array ('index' => DH_Plugin::realpath (ABSPATH).'/index.php')));
-							@fclose ($fp);
+							if (wp_mkdir_p ($directory))
+							{
+								$options = get_option ('drainhole_options');
+								if ($options === false || !isset ($options['htaccess']) || $options['htaccess'] == true)
+								{
+									$fp = @fopen ($directory.'/.htaccess', 'w+');
+									fwrite ($fp, $this->capture_admin ('htaccess', array ('index' => DH_Plugin::realpath (ABSPATH).'/index.php')));
+									@fclose ($fp);
+								}
+							}
+							else
+								return sprintf (__ ('could not create directory <code>%s</code><br/>You have insufficient permissions - create the directory with FTP or assign group/other write permissions to the parent directory and try again', 'drain-hole'), $directory);
 						}
+						else
+							return $result;
 					}
-				}
 			
-				return $wpdb->query ("INSERT INTO {$wpdb->prefix}drainhole_holes (url,directory,role,role_error_url,hotlink) VALUES ('$url','$directory',$role,'$url','$hotlink')");
+					$wpdb->query ("INSERT INTO {$wpdb->prefix}drainhole_holes (url,directory,role,role_error_url,hotlink) VALUES ('$url','$directory',$role,'$url','$hotlink')");
+					return true;
 			}
 		}
-		return false;
+		
+		return __ ('you must supply a unique URL (without <code>http://</code> prefix) and directory', 'drain-hole');
 	}
 	
+	function can_create_dir ($dir)
+	{
+		$paths = explode (PATH_SEPARATOR, ini_get ('open_basedir'));
+		$allowed = array ();
+
+		if (count ($paths) > 0)
+		{
+			foreach ($paths AS $path)
+			{
+				if (substr ($dir, $path, strlen ($path)) == $path)
+					return true;
+					
+				$allowed[] = '<li><code>'.$path.'</code></li>';
+			}
+		}
+
+		return sprintf (__ ('your host has restricted access to <code>%s</code> through the <code>open_basedir</code> setting.  You can ask your host to reconfigure the settings or you can try again in one of these allowed directories:', 'drain-hole'), $dir).'<ul>'.implode ('', $allowed).'</ul>';
+	}
 	
 	/**
 	 * Update a hole

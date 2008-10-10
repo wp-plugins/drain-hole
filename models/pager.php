@@ -12,13 +12,14 @@
 // Lesser General Public License for more details.
 // ======================================================================================
 // @author     John Godley (http://urbangiraffe.com)
-// @version    0.2.6
+// @version    0.2.7
 // @copyright  Copyright &copy; 2007 John Godley, All Rights Reserved
 // ======================================================================================
 // 0.2.3 - Remember pager details in user data
 // 0.2.4 - Add phpdoc comments
 // 0.2.5 - Allow orderby to use tags to hide database columns
 // 0.2.6 - Fix sortable columns with only 1 page
+// 0.2.7 - Fix warning
 // ======================================================================================
 
 
@@ -108,7 +109,9 @@ class DH_Pager
 		if (isset ($data['order']))
 			$this->order_direction = $data['order'];
 		
-		$this->search = $data['search'];
+		$this->search = '';
+		if (isset ($data['search']))
+			$this->search = $data['search'];
 		$this->steps = array (10, 25, 50, 100, 250);
 		$this->url = str_replace ('&', '&amp;', $this->url);
 		$this->url = str_replace ('&&amp;', '&amp;', $this->url);
@@ -350,7 +353,8 @@ class DH_Pager
 		
 		if (isset ($this->order_tags[$column]))
 			$column = $this->order_tags[$column];
-			
+		
+		$img = '';
 		if ($column == $this->order_by)
 		{
 			$dir = basename (dirname (dirname (__FILE__)));
@@ -358,9 +362,6 @@ class DH_Pager
 				$img = '<img align="bottom" src="'.get_bloginfo ('wpurl').'/wp-content/plugins/'.$dir.'/images/up.gif" alt="dir" width="16" height="7"/>';
 			else
 				$img = '<img align="bottom" src="'.get_bloginfo ('wpurl').'/wp-content/plugins/'.$dir.'/images/down.gif" alt="dir" width="16" height="7"/>';
-			
-			if ($image == false)
-				$img = '';
 		}
 		
 		return '<a href="'.$url.'">'.$text.'</a>'.$img;
