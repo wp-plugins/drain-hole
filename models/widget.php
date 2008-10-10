@@ -1,6 +1,6 @@
 <?php
 
-class DH_Widget extends DH_Widget_Class
+class DH_Widget extends Widget_DH
 {
 	var $title  = '';
 	var $count  = 5;
