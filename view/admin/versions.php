@@ -39,6 +39,10 @@
 	<?php else : ?>
 		<p><?php _e ('There are no versions to display!', 'drain-hole'); ?></p>
 	<?php endif; ?>
+	
+	<div id="dialog"></div>
+	
+	<?php $this->render_admin ('loading')?>
 </div>
 
 <div class="wrap">

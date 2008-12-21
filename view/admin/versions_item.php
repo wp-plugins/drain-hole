@@ -10,7 +10,10 @@
 		<?php _e ('No', 'drain-hole'); ?>
 	<?php endif; ?>
 </td>
-<td align="center"><a href="#" onclick="return edit_version(<?php echo $version->id ?>)">edit</a> <a href="#" onclick="return edit_version(<?php echo $version->id ?>)"><img src="<?php echo $this->url () ?>/images/edit.png" width="16" height="16" alt="Edit"/></a></td>
+<td align="center">
+	<a href="#" title="<?php _e ('Edit version'); ?>" onclick="return edit_version(<?php echo $version->id ?>,this)">edit</a>
+	<a href="#" title="<?php _e ('Edit version'); ?>" onclick="return edit_version(<?php echo $version->id ?>,this)"><img src="<?php echo $this->url () ?>/images/edit.png" width="16" height="16" alt="Edit"/></a>
+</td>
 <td align="center" width="16">
 	<?php if ($version->id != $file->version_id) : ?>
 	<a href="#delete" onclick="return delete_version(<?php echo $version->id ?>)"><img src="<?php echo $this->url () ?>/images/delete.png" width="16" height="16" alt="Delete"/></a>

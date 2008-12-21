@@ -1,70 +1,88 @@
+// Hole
+
 function delete_hole (item)
 {
 	if (confirm (wp_dh_deletehole))
 	{
-	  new Ajax.Request (wp_base + '?cmd=delete_hole&id=' + item,
+	  jQuery('#loading').show ();
+	  jQuery.post (wp_base + '?cmd=delete_hole&id=' + item, function ()
 	    {
-	      asynchronous: true,
-	      onLoading: function(request) { Element.show ('loading')},
-	      onComplete: function(request) { Element.hide ('loading'); Element.remove ('hole_' + item);}
+	      jQuery('#loading').hide ();
+	      jQuery('#hole_' + item).remove ();
 	    });
 	}
 	
 	return false;
 }
 
-function edit_hole (item)
+function edit_hole (object,item)
 {
-  Modalbox.show (wp_base + '?id=' + item + '&cmd=edit_hole&id=' + item,
-  {
-    title: 'Edit hole',
-    overlayOpacity: 0.4,
-    inactiveFade: false,
-    afterLoad:function ()
-    {
-    }
+  jQuery('#dialog').html (jQuery('#loadingit').html ());
+  jQuery('#dialog').dialog({ 
+      modal: true,
+      resizable: false,
+      width: 600,
+      title: object.title,
+      overlay: { opacity: 0.3, background: "black" },
   });
-
-  return false;
-}
-
-
-function save_hole (item,form)
-{
-//  Modalbox.deactivate ();
-  Modalbox.show (wp_base + '?id=' + item + '&cmd=save_hole', { title: 'Saving', overlayOpacity: 0.4, inactiveFade: false, method: 'post', params: Form.serialize (form), afterLoad:function()
+  
+  jQuery.get (wp_base + '?id=' + item + '&cmd=edit_hole', {}, function (data, status)
     {
-      Modalbox.hide ();
-      new Ajax.Updater ('hole_' + item, wp_base + '?cmd=show_hole&id=' + item, { asynchronous: true });
-    }});
-
+      jQuery('#dialog').html (data);
+    });
   return false;
 }
 
 
+// File
 
 function delete_file (item)
 {
-	if (confirm ('Are you sure you want to delete this file?'))
+  if (confirm (wp_dh_deletefile))
 	{
-	  new Ajax.Request (wp_base + '?cmd=delete_file&id=' + item,
+	  jQuery('#loading').show ();
+	  jQuery.post (wp_base + '?cmd=delete_file&id=' + item, function ()
 	    {
-	      asynchronous: true,
-	      onLoading: function(request) { Element.show ('loading')},
-	      onComplete: function(request) { Element.hide ('loading'); Element.remove ('file_' + item);}
+	      jQuery('#loading').hide ();
+	      jQuery('#file_' + item).remove ();
 	    });
 	}
+	
+	return false;
 }
 
 
+function edit_file (item,object)
+{
+  jQuery('#dialog').html (jQuery('#loadingit').html ());
+  jQuery('#dialog').dialog({ 
+      modal: true,
+      resizable: false,
+      width: 600,
+      height: 360,
+      title: object.title,
+      overlay: { opacity: 0.3, background: "black" },
+  });
+  
+  jQuery.get (wp_base + '?id=' + item + '&cmd=edit_file', {}, function (data, status)
+    {
+      jQuery('#dialog').html (data);
+    });
+  return false;
+}
+
+// 
+
 function delete_stat (item)
 {
-  new Ajax.Request (wp_base + '?cmd=delete_stat&id=' + item,
+  jQuery('#loading').show ();
+  jQuery.post (wp_base + '?cmd=delete_stat&id=' + item, function ()
     {
-      asynchronous: true,
-      onLoading: function(request) { Element.show ('loading')},
-      onComplete: function(request) { Element.hide ('loading'); Element.remove ('stat_' + item);}
+      jQuery('#loading').hide ();
+      jQuery('#stat_' + item).remove ();
     });
+
+	return false;
 }
 
 
@@ -75,98 +93,42 @@ function print_chart ()
 }
 
 
+// Versions
 
-
-function new_version (item)
+function new_version (item,object)
 {
-  Modalbox.show (wp_base + '?id=' + item + '&cmd=new_version', { title: 'New version branch', overlayOpacity: 0.4, inactiveFade: false, afterLoad:function ()
-    {
-      $('newversion').focus ();
-    }});
-  return false;
-}
-
-function save_new_version (item,form)
-{
-//  Modalbox.deactivate ();
-  Modalbox.show (wp_base + '?id=' + item + '&cmd=save_new_version', { title: 'Saving', overlayOpacity: 0.4, inactiveFade: false, method: 'post', params: Form.serialize (form), afterLoad:function()
-    {
-      Modalbox.hide ();
-      new Ajax.Updater ('file_' + item, wp_base + '?cmd=show_file&id=' + item, { asynchronous: true });
-    }});
-
-  return false;
-}
-
-
-function edit_file (item)
-{
-  Modalbox.show (wp_base + '?id=' + item + '&cmd=edit_file&id=' + item,
-  {
-    title: 'Edit file',
-    overlayOpacity: 0.4,
-    inactiveFade: false,
-    afterLoad:function ()
-    {
-    }
+  jQuery('#dialog').html (jQuery('#loadingit').html ());
+  jQuery('#dialog').dialog({ 
+      modal: true,
+      resizable: false,
+      width: 600,
+      height: 280,
+      title: object.title,
+      overlay: { opacity: 0.3, background: "black" },
   });
-
+  
+  jQuery.get (wp_base + '?id=' + item + '&cmd=new_version', {}, function (data, status)
+    {
+      jQuery('#dialog').html (data);
+    });
   return false;
 }
 
-function save_file (item,form)
+function edit_version (item,object)
 {
-//  Modalbox.deactivate ();
-  Modalbox.show (wp_base + '?id=' + item + '&cmd=save_file&id=' + item,
-  {
-    title: 'Saving',
-    overlayOpacity: 0.4,
-    inactiveFade: false,
-    method: 'post',
-    params: Form.serialize (form),
-    afterLoad:function()
-    {
-      Modalbox.hide ();
-      new Ajax.Updater ('file_' + item, wp_base + '?cmd=show_file&id=' + item, { asynchronous: true });
-    }
+  jQuery('#dialog').html (jQuery('#loadingit').html ());
+  jQuery('#dialog').dialog({ 
+      modal: true,
+      resizable: false,
+      width: 600,
+      title: object.title,
+      overlay: { opacity: 0.3, background: "black" },
   });
-
-  return false;
-}
-
-
-function edit_version (item)
-{
-  Modalbox.show (wp_base + '?id=' + item + '&cmd=edit_version&id=' + item,
-  {
-    title: 'Edit version',
-    overlayOpacity: 0.4,
-    inactiveFade: false,
-    afterLoad:function ()
+  
+  jQuery.get (wp_base + '?id=' + item + '&cmd=edit_version', {}, function (data, status)
     {
-    }
-  });
-
-  return false;
-}
-
-function save_version (item,form)
-{
-//  Modalbox.deactivate ();
-  Modalbox.show (wp_base + '?id=' + item + '&cmd=save_version&id=' + item,
-  {
-    title: 'Saving',
-    overlayOpacity: 0.4,
-    inactiveFade: false,
-    method: 'post',
-    params: Form.serialize (form),
-    afterLoad:function()
-    {
-      Modalbox.hide ();
-      new Ajax.Updater ('version_' + item, wp_base + '?cmd=show_version&id=' + item, { asynchronous: true });
-    }
-  });
-
+      jQuery('#dialog').html (data);
+    });
   return false;
 }
 
@@ -174,46 +136,58 @@ function delete_version (item)
 {
 	if (confirm (wp_dh_deleteversion))
 	{
-	  new Ajax.Request (wp_base + '?cmd=delete_version&id=' + item,
+	  jQuery('#loading').show ();
+	  jQuery.post (wp_base + '?cmd=delete_version&id=' + item, function ()
 	    {
-	      asynchronous: true,
-	      onComplete: function(request) { Element.remove ('version_' + item);}
+	      jQuery('#loading').hide ();
+	      jQuery('#version_' + item).remove ();
 	    });
 	}
 	
 	return false;
 }
 
+
+
 function update_dir_warning (text)
 {
-	if (text.startsWith (wp_dh_base_home) == true && $('error_dir').style.display == 'none')
-		Element.show ('error_dir');
-	else if (text.startsWith (wp_dh_base_home) == false && $('error_dir').style.display != 'none')
-		Element.hide ('error_dir');	
+	if (text.beginsWith (wp_dh_base_home) == true && jQuery('#error_dir').css ('display') == 'none')
+		jQuery('#error_dir').show ();
+	else if (text.beginsWith (wp_dh_base_home) == false && jQuery('#error_dir').css ('display') != 'none')
+		jQuery('#error_dir').hide ();
 }
 
 function dirKey (event)
 {
-	var element = '/' + event.element ().value.replace (/^\/*/, '').replace (/\/*$/, '') + '/';
+	var element = '/' + event.target.value.replace (/^\/*/, '').replace (/\/*$/, '') + '/';
 	
 	update_dir_warning (element);
 		
-	$('base_dir').innerHTML = element.stripTags ();
+	jQuery('#base_dir').html (element.replace(/<\/?[^>]+>/gi, ''));
 }
+
+String.prototype.beginsWith = function(t, i)
+{
+  if (i==false)
+    return (t == this.substring(0, t.length));
+  else
+    return (t.toLowerCase() == this.substring(0, t.length).toLowerCase());
+}
+
 
 function update_url_warning (text)
 {
-	if (text.startsWith (wp_dh_home_url) == false && $('error_url').style.display == 'none')
-		Element.show ('error_url');
-	else if (text.startsWith (wp_dh_home_url) == true && $('error_url').style.display != 'none')
-		Element.hide ('error_url');
+	if (text.beginsWith (wp_dh_home_url) == false && jQuery('#error_url').css ('display') == 'none')
+		jQuery('#error_url').show ();
+	else if (text.beginsWith (wp_dh_home_url) == true && jQuery('#error_url').css ('display') != 'none')
+		jQuery('#error_url').hide ();
 }
 
 function urlKey (event)
 {
-	var element = '/' + event.element ().value.replace (/^\/*/, '').replace (/\/*$/, '');
+	var element = '/' + event.target.value.replace (/^\/*/, '').replace (/\/*$/, '');
 
 	update_url_warning (element);
 		
-	$('base_url').innerHTML = escape (element);
+	jQuery('#base_url').html (escape (element));
 }

@@ -328,6 +328,11 @@ class DH_Plugin
 	}
 	
 	
+	function base ()
+	{
+		return $_SERVER['PHP_NAME'];
+	}
+	
 	/**
 	 * Get a URL to the plugin.  Useful for specifying JS and CSS files
 	 *

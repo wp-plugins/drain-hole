@@ -1,4 +1,5 @@
-<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><form action="" method="post" onsubmit="return save_new_version(<?php echo $file->id ?>,this)">
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
+<form method="post" action="<?php echo $this->url (); ?>/ajax.php?id=<?php echo $file->id ?>&amp;cmd=save_new_version" id="version_form_<?php echo $file->id ?>">
 	<table width="100%">
 		<tr>
 			<th align="right"><?php _e ('File', 'drain-hole'); ?>:</th>
@@ -44,9 +45,21 @@
 		<tr>
 			<td></td>
 			<td>
-				<input tabindex="4" type="submit" name="save" value="<?php _e ('Save', 'drain-hole'); ?>"/>
-				<input tabindex="5" type="submit" name="cancel" value="<?php _e ('Cancel', 'drain-hole'); ?>" onclick="Modalbox.hide (); return false;"/>
+				<input class="button-secondary" tabindex="4" type="submit" name="save" value="<?php _e ('Save', 'drain-hole'); ?>"/>
+				<input class="button-secondary" tabindex="5" type="submit" name="cancel" value="<?php _e ('Cancel', 'drain-hole'); ?>" onclick="jQuery('#dialog').dialog ('close'); return false"/>
 			</td>
 		</tr>
 	</table>
 </form>
+
+<script type="text/javascript" charset="utf-8">
+	 jQuery('#version_form_<?php echo $file->id ?>').ajaxForm ( { beforeSubmit: function ()
+			{
+				jQuery('#dialog').html (jQuery('#loadingit').html ());
+			},
+			success: function ()
+			{
+				jQuery('#dialog').dialog ('close');
+				jQuery('#file_<?php echo $file->id ?>').load ('<?php echo $this->url (); ?>/ajax.php?id=<?php echo $file->id ?>&cmd=show_file');
+			}});
+</script>

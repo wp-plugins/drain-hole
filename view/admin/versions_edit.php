@@ -1,4 +1,5 @@
-<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><form action="" method="post" onsubmit="return save_version(<?php echo $version->id ?>,this)">
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
+<form method="post" action="<?php echo $this->url (); ?>/ajax.php?id=<?php echo $version->id ?>&amp;cmd=save_version" id="version_form_<?php echo $version->id ?>">
 	<table width="100%">
 		<tr>
 			<th align="right" width="80"><?php _e ('Version', 'drain-hole'); ?>:</th>
@@ -22,7 +23,21 @@
 		</tr>
 		<tr>
 			<th></th>
-			<td><input type="submit" name="save" value="<?php _e ('Save', 'drain-hole'); ?>"/> <input type="submit" name="cancel" value="<?php _e ('Cancel', 'drain-hole'); ?>" onclick="Modalbox.hide (); return false"/></td>
+			<td>
+				<input type="submit" name="save" value="<?php _e ('Save', 'drain-hole'); ?>"/>
+				<input type="submit" name="cancel" value="<?php _e ('Cancel', 'drain-hole'); ?>" onclick="jQuery('#dialog').dialog ('close'); return false"/></td>
 		</tr>
 	</table>
 </form>
+
+<script type="text/javascript" charset="utf-8">
+	 jQuery('#version_form_<?php echo $version->id ?>').ajaxForm ( { beforeSubmit: function ()
+			{
+				jQuery('#dialog').html (jQuery('#loadingit').html ());
+			},
+			success: function ()
+			{
+				jQuery('#dialog').dialog ('close');
+				jQuery('#version_<?php echo $version->id ?>').load ('<?php echo $this->url (); ?>/ajax.php?id=<?php echo $version->id ?>&cmd=show_version');
+			}});
+</script>

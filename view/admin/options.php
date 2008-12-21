@@ -3,7 +3,7 @@
 	
 	<?php $this->submenu (true); ?>
 	
-	<form action="<?php echo $this->ur; ($_SERVER['REQUEST_URI']) ?>" method="post" accept-charset="utf-8">
+	<form style="clear: both" action="<?php echo $this->ur; ($_SERVER['REQUEST_URI']) ?>" method="post" accept-charset="utf-8">
 	<table width="100%">
 
 		<tr>

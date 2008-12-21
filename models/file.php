@@ -29,6 +29,7 @@ class DH_File
 	var $file;
 	var $version;
 	var $hits;
+	var $download_as;
 	
 	
 	/**
@@ -277,6 +278,12 @@ class DH_File
 			$this->svn = $data['svn'];
 			$svn = "'".wpdb::escape ($this->svn)."'";
 		}
+
+		if ($data['download_as'] && $data['download_as'] != $this->download_as ())
+		{
+			$this->download_as = $data['download_as'];
+			$download_as = "'".wpdb::escape ($this->download_as)."'";
+		}
 		
 		if ($data['mime'] != '-')
 		{
@@ -306,7 +313,7 @@ class DH_File
 		}
 			
 		$options = wpdb::escape (serialize ($this->options));
-		$wpdb->query ("UPDATE {$wpdb->prefix}drainhole_files SET file='$file', mime=$mime, svn=$svn, icon=$icon, options='{$options}', hits='{$this->hits}', updated_at=NOW(), name='$name', description='$desc' WHERE id='{$this->id}'");
+		$wpdb->query ("UPDATE {$wpdb->prefix}drainhole_files SET file='$file', mime=$mime, svn=$svn, icon=$icon, options='{$options}', hits='{$this->hits}', updated_at=NOW(), name='$name', description='$desc', download_as=$download_as WHERE id='{$this->id}'");
 	}
 	
 	
@@ -466,7 +473,7 @@ class DH_File
 			return $url[0];
 		}
 		
-		return $url;
+		return get_option ('home').$url;
 	}
 	
 	
@@ -565,13 +572,25 @@ class DH_File
 	
 	function download ($hole, $version = '')
 	{
-		if ($this->exists ($hole, $version))
+		// Is this a local or a remote file?
+		$download_as = $this->download_as (true);
+		if (strpos ($download_as, '://') !== false)
 		{
+			$id = $this->hit ($version);
+			header ('Location: '.$download_as);
+			exit;
+		}
+		else if ($this->exists ($hole, $version))
+		{
+			// Calculate download as name
+			$download_as = $this->download_as (true);
+			
 			// Record a hit
 			$id = $this->hit ($version);
 			
 			// Detect MIME type
 			$mime = $this->mime_type ($hole);
+
 			// Send out the data
 			header ("Content-Type: $mime");
 			header ("Last-Modified: ".gmdate ("D, d M Y H:i:s", mysql2date ('U', $this->updated_at))." GMT");
@@ -580,7 +599,7 @@ class DH_File
 			header ("Content-Length: ".$this->filesize ($hole, $version));
 			
 			if ($this->options['force_download'] == true)
-				header ('Content-Disposition: attachment; filename="'.basename ($this->file).'"');
+				header ('Content-Disposition: attachment; filename="'.basename ($download_as).'"');
 			header ("Content-Transfer-Encoding: binary");
 	
 			if (!ini_get ('safe_mode'))
@@ -907,6 +926,18 @@ class DH_File
 		if (substr ($this->svn, 0, 4) == 'http')
 			return '<a rel="nofollow" href="'.$this->svn.'">SVN</a>';
 		return '';
+	}
+	
+	function download_as ($fullparse = false)
+	{
+		$url = basename ($this->file);
+		if ($this->download_as)
+			$url = $this->download_as;
+			
+		if ($fullparse)
+			$url = str_replace ('$version$', $this->version, $url);
+		
+		return $url;
 	}
 	
 	/**

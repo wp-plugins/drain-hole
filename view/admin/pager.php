@@ -12,7 +12,7 @@
 		<input type="hidden" name="curpage" value="<?php echo $pager->current_page () ?>"/>
 
 		<?php _e ('Search', 'drain-hole'); ?>: 
-		<input type="text" name="search" value="<?php echo htmlspecialchars ($_GET['search']) ?>"/>
+		<input style="font-size: 0.8em" type="text" name="search" value="<?php echo htmlspecialchars ($_GET['search']) ?>"/>
 
 		<?php _e ('Per page', 'drain-hole') ?>: 
 		<select name="perpage">
@@ -21,6 +21,6 @@
 			<?php endforeach; ?>
 		</select>
 		
-		<input type="submit" name="go" value="<?php _e ('go', 'drain-hole') ?>"/>
+		<input class="button-secondary" type="submit" name="go" value="<?php _e ('go', 'drain-hole') ?>"/>
 	</form>
 </div>

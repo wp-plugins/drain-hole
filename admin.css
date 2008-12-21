@@ -113,7 +113,7 @@ color: black;
 
 .holes th
 {
-background-color: #aaa;  
+background-color: #ccc;  
 }
 
 .holes th, .holes th a
@@ -318,4 +318,60 @@ padding: 5px;
 color: red;
 /*text-decoration: underline;*/
 border-bottom: 2px solid red;
+}
+
+.ui-dialog
+{
+background-color: #ddd;
+font-size: 0.9em;
+border: 1px solid #777;
+box-shadow: 10px 10px 5px #444;
+padding-bottom: 1em;
+}
+
+.ui-dialog input
+{
+font-size: 0.9em;
+}
+
+.ui-dialog input[type="submit"] 
+{
+border: auto;
+}
+
+.ui-dialog-titlebar
+{
+height: 2em;
+background-color: #aaa;
+padding: 0.5em 0.5em 0 0.5em;
+margin-bottom: 0.5em;
+font-weight: bold;
+cursor: move;
+}
+
+.ui-dialog-titlebar-close
+{
+position: absolute;
+top: 0.5em;
+right: 0.5em;
+color: black !important;
+text-decoration: none;
+}
+
+.ui-dialog-buttonpane
+{
+padding: 2em;
+}
+.ui-dialog.ui-resizable-disabled .ui-resizable-handle { display: none !important; } 
+
+.error p
+{
+line-height: 1.6;
+padding: 0;
+}
+
+#innerloading
+{
+text-align: center;
+margin-top: 2em;
 }

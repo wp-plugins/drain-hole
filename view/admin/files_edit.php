@@ -1,24 +1,30 @@
-<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><form action="" method="post" onsubmit="return save_file(<?php echo $file->id ?>,this)">
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
+
+<form method="post" action="<?php echo $this->url (); ?>/ajax.php?id=<?php echo $file->id ?>&amp;cmd=save_file" id="file_form_<?php echo $file->id ?>">
 	<table width="100%">
 		<tr>
-			<th align="right" width="80"><?php _e ('Filename', 'drain-hole'); ?>:</th>
+			<th align="right" width="90"><?php _e ('Filename', 'drain-hole'); ?>:</th>
 			<td><input style="width: 95%" type="text" name="file" value="<?php echo htmlspecialchars ($file->file) ?>"/></td>
 		</tr>
 		<tr>
-			<th align="right" width="80"><?php _e ('Name', 'drain-hole'); ?>:</th>
+			<th align="right" width="90"><?php _e ('Name', 'drain-hole'); ?>:</th>
 			<td><input style="width: 95%" type="text" name="name" value="<?php echo htmlspecialchars ($file->name) ?>"/></td>
 		</tr>
 		<tr>
-			<th valign="top" align="right" width="80"><?php _e ('Description', 'drain-hole'); ?>:</th>
+			<th valign="top" align="right" width="90"><?php _e ('Description', 'drain-hole'); ?>:</th>
 			<td><textarea name="description" style="width: 95%"><?php echo htmlspecialchars ($file->description); ?></textarea></td>
 		</tr>
 		<tr>
-			<th align="right" width="80"><?php _e ('Hits', 'drain-hole'); ?>:</th>
+			<th align="right" width="90"><?php _e ('Hits', 'drain-hole'); ?>:</th>
 			<td><input style="width: 95%" type="text" name="hits" value="<?php echo $file->hits ?>"/></td>
 		</tr>
 		<tr>
-			<th align="right" width="80"><?php _e ('SVN', 'drain-hole')?>:</th>
+			<th align="right" width="90"><?php _e ('SVN', 'drain-hole')?>:</th>
 			<td><input style="width: 95%" type="text" name="svn" value="<?php echo $file->svn ?>"/></td>
+		</tr>
+		<tr>
+			<th align="right" width="90"><?php _e ('Download As', 'drain-hole')?>:</th>
+			<td><input style="width: 95%" type="text" name="download_as" value="<?php echo $file->download_as () ?>"/></td>
 		</tr>
 		<tr>
 			<th align="right" ><?php _e ('Icon', 'drain-hole'); ?>:</th>
@@ -53,7 +59,21 @@
 		</tr>
 		<tr>
 			<th></th>
-			<td><input type="submit" name="save" value="<?php _e ('Save', 'drain-hole'); ?>"/> <input type="submit" name="cancel" value="<?php _e ('Cancel', 'drain-hole'); ?>" onclick="Modalbox.hide (); return false"/></td>
+			<td>
+				<input class="button-secondary" type="submit" name="save" value="<?php _e ('Save', 'drain-hole'); ?>"/>
+				<input class="button-secondary" type="submit" name="cancel" value="<?php _e ('Cancel', 'drain-hole'); ?>" onclick="jQuery('#dialog').dialog ('close'); return false"/>
+			</td>
 		</tr>
 	</table>
 </form>
+<script type="text/javascript" charset="utf-8">
+	 jQuery('#file_form_<?php echo $file->id ?>').ajaxForm ( { beforeSubmit: function ()
+			{
+				jQuery('#dialog').html (jQuery('#loadingit').html ());
+			},
+			success: function ()
+			{
+				jQuery('#dialog').dialog ('close');
+				jQuery('#file_<?php echo $file->id ?>').load ('<?php echo $this->url (); ?>/ajax.php?id=<?php echo $file->id ?>&cmd=show_file');
+			}});
+</script>

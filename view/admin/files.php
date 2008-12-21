@@ -4,7 +4,7 @@
 	
 	<?php $this->submenu (true); ?>
 	
-	<p><?php _e ('Files are stored in', 'drain-hole'); ?> <code><?php echo $hole->directory; ?></code></p>
+	<p style="clear: both"><?php _e ('Files are stored in', 'drain-hole'); ?> <code><?php echo $hole->directory; ?></code></p>
 	
 	<?php $this->render_admin ('pager', array ('pager' => $pager)); ?>
 	
@@ -50,6 +50,8 @@
 	</div>
 	
 	<?php endif;?>
+	<div id="dialog"></div>
+	<?php $this->render_admin ('loading')?>
 </div>
 
 <div class="wrap">

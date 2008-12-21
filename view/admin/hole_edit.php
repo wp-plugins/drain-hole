@@ -1,4 +1,5 @@
-<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><form method="post" action="" onsubmit="return save_hole(<?php echo $hole->id ?>,this)">
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
+<form method="post" action="<?php echo $this->url (); ?>/ajax.php?id=<?php echo $hole->id ?>&amp;cmd=save_hole" id="hole_form_<?php echo $hole->id ?>">
 	<table width="100%">
 		<tr>
 		  <th valign="top" align="right" width="120"><?php _e ('URL', 'drain-hole') ?>:<br/><span class="sub"><?php _e ('Relative to site root', 'drain-hole') ?></span></th>
@@ -38,12 +39,21 @@
 		</tr>
 		<th></th>
 			<td>
-				<input type="submit" name="save" value="<?php _e ('Save', 'drain-hole'); ?>"/>
-				<input type="submit" name="cancel" value="<?php _e ('Cancel', 'drain-hole'); ?>" onclick="Modalbox.hide (); return false"/>
+				<input class="button-secondary" type="submit" name="save" value="<?php _e ('Save', 'drain-hole'); ?>"/>
+				<input class="button-secondary" type="submit" name="cancel" value="<?php _e ('Cancel', 'drain-hole'); ?>" onclick="jQuery('#dialog').dialog ('close'); return false"/>
 			</td>
 		</tr>
 	</table>
 </form>
 
-
-
+<script type="text/javascript" charset="utf-8">
+	 jQuery('#hole_form_<?php echo $hole->id ?>').ajaxForm ( { beforeSubmit: function ()
+			{
+				jQuery('#dialog').html (jQuery('#loadingit').html ());
+			},
+			success: function ()
+			{
+				jQuery('#dialog').dialog ('close');
+				jQuery('#hole_<?php echo $hole->id ?>').load ('<?php echo $this->url (); ?>/ajax.php?id=<?php echo $hole->id ?>&cmd=show_hole');
+			}});
+</script>

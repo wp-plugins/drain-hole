@@ -87,12 +87,12 @@
 
 		<br/>
 		<div class="error" style="display: none" id="error_dir">
-			<p><?php _e ('Your chosen <strong>directory</strong> is within a publicly accessible web directory.  Drain Hole <strong>will not be able to control access</strong> to files placed here unless a <code>.htaccess</code> file is placed in the directory.  Drain Hole will attempt to do this for you, but may not have permission to do so.  If this is the case then you will need to create this file yourself (<a href="#" onclick="$(\'htaccess\').toggle (); return false">click to view</a>)', 'drain-hole'); ?></p>
+			<p><?php _e ('<p>Your chosen <strong>directory</strong> is within a publicly accessible web directory.  Drain Hole <strong>will not be able to control access</strong> to files placed here unless a <code>.htaccess</code> file is placed in the directory.  Drain Hole will attempt to do this for you, but may not have permission to do so.  If this is the case then you will need to create this file yourself (<a href="#" onclick="jQuery(\'#htaccess\').toggle (); return false">click to view</a>)</p>', 'drain-hole'); ?></p>
 		</div>
 		
 		<br/>
 		<div class="error" style="display: none" id="error_url">
-			<p><?php _e ('Your chosen <strong>URL</strong> is outside of your WordPress site and as such Drain Hole <strong>may not be able to control access</strong> to files unless a <code>.htaccess</code> file is placed in the directory.  Drain Hole will attempt to do this for you, but may not have permission to do so.  If this is the case then you will need to create this file yourself (<a href="#" onclick="$(\'htaccess\').toggle (); return false">click to view</a>)','drain-hole'); ?></p>
+			<p><?php _e ('<p>Your chosen <strong>URL</strong> is outside of your WordPress site and as such Drain Hole <strong>may not be able to control access</strong> to files unless a <code>.htaccess</code> file is placed in the directory.  Drain Hole will attempt to do this for you, but may not have permission to do so.  If this is the case then you will need to create this file yourself (<a href="#" onclick="jQuery(\'#htaccess\').toggle (); return false">click to view</a>)</p>','drain-hole'); ?></p>
 		</div>
 		
 		<div class="updated" id="htaccess" style="display: none">
@@ -102,17 +102,24 @@
 			</pre>
 		</div>
 
+		<div id="dialog"></div>
+		
+		<?php $this->render_admin ('loading')?>
+		
 		<script type="text/javascript" charset="utf-8">
 			var wp_dh_base_url  = '<?php echo htmlspecialchars ($base_url) ?>';
 			var wp_dh_home_url  = '<?php echo htmlspecialchars ($home); ?>';
 			var wp_dh_base_dir  = '<?php echo htmlspecialchars ($base_directory); ?>';
 			var wp_dh_base_home = '<?php echo htmlspecialchars ($_SERVER['DOCUMENT_ROOT']) ?>';
 			
-			$('urlx').observe ('keyup', urlKey);
-			$('directoryx').observe ('keyup', dirKey);
-			
-			update_url_warning (wp_dh_base_url);
-			update_dir_warning (wp_dh_base_dir);
+			jQuery(document).ready(function()
+			{ 
+				jQuery('#urlx').keyup (urlKey);
+				jQuery('#directoryx').keyup (dirKey);
+
+				update_url_warning (wp_dh_base_url);
+				update_dir_warning (wp_dh_base_dir);
+		 	});
 		</script>
 	</form>
 </div>
