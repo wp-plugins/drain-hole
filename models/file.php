@@ -574,7 +574,7 @@ class DH_File
 	{
 		// Is this a local or a remote file?
 		$download_as = $this->download_as (true);
-		if (strpos ($download_as, '://') !== false)
+		if (strpos ($download_as, '://') !== false && $version == '')
 		{
 			$id = $this->hit ($version);
 			header ('Location: '.$download_as);
