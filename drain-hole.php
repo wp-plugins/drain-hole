@@ -242,12 +242,12 @@ class DrainholePlugin extends DH_Plugin
 	
 	function upgrade ()
 	{
-		if (get_option ('drainhole_version') != 4)
+		if (get_option ('drainhole_version') != 5)
 		{
 			include (dirname (__FILE__).'/models/upgrade.php');
 			
 			$upgrade = new DH_Upgrade ();
-			$upgrade->run (4);
+			$upgrade->run (5);
 		}
 	}
 

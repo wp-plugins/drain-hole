@@ -40,6 +40,10 @@ class DH_Upgrade
 			$this->create_tables_2 ();
 			$this->upgrade_from_2 ();
 		}
+		else if ($version == 4)
+		{
+			$this->upgrade_from_3 ();
+		}
 
 		DH_Hole::flush ();
 		update_option ('drainhole_version', $desired);
@@ -101,6 +105,7 @@ class DH_Upgrade
 		  `updated_at` datetime NOT NULL,
 		  `options` mediumtext,
 		  `svn` varchar(150) default NULL,
+	  	`download_as` varchar(150) default NULL,
 		  PRIMARY KEY  (`id`),
 		  KEY `file` (`file`)
 		)");
@@ -139,10 +144,17 @@ class DH_Upgrade
 		)");
 	}
 	
+	function upgrade_from_3 ()
+	{
+		global $wpdb;
+		$wpdb->query ("ALTER TABLE `{$wpdb->prefix}drainhole_files` ADD `download_as` varchar(150) DEFAULT NULL ");
+	}
+		
 	function upgrade_from_2 ()
 	{
 		global $wpdb;
 		$wpdb->query ("ALTER TABLE `{$wpdb->prefix}drainhole_holes` ADD `hotlink` tinyint NOT NULL DEFAULT '0' ");
+		$this->upgrade_from_3 ();
 	}
 	
 	function upgrade_from_1 ()
