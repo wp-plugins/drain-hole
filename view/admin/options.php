@@ -4,7 +4,8 @@
 	<?php $this->submenu (true); ?>
 	
 	<form style="clear: both" action="<?php echo $this->ur; ($_SERVER['REQUEST_URI']) ?>" method="post" accept-charset="utf-8">
-	<table width="100%">
+	<?php wp_nonce_field ('drainhole-save_options'); ?>
+	<table width="100%" class="form-table">
 
 		<tr>
 			<th width="220" align="right"><?php _e ('Statistic retention', 'drain-hole'); ?>:<br/>
@@ -16,25 +17,25 @@
 		<tr>
 			<th width="220" align="right"><?php _e ('SVN path', 'drain-hole'); ?>:</th>
 			<td>
-				<input size="50" type="text" name="svn" value="<?php echo $options['svn'] ?>"/>
+				<input class="regular-text" size="50" type="text" name="svn" value="<?php echo $options['svn'] ?>"/>
 			</td>
 		</tr>
 		<tr>
 			<th width="220" align="right"><?php _e ('Issue tracker URL', 'drain-hole'); ?>:</th>
 			<td>
-				<input size="50" type="text" name="tracker" value="<?php echo $options['tracker'] ?>"/>
+				<input class="regular-text" size="50" type="text" name="tracker" value="<?php echo $options['tracker'] ?>"/>
 			</td>
 		</tr>
 		<tr>
 			<th width="220" align="right"><?php _e ('Default version no.', 'drain-hole'); ?>:</th>
 			<td>
-				<input size="50" type="text" name="default_version" value="<?php echo $options['default_version'] ?>"/>
+				<input class="regular-text" size="50" type="text" name="default_version" value="<?php echo $options['default_version'] ?>"/>
 			</td>
 		</tr>
 		<tr>
 			<th width="220" align="right"><?php _e ('Default file name', 'drain-hole'); ?>:</th>
 			<td>
-				<input size="50" type="text" name="default_name" value="<?php echo $options['default_name'] ?>"/>
+				<input class="regular-text" size="50" type="text" name="default_name" value="<?php echo $options['default_name'] ?>"/>
 				<span class="sub"><code>$FILENAME$</code> and <code>$EXTENSION$</code> will be replaced by the file's real name and extension</span>
 			</td>
 		</tr>
@@ -66,7 +67,7 @@
 		</tr>
 		<tr>
 			<th width="220" align="right"></th>
-			<td><input class="button-secondary" type="submit" name="options" value="<?php _e ('Save options', 'drain-hole'); ?>"/></td>
+			<td><input class="button-primary" type="submit" name="options" value="<?php _e ('Save options', 'drain-hole'); ?>"/></td>
 		</tr>
 	</table>
 
@@ -79,8 +80,8 @@
 	<p><?php _e ('This operation removes all data associated with Drain Hole and disables the plugin.  It does not delete any files', 'drain-hole'); ?></p>
 	
 	<form action="<?php echo $this->url ($_SERVER['REQUEST_URI']) ?>" method="post" accept-charset="utf-8">
-		
+		<?php wp_nonce_field ('drainhole-delete_plugin'); ?>
 
-		<input class="button-secondary" type="submit" value="Delete" name="delete"/>
+		<input class="button-primary" type="submit" value="Delete" name="delete"/>
 	</form>
 </div>

@@ -1,5 +1,5 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
-<form method="post" action="<?php echo $this->url (); ?>/ajax.php?id=<?php echo $hole->id ?>&amp;cmd=save_hole" id="hole_form_<?php echo $hole->id ?>">
+<form method="post" action="<?php echo $this->url (); ?>/ajax.php?id=<?php echo $hole->id ?>&amp;cmd=save_hole&amp;_ajax_nonce=<?php echo wp_create_nonce ('drainhole-save_hole')?>" id="hole_form_<?php echo $hole->id ?>">
 	<table width="100%">
 		<tr>
 		  <th valign="top" align="right" width="120"><?php _e ('URL', 'drain-hole') ?>:<br/><span class="sub"><?php _e ('Relative to site root', 'drain-hole') ?></span></th>
@@ -39,7 +39,7 @@
 		</tr>
 		<th></th>
 			<td>
-				<input class="button-secondary" type="submit" name="save" value="<?php _e ('Save', 'drain-hole'); ?>"/>
+				<input class="button-primary" type="submit" name="save" value="<?php _e ('Save', 'drain-hole'); ?>"/>
 				<input class="button-secondary" type="submit" name="cancel" value="<?php _e ('Cancel', 'drain-hole'); ?>" onclick="jQuery('#dialog').dialog ('close'); return false"/>
 			</td>
 		</tr>

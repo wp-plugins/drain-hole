@@ -6,6 +6,5 @@
 	var wp_dh_deletehole    = '<?php _e ('Are you sure you want to delete this Drain Hole and all files?', 'drain-hole') ?>';
 	var wp_dh_deleteversion = '<?php _e ('Are you sure you want to delete this version?', 'drain-hole') ?>';
 	var wp_dh_deletefile    = '<?php _e ('Are you sure you want to delete this file?', 'drain-hole') ?>';
+	var wp_dh_areyousure    = '<?php _e ('Are you sure?', 'drain-hole') ?>';
 </script>
-<script type="text/javascript" charset="utf-8" src="<?php echo $this->url () ?>/js/drainhole.js?version=<?php echo $this->version () ?>"></script>
-<link rel="stylesheet" href="<?php echo $this->url () ?>/admin.css?version=<?php echo $this->version () ?>" type="text/css"/>

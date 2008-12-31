@@ -5,36 +5,47 @@
 	<?php $this->submenu (true); ?>
 	
 	<?php if (!isset ($options['kitten']) || $options['kitten'] == false) $this->render_admin ('kitten'); ?>
-	<?php $this->render_admin ('pager', array ('pager' => $pager)); ?>
+	
+	<form method="get" action="<?php echo $this->url ($pager->url) ?>">
+		<?php $this->render_admin ('pager', array ('pager' => $pager)); ?>
+	
+		<div id="pager" class="tablenav">
+			<div class="alignleft actions">
+				<select name="action2" id="action2_select">
+					<option value="-1" selected="selected"><?php _e('Bulk Actions'); ?></option>
+					<option value="delete"><?php _e('Delete'); ?></option>
+				</select>
+				
+				<input type="submit" value="<?php _e('Apply'); ?>" name="doaction2" id="doaction2" class="button-secondary action" />
+				
+				<?php $pager->per_page ('drain-hole'); ?>
+
+				<input type="submit" value="<?php _e('Filter'); ?>" class="button-secondary" />
+
+				<br class="clear" />
+			</div>
+		
+			<div class="tablenav-pages">
+				<?php echo $pager->page_links (); ?>
+			</div>
+		</div>
+	</form>
 	
 	<?php if (count ($holes) > 0) : ?>
-	<table class="holes">
+	<table class="widefat post fixed">
 		<thead>
 			<tr>
-				<th><?php echo $pager->sortable ('id', 'ID') ?></th>
+				<th width="16" class="check-column">
+					<input type="checkbox" name="select_all" value="" onclick="select_all (); return true"/>
+				</th>
+				<th class="center"><?php echo $pager->sortable ('id', 'ID') ?></th>
 				<th align="left"><?php echo $pager->sortable ('name', 'Name') ?></th>
-				<th><?php echo $pager->sortable ('hits', 'Hits') ?></th>
-				<th><?php _e ('Edit', 'drain-hole'); ?></th>
-				<th><?php _e ('Files', 'drain-hole'); ?></th>
-				<th><?php _e ('Charts', 'drain-hole'); ?></th>
-				<th><?php _e ('Delete', 'drain-hole'); ?></th>
+				<th class="center"><?php echo $pager->sortable ('hits', 'Hits') ?></th>
+				<th class="center"><img src="<?php echo $this->url (); ?>/images/edit.png" width="16" height="16" alt="Edit"/></th>
+				<th class="center"><img src="<?php echo $this->url (); ?>/images/files.png" width="16" height="16" alt="Edit"/></th>
+				<th class="center"><img src="<?php echo $this->url (); ?>/images/chart.png" width="16" height="16" alt="Edit"/></th>
 			</tr>
 		</thead>
-		
-		<?php if ($pager->total_pages () > 1) : ?>
-		<tfoot>
-			<tr>
-				<td colspan="7">
-			<div class="pagertools">
-			<?php foreach ($pager->area_pages () AS $page) : ?>
-				<?php echo $page ?>
-			<?php endforeach; ?>
-			</div>
-				</td>
-			</tr>
-			
-		</tfoot>
-		<?php endif; ?>
 		
 		<tbody>
 			<?php foreach ($holes AS $pos => $hole) : ?>
@@ -57,20 +68,21 @@
 	<p><?php _e ('A drain hole maps a URL path to a directory on your server.  Files placed within the directory are available under your chosen URL path.', 'drain-hole'); ?></p>
 
 	<form method="post" action="<?php echo $this->url ($_SERVER['REQUEST_URI']) ?>">
-		<table width="100%">
+		<?php wp_nonce_field ('drainhole-new_hole'); ?>
+		<table width="100%" class="form-table">
 			<tr>
 			  <th valign="top" align="right" width="120"><?php _e ('URL', 'drain-hole') ?>:</th>
-			  <td><input style="width: 95%" type="text" name="urlx" id="urlx" value="<?php echo htmlspecialchars ($base_url); ?>"/></td>
+			  <td><input class="regular-text" style="width: 95%" type="text" name="urlx" id="urlx" value="<?php echo htmlspecialchars ($base_url); ?>"/></td>
 			</tr>
 			<tr>
 			  <th valign="top" align="right" ><?php _e ('Directory', 'drain-hole') ?>:<br/><span class="sub"><?php _e ('Relative to root', 'drain-hole') ?></span></th>
-			  <td><input style="width: 95%" type="text" id="directoryx" name="directoryx" value="<?php echo htmlspecialchars ($base_directory); ?>"/>
+			  <td><input class="regular-text" style="width: 95%" type="text" id="directoryx" name="directoryx" value="<?php echo htmlspecialchars ($base_directory); ?>"/>
 
 				</td>
 			</tr>
 			<tr>
 				<th></th>
-				<td><input class="button-secondary" type="submit" name="create" value="<?php _e ('Create Drain Hole', 'drain-hole'); ?>" id="create"/></td>
+				<td><input class="button-primary" type="submit" name="create" value="<?php _e ('Create Drain Hole', 'drain-hole'); ?>" id="create"/></td>
 			</tr>
 		</table>
 		
@@ -119,6 +131,13 @@
 
 				update_url_warning (wp_dh_base_url);
 				update_dir_warning (wp_dh_base_dir);
+				
+				jQuery('#doaction2').click (function ()
+				{
+					if (jQuery('#action2_select').attr ('value') == 'delete')
+						delete_items ('hole','<?php echo wp_create_nonce ('drainhole-delete_items'); ?>');
+					return false;
+				});
 		 	});
 		</script>
 	</form>

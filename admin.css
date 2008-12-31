@@ -375,3 +375,13 @@ padding: 0;
 text-align: center;
 margin-top: 2em;
 }
+
+.widefat .center
+{
+text-align: center;
+}
+
+.error
+{
+margin-bottom: 1em !important;
+}

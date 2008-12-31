@@ -391,7 +391,14 @@ class DH_Access
 	function delete ($id)
 	{
 		global $wpdb;
-		$wpdb->query ("DELETE FROM {$wpdb->prefix}drainhole_access WHERE id='$id'");
+		
+		if (is_array ($id))
+		{
+			$id = implode (',', array_filter ($id, 'intval'));
+			$wpdb->query ("DELETE FROM {$wpdb->prefix}drainhole_access WHERE id IN ('$id')");
+		}
+		else
+			$wpdb->query ("DELETE FROM {$wpdb->prefix}drainhole_access WHERE id='$id'");
 	}
 	
 	

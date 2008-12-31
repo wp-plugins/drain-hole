@@ -11,12 +11,38 @@
 	
 	<?php $this->submenu (true); ?>
 	
-	<?php $this->render_admin ('pager', array ('pager' => $pager)); ?>
+	<form method="get" action="<?php echo $this->url ($pager->url) ?>">
+		<?php $this->render_admin ('pager', array ('pager' => $pager)); ?>
+	
+		<div id="pager" class="tablenav">
+			<div class="alignleft actions">
+				<select name="action2" id="action2_select">
+					<option value="-1" selected="selected"><?php _e('Bulk Actions'); ?></option>
+					<option value="delete"><?php _e('Delete'); ?></option>
+				</select>
+				
+				<input type="submit" value="<?php _e('Apply'); ?>" name="doaction2" id="doaction2" class="button-secondary action" />
+				
+				<?php $pager->per_page ('drain-hole'); ?>
+
+				<input type="submit" value="<?php _e('Filter'); ?>" class="button-secondary" />
+
+				<br class="clear" />
+			</div>
+		
+			<div class="tablenav-pages">
+				<?php echo $pager->page_links (); ?>
+			</div>
+		</div>
+	</form>
 	
 	<?php if (count ($stats) > 0) : ?>
-	<table class="files">
+	<table class="widefat post fixed">
 		<thead>
 			<tr>
+				<th width="16" class="check-column">
+					<input type="checkbox" name="select_all" value="" onclick="select_all (); return true"/>
+				</th>
 				<th><?php echo $pager->sortable ('created_at', __ ('Downloaded At', 'drain-hole')) ?></th>
 				<?php if (!isset ($file)) : ?>
 				<th><?php echo $pager->sortable ('file', __ ('File', 'drain-hole')) ?></th>
@@ -24,28 +50,15 @@
 				<th><?php echo $pager->sortable ('ip', __ ('IP', 'drain-hole')) ?></th>
 				<th><?php echo $pager->sortable ('users', __ ('User', 'drain-hole')) ?></th>
 				<th><?php echo $pager->sortable ('referrer', __ ('Referrer', 'drain-hole')); ?></th>
-				<th width="16"></th>
 			</tr>
 		</thead>
-		
-		<?php if ($pager->total_pages () > 1) : ?>
-		<tfoot>
-			<tr>
-				<td colspan="6">
-			<div class="pagertools">
-			<?php foreach ($pager->area_pages () AS $page) : ?>
-				<?php echo $page ?>
-			<?php endforeach; ?>
-			</div>
-				</td>
-			</tr>
-			
-		</tfoot>
-		<?php endif; ?>
 		
 		<tbody>
 		<?php foreach ($stats AS $pos => $stat) : ?>
 		<tr id="stat_<?php echo $stat->id ?>"<?php if ($pos % 2 == 1) echo ' class="alt"' ?>>
+			<td width="16" class="item center">
+				<input type="checkbox" class="check" name="checkall[]" value="<?php echo $stat->id ?>"/>
+			</td>
 			<td><?php echo date ('H:i', $stat->created_at - (get_option ('gmt_offset') * 60 * 60))?> - <?php echo date (str_replace ('F', 'M', get_option ('date_format')), $stat->created_at); ?></td>
 			<?php if (!isset ($file)) : ?>
 			<td><?php echo htmlspecialchars ($stat->file); ?></td>
@@ -53,7 +66,6 @@
 			<td><a href="http://ws.arin.net/whois/?queryinput=<?php echo $stat->ip ?>"><?php echo $stat->ip; ?></a></td>
 			<td><?php echo $stat->user (); ?></td>
 			<td><?php echo $stat->referrer_as_link () ?></td>
-			<td><a href="#" onclick="return delete_stat(<?php echo $stat->id ?>)"><img src="<?php echo $this->url () ?>/images/delete.png" width="16" height="16" alt="Delete"/></a></td>
 		</tr>
 		<?php endforeach; ?>
 		</tbody>
@@ -71,6 +83,19 @@
 	<h2><?php _e ('Clear all downloads', 'drain-hole'); ?></h2>
 	<br/>
 	<form action="<?php echo $this->url ($_SERVER['REQUEST_URI']) ?>" method="post" accept-charset="utf-8">
-		<input class="button-secondary" type="submit" name="clear_downloads" value="<?php _e ('Clear Downloads', 'drain-hole'); ?>"/>
+		<?php wp_nonce_field ('drainhole-clear_downloads'); ?>
+		<input class="button-primary" type="submit" name="clear_downloads" value="<?php _e ('Clear Downloads', 'drain-hole'); ?>"/>
 	</form>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+	jQuery(document).ready(function()
+	{ 
+		jQuery('#doaction2').click (function ()
+		{
+			if (jQuery('#action2_select').attr ('value') == 'delete')
+				delete_items ('download','<?php echo wp_create_nonce ('drainhole-delete_items'); ?>');
+			return false;
+		});
+	});
+</script>

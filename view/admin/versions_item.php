@@ -1,4 +1,10 @@
-<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><td align="center"><?php echo $version->id?></td>
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
+<td width="16" class="item center">
+	<?php if ($version->id != $file->version_id) : ?>
+		<input type="checkbox" class="check" name="checkall[]" value="<?php echo $version->id ?>"/>
+	<?php endif; ?>
+</td>
+<td align="center"><?php echo $version->id?></td>
 <td align="center"><?php echo $version->version?></td>
 <td align="center"><?php echo $version->hits?></td>
 <td align="center"><?php echo date (get_option ('date_format'), $version->created_at); ?></td>
@@ -11,11 +17,5 @@
 	<?php endif; ?>
 </td>
 <td align="center">
-	<a href="#" title="<?php _e ('Edit version'); ?>" onclick="return edit_version(<?php echo $version->id ?>,this)">edit</a>
-	<a href="#" title="<?php _e ('Edit version'); ?>" onclick="return edit_version(<?php echo $version->id ?>,this)"><img src="<?php echo $this->url () ?>/images/edit.png" width="16" height="16" alt="Edit"/></a>
-</td>
-<td align="center" width="16">
-	<?php if ($version->id != $file->version_id) : ?>
-	<a href="#delete" onclick="return delete_version(<?php echo $version->id ?>)"><img src="<?php echo $this->url () ?>/images/delete.png" width="16" height="16" alt="Delete"/></a>
-	<?php endif; ?>
+	<a href="#" title="<?php _e ('Edit version'); ?>" onclick="return edit_version(<?php echo $version->id ?>,this)"><?php _e ('Edit', 'drain-hole'); ?></a>
 </td>

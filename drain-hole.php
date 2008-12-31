@@ -4,7 +4,7 @@ Plugin Name: Drain Hole
 Plugin URI: http://urbangiraffe.com/plugins/drain-hole/
 Description: A download management and monitoring plugin with statistics and file protection
 Author: John Godley
-Version: 2.2
+Version: 2.2.1
 Author URI: http://urbangiraffe.com/
 ============================================================================================================
 1.0    - Initial version
@@ -45,6 +45,7 @@ Author URI: http://urbangiraffe.com/
 2.1.11 - Update plugin base class
 2.1.12 - Allow for sites with open_basedir restrictions
 2.2    - Using jQuery.  Fix #336.  Add feature #318
+2.2.1  - 2.7 styling, nonces
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -94,6 +95,9 @@ class DrainholePlugin extends DH_Plugin
 		if (is_admin ())
 		{
 			$this->add_filter ('admin_menu');
+			$this->add_action ('wp_print_scripts');
+			$this->add_action ('wp_print_styles');
+			$this->add_filter ('contextual_help', 'contextual_help', 10, 2);
 
 			if (strstr ($_SERVER['REQUEST_URI'], 'drain-hole.php'))
 				$this->add_action ('admin_head');
@@ -102,10 +106,6 @@ class DrainholePlugin extends DH_Plugin
 
 			$this->auditor = new DH_Auditor;
 			$this->register_activation (__FILE__);
-
-			wp_enqueue_script ('jquery');
-			wp_enqueue_script ('jquery-ui-dialog');
-			wp_enqueue_script ('jquery-form');
 		}
 		else
 		{
@@ -121,9 +121,29 @@ class DrainholePlugin extends DH_Plugin
 		$this->widget = new DH_Widget (__ ('Drainhole Statistics', 'drain-hole'), 5);
 	}
 	
+	function contextual_help ($help, $screen)
+	{
+		if ($screen == 'tools_page_drain-hole')
+		{
+			$help .= '<h5>' . __('Drain Hole Help') . '</h5><div class="metabox-prefs">';
+			$help .= '<a href="http://urbangiraffe.com/plugins/redirection/">'.__ ('Drain Hole Documentation', 'drain-hole').'</a><br/>';
+			$help .= '<a href="http://urbangiraffe.com/support/forum/drain-hole">'.__ ('Drain Hole Support Forum', 'drain-hole').'</a><br/>';
+			$help .= '<a href="http://urbangiraffe.com/tracker/projects/drain-hole/issues?set_filter=1&tracker_id=1">'.__ ('Drain Hole Bug Tracker', 'drain-hole').'</a><br/>';
+			$help .= '<a href="http://urbangiraffe.com/plugins/drain-hole/faq/">'.__ ('Drain Hole FAQ', 'drain-hole').'</a><br/>';
+			$help .= __ ('Please read the documentation and FAQ, and check the bug tracker, before asking a question.', 'drain-hole');
+			$help .= '</div>';
+		}
+		
+		return $help;
+	}
+	
 	function version ()
 	{
-		return 2;
+		$plugin_data = implode ('', file (__FILE__));
+		
+		if (preg_match ('|Version:(.*)|i', $plugin_data, $version))
+			return trim ($version[1]);
+		return '';
 	}
 	
 	function parse_request ($request)
@@ -251,7 +271,20 @@ class DrainholePlugin extends DH_Plugin
 	
 	function admin_head ()
 	{
-		$this->render_admin ('head');
+		if (strpos ($_SERVER['REQUEST_URI'], 'drain-hole.php'))
+			$this->render_admin ('head');
+	}
+
+	function wp_print_scripts ()
+	{
+		if (strpos ($_SERVER['REQUEST_URI'], 'drain-hole.php'))
+			wp_enqueue_script ('drainhole', $this->url ().'/js/drainhole.js', array ('jquery-form', 'jquery-ui-dialog', 'jquery-form'), $this->version ());
+	}
+	
+	function wp_print_styles ()
+	{
+		if (strpos ($_SERVER['REQUEST_URI'], 'drain-hole.php'))
+			wp_enqueue_style ('drainhole', $this->url ().'/admin.css', array (), $this->version ());
 	}
 	
 	function admin_head_post ()
@@ -344,7 +377,7 @@ class DrainholePlugin extends DH_Plugin
 	
 	function screen_downloads ()
 	{
-		if (isset ($_POST['clear_downloads']))
+		if (isset ($_POST['clear_downloads']) && check_admin_referer ('drainhole-clear_downloads'))
 			DH_Access::delete_all ();
 		
 		global $wpdb;
@@ -362,7 +395,7 @@ class DrainholePlugin extends DH_Plugin
 	
 	function screen_stats ($id)
 	{
-		if (isset ($_POST['clear_downloads']))
+		if (isset ($_POST['clear_stats']) && check_admin_referer ('drainhole-clear_stats'))
 			DH_Access::delete_by_file ($id);
 
 		global $wpdb;
@@ -377,7 +410,7 @@ class DrainholePlugin extends DH_Plugin
 	
 	function screen_versions ($id)
 	{
-		if (isset ($_POST['save']))
+		if (isset ($_POST['save']) && check_admin_referer ('drainhole-version_add'))
 		{
 			$_POST = stripslashes_deep ($_POST);
 			$file = DH_File::get ($id);
@@ -404,7 +437,7 @@ class DrainholePlugin extends DH_Plugin
 
 	function screen_files ($id)
 	{
-		if (isset ($_POST['rescan']))
+		if (isset ($_POST['rescan']) && check_admin_referer ('drainhole-add_file'))
 		{
 			$hole = DH_Hole::get ($id);
 			do_action ('drainhole_scan', $hole);
@@ -418,7 +451,7 @@ class DrainholePlugin extends DH_Plugin
 			else if ($scanned == 1)
 				$this->render_message (sprintf (__ngettext ('%d new file was found', '%d new files were found', $scanned, 'drain-hole'), $scanned));
 		}
-		else if (isset ($_POST['upload']))
+		else if (isset ($_POST['upload']) && check_admin_referer ('drainhole-add_file'))
 		{
 			$hole = DH_Hole::get ($id);
 			if (DH_File::upload ($hole, $_POST['filename'], $_FILES['file']))
@@ -500,7 +533,7 @@ class DrainholePlugin extends DH_Plugin
 
 	function screen_holes ()
 	{
-		if (isset ($_POST['create']))
+		if (isset ($_POST['create']) && check_admin_referer ('drainhole-new_hole'))
 		{
 			$_POST = stripslashes_deep ($_POST);
 			if (($result = DH_Hole::create ($_POST)) === true)
@@ -539,7 +572,7 @@ class DrainholePlugin extends DH_Plugin
 	
 	function screen_options ()
 	{
-		if (isset ($_POST['options']))
+		if (isset ($_POST['options']) && check_admin_referer ('drainhole-save_options'))
 		{
 			$options = array
 			(
@@ -558,7 +591,7 @@ class DrainholePlugin extends DH_Plugin
 			update_option ('drainhole_options', $options);
 			$this->render_message (__ ('Your options have been updated', 'drain-hole'));
 		}
-		else if (isset ($_POST['delete']))
+		else if (isset ($_POST['delete']) && check_admin_referer ('drainhole-delete_plugin'))
 		{
 			include (dirname (__FILE__).'/models/upgrade.php');
 			

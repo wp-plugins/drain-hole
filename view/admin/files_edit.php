@@ -1,6 +1,6 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
 
-<form method="post" action="<?php echo $this->url (); ?>/ajax.php?id=<?php echo $file->id ?>&amp;cmd=save_file" id="file_form_<?php echo $file->id ?>">
+<form method="post" action="<?php echo $this->url (); ?>/ajax.php?id=<?php echo $file->id ?>&amp;cmd=save_file&amp;_ajax_nonce=<?php echo wp_create_nonce ('drainhole-save_file')?>" id="file_form_<?php echo $file->id ?>">
 	<table width="100%">
 		<tr>
 			<th align="right" width="90"><?php _e ('Filename', 'drain-hole'); ?>:</th>
@@ -60,7 +60,7 @@
 		<tr>
 			<th></th>
 			<td>
-				<input class="button-secondary" type="submit" name="save" value="<?php _e ('Save', 'drain-hole'); ?>"/>
+				<input class="button-primary" type="submit" name="save" value="<?php _e ('Save', 'drain-hole'); ?>"/>
 				<input class="button-secondary" type="submit" name="cancel" value="<?php _e ('Cancel', 'drain-hole'); ?>" onclick="jQuery('#dialog').dialog ('close'); return false"/>
 			</td>
 		</tr>

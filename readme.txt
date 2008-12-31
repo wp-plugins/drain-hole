@@ -2,7 +2,7 @@
 Contributors: johnny5
 Donate link: http://urbangiraffe.com/about/support/
 Tags: post, page, download, manager, svn, version
-Requires at least: 2.5
+Requires at least: 2.7
 Tested up to: 2.7
 Stable tag: trunk
 

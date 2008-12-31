@@ -1,3 +1,43 @@
+function select_all ()
+{
+  jQuery('.item :checkbox').each (function ()
+  {
+    this.checked = (this.checked ? '' : 'checked');
+  });
+
+  return false;
+}
+
+function delete_items (type,nonce)
+{
+  var checked = jQuery('.item :checked');
+  if (checked.length > 0)
+  {
+    if (confirm (wp_dh_areyousure))
+    {
+      var urltype = 'delete_stats';
+      if (type == 'file')
+        urltype = 'delete_files';
+      else if (type == 'version')
+        urltype = 'delete_versions';
+      else if (type == 'hole')
+        urltype = 'delete_holes';
+        
+      jQuery.post (wp_base + '?id=0&cmd=' + urltype + '&_ajax_nonce=' + nonce, checked.serialize (), function ()
+        {
+          checked.each (function ()
+          {
+            jQuery(this).parent ().parent ().remove ();
+          });
+        });
+    }
+  }
+  else
+    alert (wp_none_select);
+
+  return false;
+}
+
 // Hole
 
 function delete_hole (item)
@@ -121,6 +161,7 @@ function edit_version (item,object)
       modal: true,
       resizable: false,
       width: 600,
+      height: 220,
       title: object.title,
       overlay: { opacity: 0.3, background: "black" },
   });

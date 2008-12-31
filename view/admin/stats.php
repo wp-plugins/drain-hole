@@ -60,6 +60,7 @@
 	<h2><?php _e ('Clear Statistics For This File', 'drain-hole'); ?></h2>
 	
 	<form action="<?php echo $_SERVER['REQUEST_URI'] ?>" method="post" accept-charset="utf-8">
+		<?php wp_nonce_field ('drainhole-clear_stats'); ?>
 		<input type="submit" name="clear_stats" value="<?php _e ('Clear Statisitics', 'drain-hole'); ?>"/>
 	</form>
 </div>

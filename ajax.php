@@ -30,10 +30,15 @@ class DH_AJAX extends DH_Plugin
 			die (__('<p style="color: red">That function is not defined</p>', 'drain-hole'));
 	}
 
-	function delete_hole ($id)
+	function delete_holes ($id)
 	{
-		DH_Hole::delete ($id);
-		DH_Hole::flush ();
+		if (check_ajax_referer ('drainhole-delete_items'))
+		{
+			foreach ($_POST['checkall'] AS $fileid)
+				DH_Hole::delete ($fileid);
+				
+			DH_Hole::flush ();
+		}
 	}
 	
 	function edit_hole ($id)
@@ -50,10 +55,13 @@ class DH_AJAX extends DH_Plugin
 	
 	function save_hole ($id)
 	{
-		$hole = DH_Hole::get ($id);
-		$hole->update ($_POST);
+		if (check_ajax_referer ('drainhole-save_hole'))
+		{
+			$hole = DH_Hole::get ($id);
+			$hole->update ($_POST);
 
-		DH_Hole::flush ();
+			DH_Hole::flush ();
+		}
 	}
 	
 	
@@ -75,23 +83,32 @@ class DH_AJAX extends DH_Plugin
 	
 	function save_file ($id)
 	{
-		$file = DH_File::get ($id);
-		$hole = DH_Hole::get ($file->hole_id);
+		if (check_ajax_referer ('drainhole-save_file'))
+		{
+			$file = DH_File::get ($id);
+			$hole = DH_Hole::get ($file->hole_id);
 
-		$file->update ($_POST);
+			$file->update ($_POST);
 		
-		DH_Hole::flush ();
+			DH_Hole::flush ();
+		}
 	}
 	
-	function delete_file ($id)
+	function delete_files ($id)
 	{
-		DH_File::delete ($id);
-		DH_Hole::flush ();
+		if (check_ajax_referer ('drainhole-delete_items'))
+		{
+			foreach ($_POST['checkall'] AS $fileid)
+				DH_File::delete ($fileid);
+				
+			DH_Hole::flush ();
+		}
 	}
 
-	function delete_stat ($id)
+	function delete_stats ($id)
 	{
-		DH_Access::delete ($id);
+		if (check_ajax_referer ('drainhole-delete_items'))
+			DH_Access::delete ($_POST['checkall']);
 	}
 	
 	function new_version ($id)
@@ -103,9 +120,12 @@ class DH_AJAX extends DH_Plugin
 	
 	function save_new_version ($id)
 	{
-		$file = DH_File::get ($id);
-		if ($file)
-			$file->create_new_version ($_POST['new_version'], isset ($_POST['branch']) ? true : false, $_POST['reason'], isset ($_POST['donotbranch']) ? true : false, isset ($_POST['svn']) ? true : false);
+		if (check_ajax_referer ('drainhole-version_new'))
+		{
+			$file = DH_File::get ($id);
+			if ($file)
+				$file->create_new_version ($_POST['new_version'], isset ($_POST['branch']) ? true : false, $_POST['reason'], isset ($_POST['donotbranch']) ? true : false, isset ($_POST['svn']) ? true : false);
+		}
 	}
 	
 	function edit_version ($id)
@@ -115,8 +135,11 @@ class DH_AJAX extends DH_Plugin
 	
 	function save_version ($id)
 	{
-		$version = DH_Version::get ($id);
-		$version->update ($_POST);
+		if (check_ajax_referer ('drainhole-version_save'))
+		{
+			$version = DH_Version::get ($id);
+			$version->update ($_POST);
+		}
 	}
 	
 	function show_version ($id)
@@ -130,8 +153,14 @@ class DH_AJAX extends DH_Plugin
 	
 	function delete_version ($id)
 	{
-		$version = DH_Version::get ($id);
-		$version->delete ();
+		if (check_ajax_referer ('drainhole-delete_items'))
+		{
+			foreach ($_POST['checkall'] AS $fileid)
+			{
+				$version = DH_Version::get ($id);
+				$version->delete ();
+			}
+		}
 	}
 	
 	function editor ($id)

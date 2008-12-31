@@ -1,5 +1,5 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
-<form method="post" action="<?php echo $this->url (); ?>/ajax.php?id=<?php echo $version->id ?>&amp;cmd=save_version" id="version_form_<?php echo $version->id ?>">
+<form method="post" action="<?php echo $this->url (); ?>/ajax.php?id=<?php echo $version->id ?>&amp;cmd=save_version&amp;_ajax_nonce=<?php echo wp_create_nonce ('drainhole-version_save')?>" id="version_form_<?php echo $version->id ?>">
 	<table width="100%">
 		<tr>
 			<th align="right" width="80"><?php _e ('Version', 'drain-hole'); ?>:</th>
@@ -24,8 +24,8 @@
 		<tr>
 			<th></th>
 			<td>
-				<input type="submit" name="save" value="<?php _e ('Save', 'drain-hole'); ?>"/>
-				<input type="submit" name="cancel" value="<?php _e ('Cancel', 'drain-hole'); ?>" onclick="jQuery('#dialog').dialog ('close'); return false"/></td>
+				<input class="button-primary" type="submit" name="save" value="<?php _e ('Save', 'drain-hole'); ?>"/>
+				<input class="button-secondary" type="submit" name="cancel" value="<?php _e ('Cancel', 'drain-hole'); ?>" onclick="jQuery('#dialog').dialog ('close'); return false"/></td>
 		</tr>
 	</table>
 </form>

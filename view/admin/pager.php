@@ -1,5 +1,5 @@
-<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><div id="pager" class="pager">
-	<form method="get" action="<?php echo $this->url ($pager->url) ?>">
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
+<div id="pager" class="pager">
 		<input type="hidden" name="page" value="drain-hole.php"/>
 		<?php if (isset ($_GET['files'])) : ?>
 		<input type="hidden" name="files" value="<?php echo $_GET['files'] ?>"/>
@@ -11,16 +11,9 @@
 		<input type="hidden" name="sub" value="<?php echo $_GET['sub'] ?>"/>
 		<input type="hidden" name="curpage" value="<?php echo $pager->current_page () ?>"/>
 
-		<?php _e ('Search', 'drain-hole'); ?>: 
-		<input style="font-size: 0.8em" type="text" name="search" value="<?php echo htmlspecialchars ($_GET['search']) ?>"/>
-
-		<?php _e ('Per page', 'drain-hole') ?>: 
-		<select name="perpage">
-			<?php foreach ($pager->steps AS $step) : ?>
-		  	<option value="<?php echo $step ?>"<?php if ($pager->per_page == $step) echo ' selected="selected"' ?>><?php echo $step ?></option>
-			<?php endforeach; ?>
-		</select>
-		
-		<input class="button-secondary" type="submit" name="go" value="<?php _e ('go', 'drain-hole') ?>"/>
-	</form>
+		<p class="search-box">
+			<label for="post-search-input" class="hidden"><?php _e ('Search') ?>:</label>
+			<input class="search-input" type="text" name="search" value="<?php echo htmlspecialchars ($_GET['search']) ?>"/>
+			<input class="button-secondary" type="submit" name="go" value="<?php _e ('Search', 'drain-hole') ?>"/>
+		</p>
 </div>
