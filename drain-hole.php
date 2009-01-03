@@ -46,6 +46,7 @@ Author URI: http://urbangiraffe.com/
 2.1.12 - Allow for sites with open_basedir restrictions
 2.2    - Using jQuery.  Fix #336.  Add feature #318
 2.2.1  - 2.7 styling, nonces
+2.2.2  - Better display style
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -550,13 +551,7 @@ class DrainholePlugin extends DH_Plugin
 			$holes = DH_Hole::get_as_list ();
 		}
 
-		$parts = parse_url (get_bloginfo ('home'));
-		$path = '';
-		if (isset ($parts['path']))
-			$path = $parts['path'];
-			
-		$base_url = $path.'/download';
-
+		$base_url = rtrim (get_bloginfo ('home'),'/').'/download';
 		$base_directory = $this->realpath (rtrim ($_SERVER['DOCUMENT_ROOT'], '/').'/download').'/';
 
 		$pager = new DH_Pager ($_GET, $_SERVER['REQUEST_URI'], 'name', 'ASC');

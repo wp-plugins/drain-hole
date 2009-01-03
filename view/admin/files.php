@@ -39,7 +39,7 @@
 				<input type="checkbox" name="select_all" value="" onclick="select_all (); return true"/>
 			</th>
 			<th class="center"><?php echo $pager->sortable ('id', __ ('ID', 'drain-hole')) ?></th>
-			<th align="left"><?php echo $pager->sortable ('file', __ ('File', 'drain-hole')) ?></th>
+			<th class="file-title"><?php echo $pager->sortable ('file', __ ('File', 'drain-hole')) ?></th>
 			<th align="left"><?php echo $pager->sortable ('version', __ ('Version', 'drain-hole')) ?></th>
 			<th class="center"><?php echo $pager->sortable ('hits', __ ('Hits', 'drain-hole')) ?></th>
 			<th align="left"><?php echo $pager->sortable ('updated_at', __ ('Updated', 'drain-hole')) ?></th>

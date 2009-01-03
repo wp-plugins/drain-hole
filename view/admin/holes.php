@@ -35,11 +35,11 @@
 	<table class="widefat post fixed">
 		<thead>
 			<tr>
-				<th width="16" class="check-column">
+				<th class="manage-column check-column" scope="col">
 					<input type="checkbox" name="select_all" value="" onclick="select_all (); return true"/>
 				</th>
 				<th class="center"><?php echo $pager->sortable ('id', 'ID') ?></th>
-				<th align="left"><?php echo $pager->sortable ('name', 'Name') ?></th>
+				<th class="hole-title"><?php echo $pager->sortable ('name', 'Name') ?></th>
 				<th class="center"><?php echo $pager->sortable ('hits', 'Hits') ?></th>
 				<th class="center"><img src="<?php echo $this->url (); ?>/images/edit.png" width="16" height="16" alt="Edit"/></th>
 				<th class="center"><img src="<?php echo $this->url (); ?>/images/files.png" width="16" height="16" alt="Edit"/></th>
@@ -98,16 +98,16 @@
 		</table>
 
 		<br/>
-		<div class="error" style="display: none" id="error_dir">
+		<div class="errorx" style="display: none" id="error_dir">
 			<p><?php _e ('<p>Your chosen <strong>directory</strong> is within a publicly accessible web directory.  Drain Hole <strong>will not be able to control access</strong> to files placed here unless a <code>.htaccess</code> file is placed in the directory.  Drain Hole will attempt to do this for you, but may not have permission to do so.  If this is the case then you will need to create this file yourself (<a href="#" onclick="jQuery(\'#htaccess\').toggle (); return false">click to view</a>)</p>', 'drain-hole'); ?></p>
 		</div>
 		
 		<br/>
-		<div class="error" style="display: none" id="error_url">
+		<div class="errorx" style="display: none" id="error_url">
 			<p><?php _e ('<p>Your chosen <strong>URL</strong> is outside of your WordPress site and as such Drain Hole <strong>may not be able to control access</strong> to files unless a <code>.htaccess</code> file is placed in the directory.  Drain Hole will attempt to do this for you, but may not have permission to do so.  If this is the case then you will need to create this file yourself (<a href="#" onclick="jQuery(\'#htaccess\').toggle (); return false">click to view</a>)</p>','drain-hole'); ?></p>
 		</div>
 		
-		<div class="updated" id="htaccess" style="display: none">
+		<div class="updatedx" id="htaccess" style="display: none">
 			<p><?php _e ('The following should be created in the directory given above:', 'drain-hole'); ?></p>
 			<pre style="margin: 0px">
 			<?php $this->render_admin ('htaccess', array ('index' => DH_Plugin::realpath (ABSPATH).'/index.php'))?>

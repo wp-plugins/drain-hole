@@ -1,9 +1,9 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
-<td width="16" class="item center">
+<th width="16" class="item check-column">
 	<input type="checkbox" class="check" name="checkall[]" value="<?php echo $file->id ?>"/>
-</td>
+</th>
 <td align="center"><?php echo $file->id ?></td>
-<td>
+<td class="file-title">
 	<a title="<?php _e ('Edit File'); ?>" href="<?php echo $file->url_ref ($hole); ?>" onclick="return edit_file(<?php echo $file->id ?>,this)"><?php echo $file->name () ?></a>
 </td>
 <td>

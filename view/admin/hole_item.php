@@ -1,10 +1,11 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
-<td width="16" class="item center">
+<th class="item check-column" scope="row">
 	<input type="checkbox" class="check" name="checkall[]" value="<?php echo $file->id ?>"/>
-</td>
+</th>
 <td align="center" valign="top"><?php echo $hole->id ?></td>
-<td id="hole_item_<?php echo $hole->id ?>">
+<td class="hole-title" id="hole_item_<?php echo $hole->id ?>">
 	<a title="<?php _e ('View files', 'drain-hole'); ?>" href="<?php echo $this->base () ?>?page=drain-hole.php&amp;files=<?php echo $hole->id ?>"><?php echo $hole->url ?></a>
+	
 	<?php if ($hole->files > 0) : ?>
 	<span class="sub">(<?php printf (__ngettext ('%d file', '%d files', $hole->files, 'drain-hole'), number_format ($hole->files)); ?>)</span>
 	<?php endif; ?>
