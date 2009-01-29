@@ -279,6 +279,7 @@ class DH_File
 			$svn = "'".wpdb::escape ($this->svn)."'";
 		}
 
+		$download_as = 'NULL';
 		if ($data['download_as'] && $data['download_as'] != $this->download_as ())
 		{
 			$this->download_as = $data['download_as'];
