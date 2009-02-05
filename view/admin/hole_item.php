@@ -1,6 +1,6 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
 <th class="item check-column" scope="row">
-	<input type="checkbox" class="check" name="checkall[]" value="<?php echo $file->id ?>"/>
+	<input type="checkbox" class="check" name="checkall[]" value="<?php echo $hole->id ?>"/>
 </th>
 <td align="center" valign="top"><?php echo $hole->id ?></td>
 <td class="hole-title" id="hole_item_<?php echo $hole->id ?>">

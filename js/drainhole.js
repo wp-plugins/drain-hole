@@ -62,6 +62,7 @@ function edit_hole (object,item)
       modal: true,
       resizable: false,
       width: 600,
+      height: 230,
       title: object.title,
       overlay: { opacity: 0.3, background: "black" },
   });
