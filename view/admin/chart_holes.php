@@ -1,11 +1,15 @@
-<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><div class="wrap" style="min-width: 820px">
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
+<div class="wrap" style="min-width: 820px">
 	<div class="options">
 		<a href="#" onclick="return print_chart ()"><img src="<?php echo $this->url () ?>/images/printer.png" width="16" height="16" alt="Printer"/></a>
 		<a href="<?php echo $chart->source ?>&amp;csv"><img src="<?php echo $this->url () ?>/images/csv.png" width="16" height="16" alt="Csv"/></a>
 	</div>
+	
 	<h2><?php printf (__ ('Hole Charts for %s', 'drain-hole'), $hole->url); ?></h2>
 
-	<div style="margin: 0 auto; width: 810px">
+	<?php $this->submenu (true); ?>
+
+	<div style="margin: 0 auto; width: 810px; clear: both">
 		<form action="<?php echo $base ?>" method="get" accept-charset="utf-8">
 			<p>
 				<?php _e ('Chart', 'drain-hole'); ?>:
@@ -30,7 +34,7 @@
 				<?php $chart->show_time ($display, $hole); ?>
 			<?php endif; ?>
 	
-				<input type="submit" name="show" value="Show" id="show"/>
+				<input type="submit" name="show" value="Show" id="show" class="button-secondary"/>
 				<input type="hidden" name="source" value="hole"/>
 				<input type="hidden" name="page" value="<?php echo $_GET['page'] ?>"/>
 				<input type="hidden" name="chart" value="<?php echo $_GET['chart'] ?>"/>

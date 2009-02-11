@@ -7,7 +7,7 @@
 
 	<?php $this->submenu (true); ?>
 	
-	<div style="margin: 0 auto; width: 810px">
+	<div style="margin: 0 auto; width: 810px; clear: both">
 		<form action="<?php echo $base ?>" method="get" accept-charset="utf-8">
 			<p>
 				<?php _e ('Chart', 'drain-hole'); ?>:
@@ -24,7 +24,7 @@
 
 				<?php $chart->show_time ($display, $file); ?>
 	
-				<input type="submit" name="show" value="<?php _e ('Show', 'drain-hole'); ?>" id="show"/>
+				<input type="submit" name="show" value="<?php _e ('Show', 'drain-hole'); ?>" id="show" class="button-secondary"/>
 				<input type="hidden" name="page" value="<?php echo $_GET['page'] ?>"/>
 				<input type="hidden" name="chart" value="<?php echo $_GET['chart'] ?>"/>
 			</p>

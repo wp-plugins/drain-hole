@@ -4,7 +4,7 @@ Plugin Name: Drain Hole
 Plugin URI: http://urbangiraffe.com/plugins/drain-hole/
 Description: A download management and monitoring plugin with statistics and file protection
 Author: John Godley
-Version: 2.2.4
+Version: 2.2.5
 Author URI: http://urbangiraffe.com/
 ============================================================================================================
 1.0    - Initial version
@@ -47,8 +47,9 @@ Author URI: http://urbangiraffe.com/
 2.2    - Using jQuery.  Fix #336.  Add feature #318
 2.2.1  - 2.7 styling, nonces
 2.2.2  - Better display style
-2.3.3  - Fix #379
-2.3.4  - Fix deletion of holes
+2.2.3  - Fix #379
+2.2.4  - Fix deletion of holes
+2.2.5  - Fix charts display
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -512,7 +513,7 @@ class DrainholePlugin extends DH_Plugin
 				$chart->set_source ($this->url ().'/charts/hole.php?type=time&display='.$display.'&hole='.$hole->id.$chart->time_to_query ($chart->get_time ($hole)));
 			}
 
-			$base = get_bloginfo ('wpurl').'/wp-admin/edit.php?page=drain-hole.php&amp;chart='.$hole->id.'&amp;source=hole';
+			$base = $this->base ().'?page=drain-hole.php&amp;chart='.$hole->id.'&amp;source=hole';
 			$this->render_admin ('chart_holes', array ('hole' => $hole, 'chart' => $chart, 'type' => $type, 'display' => $display, 'base' => $base));
 		}
 		else
@@ -528,7 +529,7 @@ class DrainholePlugin extends DH_Plugin
 				$display = $_GET['display'];
 				
 			$chart->set_source ($this->url ().'/charts/file.php?type='.$type.'&display='.$display.'&file='.$file->id.$chart->time_to_query ($chart->get_time ($file)));
-			$base = get_bloginfo ('wpurl').'/wp-admin/edit.php?page=drain-hole.php&amp;chart='.$file->id;
+			$base = $this->base ().'?page=drain-hole.php&amp;chart='.$file->id;
 			
 			$this->render_admin ('chart_files', array ('file' => $file, 'chart' => $chart, 'type' => $type, 'display' => $display, 'base' => $base));
 		}
