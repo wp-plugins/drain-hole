@@ -3,7 +3,7 @@ Contributors: johnny5
 Donate link: http://urbangiraffe.com/about/support/
 Tags: post, page, download, manager, svn, version
 Requires at least: 2.7
-Tested up to: 2.7
+Tested up to: 2.7.1
 Stable tag: trunk
 
 Drain Hole is a centralized download manager with full monitoring, statistics, versioning, SVN support, and proper SEO download URLs (no nasty query parameters)
@@ -26,16 +26,19 @@ Features include:
 * Hot-link protection
 * Fully localized
 
+Drain Hole is available in:
+
+* English
+* Danish (thanks to [Georg S. Adamsen](http://www.stubkjaer-adamsen.dk/georg/index.html))
 
 == Installation ==
 
 The plugin is simple to install:
 
-1. Download `advanced-permalinks.zip`
+1. Download `drain-hole.zip`
 1. Unzip
-1. Upload `advanced-permalinks` directory to your `/wp-content/plugins` directory
+1. Upload `drain-hole` directory to your `/wp-content/plugins` directory
 1. Go to the plugin management page and enable the plugin
-1. Configure the plugin from `Options/permalinks`
 
 You can find full details of installing a plugin on the [plugin installation page](http://urbangiraffe.com/articles/how-to-install-a-wordpress-plugin/).
 

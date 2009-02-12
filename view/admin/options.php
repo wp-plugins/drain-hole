@@ -36,7 +36,7 @@
 			<th width="220" align="right"><?php _e ('Default file name', 'drain-hole'); ?>:</th>
 			<td>
 				<input class="regular-text" size="50" type="text" name="default_name" value="<?php echo $options['default_name'] ?>"/>
-				<span class="sub"><code>$FILENAME$</code> and <code>$EXTENSION$</code> will be replaced by the file's real name and extension</span>
+				<span class="sub"><?php _e ('<code>$FILENAME$</code> and <code>$EXTENSION$</code> will be replaced by the file\'s real name and extension', 'drain-hole'); ?></span>
 			</td>
 		</tr>
 		<tr>
