@@ -29,7 +29,7 @@ Features include:
 Drain Hole is available in:
 
 * English
-* Danish (thanks to [Georg S. Adamsen](http://www.stubkjaer-adamsen.dk/georg/index.html))
+* Danish (thanks to [Georg S. Adamsen](http://wordpress.blogos.dk))
 
 == Installation ==
 
