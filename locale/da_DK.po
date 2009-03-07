@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Drain Hole på dansk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-11 14:30+0100\n"
+"POT-Creation-Date: 2009-02-12 18:36+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Georg S. Adamsen <g.s.adamsen@gmail.com>\n"
 "Language-Team:  <g.s.adamsen@gmail.com>\n"
@@ -25,62 +25,62 @@ msgstr "<p style=\"color: red\">Du har ikke adgang til denne ressource</p>"
 msgid "<p style=\"color: red\">That function is not defined</p>"
 msgstr "<p style=\"color: red\">Denne funktion er ikke defineret</p>"
 
-#: d:\wordpress\plugins\drain-hole/drain-hole.php:125
+#: d:\wordpress\plugins\drain-hole/drain-hole.php:126
 msgid "Drainhole Statistics"
 msgstr "Ventil-statistik"
 
-#: d:\wordpress\plugins\drain-hole/drain-hole.php:132
+#: d:\wordpress\plugins\drain-hole/drain-hole.php:133
 msgid "Drain Hole Help"
 msgstr "Ventil-Hjælp"
 
-#: d:\wordpress\plugins\drain-hole/drain-hole.php:133
+#: d:\wordpress\plugins\drain-hole/drain-hole.php:134
 msgid "Drain Hole Documentation"
 msgstr "Ventil-Dokumentation"
 
-#: d:\wordpress\plugins\drain-hole/drain-hole.php:134
+#: d:\wordpress\plugins\drain-hole/drain-hole.php:135
 msgid "Drain Hole Support Forum"
 msgstr "Ventil-Supportforum"
 
-#: d:\wordpress\plugins\drain-hole/drain-hole.php:135
+#: d:\wordpress\plugins\drain-hole/drain-hole.php:136
 msgid "Drain Hole Bug Tracker"
 msgstr "Ventil-Bugdatabase"
 
-#: d:\wordpress\plugins\drain-hole/drain-hole.php:136
+#: d:\wordpress\plugins\drain-hole/drain-hole.php:137
 msgid "Drain Hole FAQ"
 msgstr "Ventil-OSS"
 
-#: d:\wordpress\plugins\drain-hole/drain-hole.php:137
+#: d:\wordpress\plugins\drain-hole/drain-hole.php:138
 msgid "Please read the documentation and FAQ, and check the bug tracker, before asking a question."
 msgstr "Læs venligst dokumentationen og OSS'en, og tjek bugdatabasen, inden du stiller et spørgsmål."
 
-#: d:\wordpress\plugins\drain-hole/drain-hole.php:266
+#: d:\wordpress\plugins\drain-hole/drain-hole.php:267
 msgid "Drain Hole"
 msgstr "Ventil"
 
-#: d:\wordpress\plugins\drain-hole/drain-hole.php:423
+#: d:\wordpress\plugins\drain-hole/drain-hole.php:424
 msgid "Your version was added succesfully"
 msgstr "Din version blev tilføjet"
 
-#: d:\wordpress\plugins\drain-hole/drain-hole.php:454
+#: d:\wordpress\plugins\drain-hole/drain-hole.php:455
 msgid "No new files were found"
 msgstr "Der blev ikke fundet nye filer"
 
-#: d:\wordpress\plugins\drain-hole/drain-hole.php:456
+#: d:\wordpress\plugins\drain-hole/drain-hole.php:457
 #, php-format
 msgid "%d new file was found"
 msgid_plural "%d new files were found"
 msgstr[0] "Der blev fundet %d ny fil"
 msgstr[1] "Der blev fundet %d nye filer"
 
-#: d:\wordpress\plugins\drain-hole/drain-hole.php:547
+#: d:\wordpress\plugins\drain-hole/drain-hole.php:548
 msgid "The Drain Hole was successfully created"
 msgstr "Ventil blev oprettet"
 
-#: d:\wordpress\plugins\drain-hole/drain-hole.php:551
+#: d:\wordpress\plugins\drain-hole/drain-hole.php:552
 msgid "The Drain Hole was not created - "
 msgstr "Ventil blev ikke oprettet"
 
-#: d:\wordpress\plugins\drain-hole/drain-hole.php:590
+#: d:\wordpress\plugins\drain-hole/drain-hole.php:591
 msgid "Your options have been updated"
 msgstr "Dine indstillinger er blevet opdateret"
 
@@ -677,6 +677,10 @@ msgstr "Standardværdi for versionsnummer"
 #: d:\wordpress\plugins\drain-hole/view/admin/options.php:36
 msgid "Default file name"
 msgstr "Standardværdi for filnavn"
+
+#: d:\wordpress\plugins\drain-hole/view/admin/options.php:39
+msgid "<code>$FILENAME$</code> and <code>$EXTENSION$</code> will be replaced by the file's real name and extension"
+msgstr "<br /><code>$FILENAME$</code> og <code>$EXTENSION$</code> erstattes med filens rigtige navn og filtype"
 
 #: d:\wordpress\plugins\drain-hole/view/admin/options.php:43
 msgid "Google Analytics tracking"

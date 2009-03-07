@@ -716,6 +716,8 @@ class DrainholePlugin extends DH_Plugin
 					return $file->version;
 				else if ($cmd == 'hits')
 					return number_format ($file->hits);
+				else if ($cmd == 'name')
+					return $file->name ();
 				else if ($cmd == 'md5')
 					return md5 ($file->file ($hole));
 				else if ($cmd == 'url')

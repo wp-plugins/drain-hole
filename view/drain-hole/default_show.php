@@ -1,4 +1,5 @@
-<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><div style="float: right; width: 200px; margin: 10px; text-align: center">
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
+<div style="float: right; width: 200px; margin: 10px; text-align: center">
 	<p>$icon$</p>
 
 	<table class="download">
