@@ -7,7 +7,7 @@
 	<a title="<?php _e ('View files', 'drain-hole'); ?>" href="<?php echo $this->base () ?>?page=drain-hole.php&amp;files=<?php echo $hole->id ?>"><?php echo $hole->url ?></a>
 	
 	<?php if ($hole->files > 0) : ?>
-	<span class="sub">(<?php printf (__ngettext ('%d file', '%d files', $hole->files, 'drain-hole'), number_format ($hole->files)); ?>)</span>
+	<span class="sub">(<?php printf (@__ngettext ('%d file', '%d files', $hole->files, 'drain-hole'), number_format ($hole->files)); ?>)</span>
 	<?php endif; ?>
 </td>
 <td align="center"><a href="<?php echo $this->base () ?>?page=drain-hole.php&amp;sub=downloads&amp;hole=<?php echo $hole->id ?>"><?php echo number_format ($hole->hits); ?></a></td>

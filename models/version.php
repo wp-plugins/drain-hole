@@ -24,11 +24,11 @@ class DH_Version
 			$created_at = '"'.date ('Y-m-d H:i:s', $created_at).'"';
 		
 		if ($reason)
-			$reason = '"'.wpdb::escape ($reason).'"';
+			$reason = '"'.$wpdb->escape ($reason).'"';
 		else
 			$reason = 'NULL';
 
-		$version = wpdb::escape ($version);
+		$version = $wpdb->escape ($version);
 		$wpdb->query ("INSERT INTO {$wpdb->prefix}drainhole_version (file_id,version,hits,created_at,reason) VALUES ('{$file->id}','$version','$hits',$created_at,$reason)");
 		return $wpdb->insert_id;
 	}
@@ -68,7 +68,7 @@ class DH_Version
 	{
 		global $wpdb;
 
-		$version = wpdb::escape ($version);
+		$version = $wpdb->escape ($version);
 		$row = $wpdb->get_row ("SELECT * FROM {$wpdb->prefix}drainhole_version WHERE file_id='$id' AND version='$version'", ARRAY_A);
 		if ($row)
 			return new DH_Version ($row);
@@ -89,8 +89,8 @@ class DH_Version
 	{
 		global $wpdb;
 		
-		$version    = wpdb::escape ($data['version']);
-		$reason     = wpdb::escape ($data['reason']);
+		$version    = $wpdb->escape ($data['version']);
+		$reason     = $wpdb->escape ($data['reason']);
 		$hits       = intval ($data['hits']);
 		$created_at = date ('Y-m-d H:i:s', mktime (0, 0, 0, intval ($data['month']), intval ($data['day']), intval ($data['year'])));
 		

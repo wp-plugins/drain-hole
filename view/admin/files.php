@@ -1,5 +1,7 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
 <div class="wrap">
+	<?php $this->render_admin ('annoy'); ?>
+	<?php screen_icon(); ?>
 	<h2><?php _e ('Drain Hole | Files for', 'drain-hole'); ?> <?php echo $hole->url; ?> <a href="<?php echo $this->url () ?>/csv.php?id=<?php echo $hole->id ?>&amp;type=files" title="Download as CSV"><img src="<?php echo $this->url () ?>/images/csv.png" width="16" height="16" alt="CSV"/></a></h2>
 	
 	<?php $this->submenu (true); ?>

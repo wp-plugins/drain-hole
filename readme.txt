@@ -3,7 +3,7 @@ Contributors: johnny5
 Donate link: http://urbangiraffe.com/about/support/
 Tags: post, page, download, manager, svn, version
 Requires at least: 2.7
-Tested up to: 2.7.1
+Tested up to: 2.8
 Stable tag: trunk
 
 Drain Hole is a centralized download manager with full monitoring, statistics, versioning, SVN support, and proper SEO download URLs (no nasty query parameters)

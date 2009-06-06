@@ -4,7 +4,7 @@ Plugin Name: Drain Hole
 Plugin URI: http://urbangiraffe.com/plugins/drain-hole/
 Description: A download management and monitoring plugin with statistics and file protection
 Author: John Godley
-Version: 2.2.6
+Version: 2.2.7
 Author URI: http://urbangiraffe.com/
 ============================================================================================================
 1.0    - Initial version
@@ -51,6 +51,7 @@ Author URI: http://urbangiraffe.com/
 2.2.4  - Fix deletion of holes
 2.2.5  - Fix charts display
 2.2.6  - Danish translation
+2.2.7  - Make work with Search Unleashed, WP2.8
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
 implied warranties of merchantibility and fitness for a particular purpose are disclaimed. In no event shall
@@ -63,14 +64,14 @@ this software, even if advised of the possibility of such damage.
 For full license details see license.txt
 ============================================================================================================ */
 
-include (dirname (__FILE__).'/plugin.php');
-include (dirname (__FILE__).'/models/hole.php');
-include (dirname (__FILE__).'/models/file.php');
-include (dirname (__FILE__).'/models/pager.php');
-include (dirname (__FILE__).'/models/access.php');
-include (dirname (__FILE__).'/models/auditor.php');
-include (dirname (__FILE__).'/models/version.php');
-include (dirname (__FILE__).'/models/widget.php');
+include dirname( __FILE__ ).'/plugin.php';
+include dirname( __FILE__ ).'/models/hole.php';
+include dirname( __FILE__ ).'/models/file.php';
+include dirname( __FILE__ ).'/models/pager.php';
+include dirname( __FILE__ ).'/models/access.php';
+include dirname( __FILE__ ).'/models/auditor.php';
+include dirname( __FILE__ ).'/models/version.php';
+include dirname( __FILE__ ).'/models/widget.php';
 
 
 /**
@@ -99,24 +100,23 @@ class DrainholePlugin extends DH_Plugin
 		
 		if (is_admin ())
 		{
-			$this->add_filter ('admin_menu');
-			$this->add_action ('wp_print_scripts');
-			$this->add_action ('wp_print_styles');
-			$this->add_filter ('contextual_help', 'contextual_help', 10, 2);
-
-			if (strstr ($_SERVER['REQUEST_URI'], 'drain-hole.php'))
-				$this->add_action ('admin_head');
-			else if (strstr ($_SERVER['REQUEST_URI'], 'post.php') || strstr ($_SERVER['REQUEST_URI'], 'post-new.php') || strstr ($_SERVER['REQUEST_URI'], 'page-new.php') || strstr ($_SERVER['REQUEST_URI'], 'page.php'))
+			$this->add_filter('admin_menu');
+			$this->add_filter('contextual_help', 'contextual_help', 10, 2);
+			$this->add_action('wp_print_scripts');
+			$this->add_action('admin_head', 'wp_print_styles');
+			$this->add_action('admin_print_styles', 'wp_print_styles');
+			$this->add_action( 'admin_footer' );
+			
+			if (strstr ($_SERVER['REQUEST_URI'], 'post.php') || strstr ($_SERVER['REQUEST_URI'], 'post-new.php') || strstr ($_SERVER['REQUEST_URI'], 'page-new.php') || strstr ($_SERVER['REQUEST_URI'], 'page.php'))
 				$this->add_action ('admin_head', 'admin_head_post');
 
 			$this->auditor = new DH_Auditor;
 			$this->register_activation (__FILE__);
+			$this->register_plugin_settings( __FILE__ );
 		}
-		else
-		{
-			$this->add_filter ('the_content');
-			$this->add_filter ('the_excerpt');
-		}
+
+		$this->add_filter ('the_content');
+		$this->add_filter ('the_excerpt');
 		
 		// And some hooks to insert out files into the permalinks
 		$this->add_filter ('rewrite_rules_array');
@@ -124,6 +124,12 @@ class DrainholePlugin extends DH_Plugin
 		$this->add_filter ('query_vars');
 		
 		$this->widget = new DH_Widget (__ ('Drainhole Statistics', 'drain-hole'), 5);
+	}
+	
+	function plugin_settings ($links)	{
+		$settings_link = '<a href="tools.php?page='.basename( __FILE__ ).'">'.__('Settings', 'drain-hole').'</a>';
+		array_unshift( $links, $settings_link );
+		return $links;
 	}
 	
 	function contextual_help ($help, $screen)
@@ -229,6 +235,7 @@ class DrainholePlugin extends DH_Plugin
 		return $request;
 	}
 
+
 	
 	
 	/**
@@ -256,6 +263,7 @@ class DrainholePlugin extends DH_Plugin
 		}
 	}
 
+
 	/**
 	 * WordPress hook to add to the management menu
 	 *
@@ -282,14 +290,34 @@ class DrainholePlugin extends DH_Plugin
 
 	function wp_print_scripts ()
 	{
-		if (strpos ($_SERVER['REQUEST_URI'], 'drain-hole.php'))
+		if (isset ($_GET['page']) && $_GET['page'] == 'drain-hole.php') {
 			wp_enqueue_script ('drainhole', $this->url ().'/js/drainhole.js', array ('jquery-form', 'jquery-ui-dialog', 'jquery-form'), $this->version ());
+			
+			$this->render_admin('head');
+		}
 	}
 	
-	function wp_print_styles ()
-	{
-		if (strpos ($_SERVER['REQUEST_URI'], 'drain-hole.php'))
-			wp_enqueue_style ('drainhole', $this->url ().'/admin.css', array (), $this->version ());
+	function wp_print_styles() {
+		if ( ( isset ($_GET['page']) && $_GET['page'] == 'drain-hole.php') ) {
+			echo '<link rel="stylesheet" href="'.$this->url ().'/admin.css" type="text/css" media="screen" title="no title" charset="utf-8"/>';
+
+			if (!function_exists ('wp_enqueue_style'))
+				echo '<style type="text/css" media="screen">
+				.subsubsub {
+					list-style: none;
+					margin: 8px 0 5px;
+					padding: 0;
+					white-space: nowrap;
+					font-size: 11px;
+					float: left;
+				}
+				.subsubsub li {
+					display: inline;
+					margin: 0;
+					padding: 0;
+				}
+				</style>';
+		}
 	}
 	
 	function admin_head_post ()
@@ -354,6 +382,8 @@ class DrainholePlugin extends DH_Plugin
 			$this->screen_options ();
 		else if ($sub == 'downloads')
 			$this->screen_downloads ();
+		else if ($sub == 'support')
+			$this->render_admin('support');
 	}
 	
 	
@@ -365,12 +395,30 @@ class DrainholePlugin extends DH_Plugin
 	
 	function clear_stats ()
 	{
-		$options = get_option ('drainhole_options');
-		if (!isset ($options['days']))
-			$options['days'] = 60;
-
+		$options = $this->get_options();
 		if ($options['days'] > 0)
 		 	DH_Access::clear ($options['days']);
+	}
+	
+	function get_options ()
+	{
+		$options = get_option ('drainhole_options');
+		if (!is_array ($options))
+			$options = array ();
+
+		$defaults = array
+		(
+			'days'            => 60,
+			'google'          => false,
+			'update'          => true,
+			'svn'             => '',
+			'tracker'         => '',
+			'default_version' => '0.1',
+			'default_name'    => '',
+			'support'         => false
+		);
+		
+		return array_merge( $defaults, $options );
 	}
 	
 	
@@ -559,7 +607,7 @@ class DrainholePlugin extends DH_Plugin
 		$base_directory = $this->realpath (rtrim ($_SERVER['DOCUMENT_ROOT'], '/').'/download').'/';
 
 		$pager = new DH_Pager ($_GET, $_SERVER['REQUEST_URI'], 'name', 'ASC');
-		$this->render_admin ('holes', array ('holes' => DH_Hole::get_all ($pager), 'pager' => $pager, 'options' => get_option ('drainhole_options'), 'base_url' => $base_url, 'base_directory' => $base_directory, 'home' => $path));
+		$this->render_admin ('holes', array ('holes' => DH_Hole::get_all ($pager), 'pager' => $pager, 'options' => $this->get_options(), 'base_url' => $base_url, 'base_directory' => $base_directory, 'home' => get_bloginfo ('home')));
 	}
 	
 	
@@ -579,7 +627,7 @@ class DrainholePlugin extends DH_Plugin
 				'update'          => isset ($_POST['update']) ? true : false,
 				'htaccess'        => isset ($_POST['htaccess']) ? true : false,
 				'days'            => intval ($_POST['days']),
-				'kitten'          => isset ($_POST['kitten']) ? true : false,
+				'support'         => isset ($_POST['support']) ? true : false,
 				'delete_file'     => isset ($_POST['delete_file']) ? true : false,
 				'svn'             => $_POST['svn'],
 				'tracker'         => $_POST['tracker'],
@@ -599,21 +647,8 @@ class DrainholePlugin extends DH_Plugin
 			
 			$this->render_message ('Drain Hole has been removed', 'drain-hole');
 		}
-		
-		$options = get_option ('drainhole_options');
-		if (!isset ($options['days']))
-			$options['days'] = 60;
-		if (!isset ($options['update']))
-			$options['update'] = true;
-			
-		if (!isset ($options['svn']))
-		{
-			$options['svn'] = exec ('which svn');
-			if (strpos ($options['svn'], 'no svn') !== false)
-				$options['svn'] = '';
-		}
 
-		$this->render_admin ('options', array ('options' => $options));
+		$this->render_admin ('options', array ('options' => $this->get_options()));
 	}
 	
 	
@@ -628,7 +663,7 @@ class DrainholePlugin extends DH_Plugin
 	
 	function tags_inline ($text, $hole, $file)
 	{
-		$options = get_option ('drainhole_options');
+		$options = $this->get_options();
 
 		$text = str_replace ('$url$',     $file->url ($hole, '', $options['google']), $text);
 		$text = str_replace ('$size$',    $file->bytes ($file->filesize ($hole)), $text);
@@ -660,7 +695,7 @@ class DrainholePlugin extends DH_Plugin
 		$cmd  = $matches[3];
 		$args = $matches[4];
 		
-		$options = get_option ('drainhole_options');
+		$options = $this->get_options();
 		
 		if ($type == 'hole')
 		{
@@ -782,36 +817,57 @@ class DrainholePlugin extends DH_Plugin
 			$value = '"'.$value.'"';
 		return $value;
 	}
-	
-		function realpath ($path)
-		{
-			if (DIRECTORY_SEPARATOR == '/')
-			{
-				$path = preg_replace ('/^~/', $_SERVER['DOCUMENT_ROOT'], $path);
 
-		    // canonicalize
-		    $path = explode (DIRECTORY_SEPARATOR, $path);
-		    $newpath = array ();
-		    for ($i = 0; $i < sizeof ($path); $i++)
-				{
-					if ($path[$i] === '' || $path[$i] === '.')
-						continue;
+	/**
+	 * Displays the nice animated support logo
+	 *
+	 * @return void
+	 **/
+	function admin_footer() {
+		if ( isset($_GET['page']) && $_GET['page'] == basename( __FILE__ ) ) {
+			$options = $this->get_options();
 
-					if ($path[$i] === '..')
-					{
-						array_pop ($newpath);
-						continue;
-					}
-
-					array_push ($newpath, $path[$i]);
-		    }
-
-		    $finalpath = DIRECTORY_SEPARATOR.implode (DIRECTORY_SEPARATOR, $newpath);
-	      return $finalpath;
+			if ( !$options['support'] ) {
+?>
+<script type="text/javascript" charset="utf-8">
+	jQuery(function() {
+		jQuery('#support-annoy').animate( { opacity: 0.2, backgroundColor: 'red' } ).animate( { opacity: 1, backgroundColor: 'yellow' });
+	});
+</script>
+<?php
 			}
-
-			return $path;
 		}
+	}
+			
+	function realpath ($path)
+	{
+		if (DIRECTORY_SEPARATOR == '/')
+		{
+			$path = preg_replace ('/^~/', $_SERVER['DOCUMENT_ROOT'], $path);
+
+	    // canonicalize
+	    $path = explode (DIRECTORY_SEPARATOR, $path);
+	    $newpath = array ();
+	    for ($i = 0; $i < sizeof ($path); $i++)
+			{
+				if ($path[$i] === '' || $path[$i] === '.')
+					continue;
+
+				if ($path[$i] === '..')
+				{
+					array_pop ($newpath);
+					continue;
+				}
+
+				array_push ($newpath, $path[$i]);
+	    }
+
+	    $finalpath = DIRECTORY_SEPARATOR.implode (DIRECTORY_SEPARATOR, $newpath);
+      return $finalpath;
+		}
+
+		return $path;
+	}
 }
 
 

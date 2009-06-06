@@ -1,12 +1,14 @@
-<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><div class="wrap">
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
+<div class="wrap">
+	<?php $this->render_admin ('annoy'); ?>
+	<?php screen_icon(); ?>
 	<h2>
 	<?php if (isset ($file)) :?>
 		<?php _e ('Drain Hole | Statistics for', 'drain-hole'); ?> <a href="<?php echo $file->url_ref ($hole); ?>" title="<?php echo htmlspecialchars ($hole->directory.'/'.$file->file) ?>" onclick="return edit_file(<?php echo $file->id ?>)"><?php echo $file->file ?></a>
 	<?php else : ?>
 		<?php _e ('Drain Hole | Downloads', 'drain-hole'); ?>
 	<?php endif; ?>
-	
-	<a href="<?php echo $this->url () ?>/csv.php?id=<?php echo $file->id ?>&amp;type=stats" title="Download as CSV"><img src="<?php echo $this->url () ?>/images/csv.png" width="16" height="16" alt="CSV"/></a>
+
 	</h2>
 	
 	<?php $this->submenu (true); ?>
@@ -63,7 +65,7 @@
 			<?php if (!isset ($file)) : ?>
 			<td><?php echo htmlspecialchars ($stat->file); ?></td>
 			<?php endif; ?>
-			<td><a href="http://ws.arin.net/whois/?queryinput=<?php echo $stat->ip ?>"><?php echo $stat->ip; ?></a></td>
+			<td><a href="http://urbangiraffe.com/map/?ip=<?php echo $stat->ip ?>"><?php echo $stat->ip; ?></a></td>
 			<td><?php echo $stat->user (); ?></td>
 			<td><?php echo $stat->referrer_as_link () ?></td>
 		</tr>

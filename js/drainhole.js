@@ -64,7 +64,7 @@ function edit_hole (object,item)
       width: 600,
       height: 230,
       title: object.title,
-      overlay: { opacity: 0.3, background: "black" },
+      overlay: { opacity: 0.3, background: "black" }
   });
   
   jQuery.get (wp_base + '?id=' + item + '&cmd=edit_hole', {}, function (data, status)
@@ -101,9 +101,10 @@ function edit_file (item,object)
       resizable: false,
       width: 600,
       height: 360,
-      title: object.title,
-      overlay: { opacity: 0.3, background: "black" },
+      title: jQuery(object).attr('title'),
+      overlay: { opacity: 0.3, background: "black" }
   });
+  jQuery('.ui-dialog').show();
   
   jQuery.get (wp_base + '?id=' + item + '&cmd=edit_file', {}, function (data, status)
     {
@@ -145,9 +146,10 @@ function new_version (item,object)
       width: 600,
       height: 280,
       title: object.title,
-      overlay: { opacity: 0.3, background: "black" },
+      overlay: { opacity: 0.3, background: "black" }
   });
-  
+  jQuery('.ui-dialog').show();
+
   jQuery.get (wp_base + '?id=' + item + '&cmd=new_version', {}, function (data, status)
     {
       jQuery('#dialog').html (data);
@@ -164,9 +166,10 @@ function edit_version (item,object)
       width: 600,
       height: 220,
       title: object.title,
-      overlay: { opacity: 0.3, background: "black" },
+      overlay: { opacity: 0.3, background: "black" }
   });
-  
+  jQuery('.ui-dialog').show();
+
   jQuery.get (wp_base + '?id=' + item + '&cmd=edit_version', {}, function (data, status)
     {
       jQuery('#dialog').html (data);
@@ -227,9 +230,9 @@ function update_url_warning (text)
 
 function urlKey (event)
 {
-	var element = '/' + event.target.value.replace (/^\/*/, '').replace (/\/*$/, '');
+	var element = event.target.value.replace (/^\/*/, '').replace (/\/*$/, '');
 
 	update_url_warning (element);
 		
-	jQuery('#base_url').html (escape (element));
+	jQuery('#base_url').html (escape (element).replace('%3A', ':'));
 }

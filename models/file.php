@@ -120,11 +120,11 @@ class DH_File
 				$name = str_replace ('$FILENAME$', $parts['filename'], $name);
 				$name = str_replace ('$EXTENSION$', $parts['extension'], $name);
 				
-				$name = wpdb::escape ($name);
+				$name = $wpdb->escape ($name);
 			}
 
 			// Now create the file
-			$file = wpdb::escape (DH_Hole::sanitize_dir (ltrim ($file, '/')));
+			$file = $wpdb->escape (DH_Hole::sanitize_dir (ltrim ($file, '/')));
 			$wpdb->query ("INSERT INTO {$wpdb->prefix}drainhole_files (hole_id,file,updated_at,name) VALUES ($hole,'$file',NOW(),'$name')");
 
 			// Create version information
@@ -276,31 +276,31 @@ class DH_File
 		if ($data['svn'])
 		{
 			$this->svn = $data['svn'];
-			$svn = "'".wpdb::escape ($this->svn)."'";
+			$svn = "'".$wpdb->escape ($this->svn)."'";
 		}
 
 		$download_as = 'NULL';
 		if ($data['download_as'] && $data['download_as'] != $this->download_as ())
 		{
 			$this->download_as = $data['download_as'];
-			$download_as = "'".wpdb::escape ($this->download_as)."'";
+			$download_as = "'".$wpdb->escape ($this->download_as)."'";
 		}
 		
 		if ($data['mime'] != '-')
 		{
 			$this->mime = $data['mime'];
-			$mime = "'".wpdb::escape ($this->mime)."'";
+			$mime = "'".$wpdb->escape ($this->mime)."'";
 		}
 			
 		if ($data['icon'] != '' && $data['icon'] != '-')
 		{
 			$this->icon = DH_Hole::sanitize_dir ($data['icon']);
-			$icon = "'".wpdb::escape ($this->icon)."'";
+			$icon = "'".$wpdb->escape ($this->icon)."'";
 		}
 
-		$file    = wpdb::escape ($this->file);
-		$name    = wpdb::escape ($this->name);
-		$desc    = wpdb::escape ($this->description);
+		$file    = $wpdb->escape ($this->file);
+		$name    = $wpdb->escape ($this->name);
+		$desc    = $wpdb->escape ($this->description);
 		
 		$this->options = $data['options'];
 		if (!is_array ($this->options))
@@ -313,7 +313,7 @@ class DH_File
 			$this->options = $newoptions;
 		}
 			
-		$options = wpdb::escape (serialize ($this->options));
+		$options = $wpdb->escape (serialize ($this->options));
 		$wpdb->query ("UPDATE {$wpdb->prefix}drainhole_files SET file='$file', mime=$mime, svn=$svn, icon=$icon, options='{$options}', hits='{$this->hits}', updated_at=NOW(), name='$name', description='$desc', download_as=$download_as WHERE id='{$this->id}'");
 	}
 	
@@ -458,7 +458,7 @@ class DH_File
 	{
 		$url = $hole->url.'/'.$this->file;
 
-		if ($this->options['force_access'] && !empty ($_COOKIE[USER_COOKIE]) && !empty ($_COOKIE[PASS_COOKIE]))
+		if (isset($this->options['force_access']) && $this->options['force_access'] && !empty ($_COOKIE[USER_COOKIE]) && !empty ($_COOKIE[PASS_COOKIE]))
 		{
 			$user = $_COOKIE[USER_COOKIE].$_COOKIE[PASS_COOKIE].$this->file;
 			$url .= '?id='.md5 ($user);
@@ -720,13 +720,13 @@ class DH_File
 		$user = wp_get_current_user ();
 		
 		// Check forced access
-		if ($this->options['force_access'])
+		if (isset($this->options['force_access']) && $this->options['force_access'])
 		{
 			if (preg_match ('/id=([a-zA-Z0-9]*)/', $_SERVER['REQUEST_URI'], $matches) > 0)
 			{
 				// Now check that we can find a user with the appropriate details
 				global $wpdb;
-				$id = wpdb::escape ($matches[1]);
+				$id = $wpdb->escape ($matches[1]);
 				$user = $wpdb->get_row ("SELECT * FROM {$wpdb->users} WHERE MD5(CONCAT(user_login,MD5(user_pass),'{$this->file}'))='$id'");
 				if (!$user)
 					return false;

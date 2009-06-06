@@ -191,7 +191,7 @@ class DH_Upgrade
 			{
 				$version = DH_Version::create ($file, $file->version, $file->hits, $file->updated_at, __ ('First version', 'drain-hole'));
 
-				$options = wpdb::escape (serialize (array ('force_download' => $file->force_download)));
+				$options = $wpdb->escape (serialize (array ('force_download' => $file->force_download)));
 				
 				$wpdb->query ("UPDATE {$wpdb->prefix}drainhole_files SET version_id='$version',options='$options' WHERE id='{$file->id}'");
 				$wpdb->query ("UPDATE {$wpdb->prefix}drainhole_access SET version_id='$version' WHERE file_id='{$file->id}'");
@@ -211,8 +211,8 @@ class DH_Upgrade
 
 			foreach ($old AS $row)
 			{
-				$version = wpdb::escape ($row->version);
-				$file    = wpdb::escape ($row->file);
+				$version = $wpdb->escape ($row->version);
+				$file    = $wpdb->escape ($row->file);
 
 				$wpdb->query ("INSERT INTO {$wpdb->prefix}drainhole_files (file,hole_id,version,downloads,updated_at) VALUES ('$file',{$hole->id},'$version','{$row->downloads}',NOW())");
 				$file = DH_File::get ($wpdb->insert_id);

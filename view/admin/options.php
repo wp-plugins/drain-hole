@@ -1,9 +1,12 @@
-<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><div class="wrap">
+<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
+<div class="wrap">
+	<?php $this->render_admin ('annoy'); ?>
+	<?php screen_icon(); ?>
 	<h2><?php _e ('Drain Hole | Options', 'drain-hole'); ?></h2>
 	
 	<?php $this->submenu (true); ?>
 	
-	<form style="clear: both" action="<?php echo $this->ur; ($_SERVER['REQUEST_URI']) ?>" method="post" accept-charset="utf-8">
+	<form style="clear: both" action="<?php echo $this->url ($_SERVER['REQUEST_URI']) ?>" method="post" accept-charset="utf-8">
 	<?php wp_nonce_field ('drainhole-save_options'); ?>
 	<table width="100%" class="form-table">
 
@@ -59,9 +62,9 @@
 			</td>
 		</tr>
 		<tr>
-			<th width="220" align="right" valign="top"><?php _e ('Kitten protection', 'drain-hole'); ?>:</th>
+			<th width="220" align="right" valign="top"><?php _e ('Support', 'drain-hole'); ?>:</th>
 			<td>
-				<input type="checkbox" name="kitten"<?php $this->checked ($options, 'kitten') ?>/>
+				<input type="checkbox" name="support"<?php $this->checked ($options, 'support') ?>/>
 				<span class="sub"><?php _e ('I hereby testify that I have supported this plugin.  If I check this option and haven\'t supported this plugin then a squad of winged monkeys will be sent to drop things on my head.', 'drain-hole'); ?></span>
 			</td>
 		</tr>

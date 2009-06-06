@@ -94,7 +94,7 @@ class DH_Access
 		  $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
 	
 		$ip = sprintf ('%u', ip2long ($ip));
-		$referrer = DH_Access::get_referrer (wpdb::escape ($_SERVER['HTTP_REFERER']));
+		$referrer = DH_Access::get_referrer ($wpdb->escape ($_SERVER['HTTP_REFERER']));
 		
 		$wpdb->query ("INSERT INTO {$wpdb->prefix}drainhole_access (file_id,created_at,ip,referrer,version_id,user_id) VALUES ($file,NOW(),$ip,'$referrer','$version','$user')");
 		return $wpdb->insert_id;

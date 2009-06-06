@@ -187,9 +187,9 @@ class DH_Hole
 	{
 		global $wpdb;
 
-		$url       = wpdb::escape (DH_Hole::sanitize_url ($data['urlx']));
-		$directory = wpdb::escape (DH_Hole::sanitize_dir (DH_Plugin::realpath ($data['directoryx'])));
-		$redirect  = wpdb::escape ($data['redirect_urlx']);
+		$url       = $wpdb->escape (DH_Hole::sanitize_url ($data['urlx']));
+		$directory = $wpdb->escape (DH_Hole::sanitize_dir (DH_Plugin::realpath ($data['directoryx'])));
+		$redirect  = $wpdb->escape ($data['redirect_urlx']);
 		if (isset ($data['role']) && ($data['role'] == '-' || $data['role'] == ''))
 			$role = 'NULL';
 		else
@@ -288,10 +288,10 @@ class DH_Hole
 			$this->role = "'".$data['role']."'";
 
 		$this->url            = $url;
-		$this->role_error_url = wpdb::escape ($data['redirect_urlx']);
+		$this->role_error_url = $wpdb->escape ($data['redirect_urlx']);
 
-		$url       = wpdb::escape ($this->url);
-		$directory = wpdb::escape ($this->directory);
+		$url       = $wpdb->escape ($this->url);
+		$directory = $wpdb->escape ($this->directory);
 		
 		return $wpdb->query ("UPDATE {$wpdb->prefix}drainhole_holes SET url='$url', directory='$directory', role={$this->role}, role_error_url='{$this->role_error_url}', hotlink='{$this->hotlink}' WHERE id='{$this->id}'");
 	}

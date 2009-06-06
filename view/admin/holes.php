@@ -1,10 +1,11 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
 <div class="wrap">
-	<h2><?php _e ('Drain Hole | Holes', 'drain-hole') ?> <a href="<?php echo $this->url () ?>/csv.php?id=<?php echo $hole->id ?>&amp;type=holes" title="Download as CSV"><img src="<?php echo $this->url () ?>/images/csv.png" width="16" height="16" alt="CSV"/></a></h2>
-
-	<?php $this->submenu (true); ?>
+	<?php $this->render_admin ('annoy'); ?>
+	<?php screen_icon(); ?>
 	
-	<?php if (!isset ($options['kitten']) || $options['kitten'] == false) $this->render_admin ('kitten'); ?>
+	<h2><?php _e ('Drain Hole | Holes', 'drain-hole') ?></h2>
+	
+	<?php $this->submenu (true); ?>
 	
 	<form method="get" action="<?php echo $this->url ($pager->url) ?>">
 		<?php $this->render_admin ('pager', array ('pager' => $pager)); ?>

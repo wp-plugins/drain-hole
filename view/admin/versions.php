@@ -1,4 +1,7 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><div class="wrap">
+	<?php $this->render_admin ('annoy'); ?>
+	<?php screen_icon(); ?>
+	
 	<h2><?php printf (__ ('Version history for %s', 'drain-hole'), '<a href="edit.php?page=drain-hole.php&files='.$file->hole_id.'">'.$file->name ().'</a>'); ?></h2>
 
 	<?php $this->submenu (true); ?>
