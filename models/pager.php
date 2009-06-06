@@ -114,9 +114,6 @@ class DH_Pager
 		$this->steps = array (10, 25, 50, 100, 250);
 		$this->url = str_replace ('&', '&amp;', $this->url);
 		$this->url = str_replace ('&&amp;', '&amp;', $this->url);
-
-		if (!isset ($data['ss']))
-			$this->current_page = 1;
 	}
 	
 	
