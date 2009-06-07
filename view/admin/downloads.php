@@ -65,7 +65,7 @@
 			<?php if (!isset ($file)) : ?>
 			<td><?php echo htmlspecialchars ($stat->file); ?></td>
 			<?php endif; ?>
-			<td><a href="http://urbangiraffe.com/map/?ip=<?php echo $stat->ip ?>"><?php echo $stat->ip; ?></a></td>
+			<td><a href="http://urbangiraffe.com/map/?ip=<?php echo $stat->ip ?>&amp;from=drainhole"><?php echo $stat->ip; ?></a></td>
 			<td><?php echo $stat->user (); ?></td>
 			<td><?php echo $stat->referrer_as_link () ?></td>
 		</tr>

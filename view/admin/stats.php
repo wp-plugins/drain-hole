@@ -41,7 +41,7 @@
 		<?php foreach ($stats AS $stat) : ?>
 		<tr id="stat_<?php echo $stat->id ?>">
 			<td><?php echo date (get_option ('date_format'), $stat->created_at); ?> <?php echo date (get_option ('time_format'), $stat->created_at)?></td>
-			<td><a href="http://urbangiraffe.com/map/?ip=<?php echo $stat->ip ?>"><?php echo $stat->ip; ?></a></td>
+			<td><a href="http://urbangiraffe.com/map/?ip=<?php echo $stat->ip ?>&amp;from=drainhole"><?php echo $stat->ip; ?></a></td>
 			<td><?php if ($stat->speed > 0) echo DH_File::bytes ($stat->speed).'/s' ?></td>
 			<td><?php if ($stat->speed == 0) echo __ ('Cancelled', 'drain-hole'); else echo DH_File::timespan ($stat->time_taken) ?></td>
 			<td><a href="#" onclick="return delete_stat(<?php echo $stat->id ?>)"><img src="<?php echo $this->url () ?>/images/delete.png" width="16" height="16" alt="Delete"/></a></td>
