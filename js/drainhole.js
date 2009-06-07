@@ -104,7 +104,7 @@ function edit_file (item,object)
       title: jQuery(object).attr('title'),
       overlay: { opacity: 0.3, background: "black" }
   });
-  jQuery('.ui-dialog').show();
+//  jQuery('.ui-dialog').show();
   
   jQuery.get (wp_base + '?id=' + item + '&cmd=edit_file', {}, function (data, status)
     {
@@ -148,7 +148,7 @@ function new_version (item,object)
       title: object.title,
       overlay: { opacity: 0.3, background: "black" }
   });
-  jQuery('.ui-dialog').show();
+//  jQuery('.ui-dialog').show();
 
   jQuery.get (wp_base + '?id=' + item + '&cmd=new_version', {}, function (data, status)
     {
@@ -168,7 +168,7 @@ function edit_version (item,object)
       title: object.title,
       overlay: { opacity: 0.3, background: "black" }
   });
-  jQuery('.ui-dialog').show();
+//  jQuery('.ui-dialog').show();
 
   jQuery.get (wp_base + '?id=' + item + '&cmd=edit_version', {}, function (data, status)
     {
