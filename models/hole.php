@@ -198,7 +198,7 @@ class DH_Hole
 //		error_reporting (E_ALL);
 //		ini_set("display_errors", 1);
 
-		$hotlink = (isset ($data['hotlink']) ? true : false);
+		$hotlink = (isset ($data['hotlink']) ? 1 : 0);
 		if (strlen ($directory) > 0 && preg_match ('@https?://@', $directory, $matches) === 0)
 		{
 			if (strlen ($url) > 1 && $wpdb->get_var ("SELECT COUNT(*) FROM {$wpdb->prefix}drainhole_holes WHERE url LIKE '$url'") == 0)

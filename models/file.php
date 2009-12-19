@@ -542,13 +542,7 @@ class DH_File
 			return $this->mime;
 			
 		$info = pathinfo ($this->file ($hole));
-		if (function_exists ('finfo_open'))
-		{
-			$finfo = finfo_open (FILEINFO_MIME);
-		    $mime = finfo_file ($finfo, $this->file ($hole));
-			finfo_close ($finfo);
-		}
-		else if (function_exists ('mime_content_type'))
+		if (function_exists ('mime_content_type'))
 			$mime = mime_content_type ($this->file ($hole));
 		else
 		{
