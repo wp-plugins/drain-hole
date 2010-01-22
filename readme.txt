@@ -3,7 +3,7 @@ Contributors: johnny5
 Donate link: http://urbangiraffe.com/about/support/
 Tags: post, page, download, manager, svn, version
 Requires at least: 2.7
-Tested up to: 2.9
+Tested up to: 2.9.1
 Stable tag: trunk
 
 Drain Hole is a centralized download manager with full monitoring, statistics, versioning, SVN support, and proper SEO download URLs (no nasty query parameters)
@@ -202,3 +202,6 @@ Full documentation can be found on the [Drain Hole](http://urbangiraffe.com/plug
 
 = 2.2.7  = 
 * Make work with Search Unleashed, WP2.8
+
+= 2.2.8 =
+* Fix deep slashes

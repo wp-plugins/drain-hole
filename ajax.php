@@ -16,12 +16,14 @@ else
 
 class DH_AJAX extends DH_Plugin
 {
+	var $post;
+	
 	function DH_AJAX ($id, $command)
 	{
 		if (!current_user_can ('edit_plugins'))
 			die (__ ('<p style="color: red">You are not allowed access to this resource</p>', 'drain-hole'));
 		
-		$_POST = stripslashes_deep ($_POST);
+		$this->post = stripslashes_deep ($_POST);
 		
 		$this->register_plugin ('drain-hole', __FILE__);
 		if (method_exists ($this, $command))
@@ -58,7 +60,7 @@ class DH_AJAX extends DH_Plugin
 		if (check_ajax_referer ('drainhole-save_hole'))
 		{
 			$hole = DH_Hole::get ($id);
-			$hole->update ($_POST);
+			$hole->update ($this->post);
 
 			DH_Hole::flush ();
 		}
@@ -88,7 +90,7 @@ class DH_AJAX extends DH_Plugin
 			$file = DH_File::get ($id);
 			$hole = DH_Hole::get ($file->hole_id);
 
-			$file->update ($_POST);
+			$file->update ($this->post);
 		
 			DH_Hole::flush ();
 		}
@@ -124,7 +126,7 @@ class DH_AJAX extends DH_Plugin
 		{
 			$file = DH_File::get ($id);
 			if ($file)
-				$file->create_new_version ($_POST['new_version'], isset ($_POST['branch']) ? true : false, $_POST['reason'], isset ($_POST['donotbranch']) ? true : false, isset ($_POST['svn']) ? true : false);
+				$file->create_new_version ($this->post['new_version'], isset ($_POST['branch']) ? true : false, $this->post['reason'], isset ($_POST['donotbranch']) ? true : false, isset ($_POST['svn']) ? true : false);
 		}
 	}
 	
@@ -138,7 +140,7 @@ class DH_AJAX extends DH_Plugin
 		if (check_ajax_referer ('drainhole-version_save'))
 		{
 			$version = DH_Version::get ($id);
-			$version->update ($_POST);
+			$version->update ($this->post);
 		}
 	}
 	

@@ -4,7 +4,7 @@ Plugin Name: Drain Hole
 Plugin URI: http://urbangiraffe.com/plugins/drain-hole/
 Description: A download management and monitoring plugin with statistics and file protection
 Author: John Godley
-Version: 2.2.7
+Version: 2.2.8
 Author URI: http://urbangiraffe.com/
 ============================================================================================================
 This software is provided "as is" and any express or implied warranties, including, but not limited to, the
@@ -423,10 +423,9 @@ class DrainholePlugin extends DH_Plugin
 	{
 		if (isset ($_POST['save']) && check_admin_referer ('drainhole-version_add'))
 		{
-			$_POST = stripslashes_deep ($_POST);
 			$file = DH_File::get ($id);
 			
-			DH_Version::create ($file, $_POST['version'], 0, mktime (0, 0, 0, intval ($_POST['month']), intval ($_POST['day']), intval ($_POST['year'])), $_POST['reason']);
+			DH_Version::create ($file, stripslashes( $_POST['version'] ), 0, mktime (0, 0, 0, intval ($_POST['month']), intval ($_POST['day']), intval ($_POST['year'])), stripslashes( $_POST['reason'] ));
 			$this->render_message (__ ('Your version was added succesfully', 'drain-hole'));
 		}
 		
@@ -546,7 +545,6 @@ class DrainholePlugin extends DH_Plugin
 	{
 		if (isset ($_POST['create']) && check_admin_referer ('drainhole-new_hole'))
 		{
-			$_POST = stripslashes_deep ($_POST);
 			if (($result = DH_Hole::create ($_POST)) === true)
 			{
 				DH_Hole::flush ();

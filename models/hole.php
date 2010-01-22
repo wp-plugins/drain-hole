@@ -187,9 +187,9 @@ class DH_Hole
 	{
 		global $wpdb;
 
-		$url       = $wpdb->escape (DH_Hole::sanitize_url ($data['urlx']));
-		$directory = $wpdb->escape (DH_Hole::sanitize_dir (DH_Plugin::realpath ($data['directoryx'])));
-		$redirect  = $wpdb->escape ($data['redirect_urlx']);
+		$url       = $wpdb->escape (DH_Hole::sanitize_url ( stripslashes( $data['urlx'] ) ));
+		$directory = $wpdb->escape (DH_Hole::sanitize_dir ( stripslashes( DH_Plugin::realpath ($data['directoryx']) )));
+		$redirect  = $wpdb->escape (stripslashes( $data['redirect_urlx'] ));
 		if (isset ($data['role']) && ($data['role'] == '-' || $data['role'] == ''))
 			$role = 'NULL';
 		else
