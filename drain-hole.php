@@ -559,11 +559,11 @@ class DrainholePlugin extends DH_Plugin
 			$holes = DH_Hole::get_as_list ();
 		}
 
-		$base_url = rtrim (get_bloginfo ('home'),'/').'/download';
+		$base_url = rtrim (get_bloginfo ('url'),'/').'/download';
 		$base_directory = $this->realpath (rtrim ($_SERVER['DOCUMENT_ROOT'], '/').'/download').'/';
 
 		$pager = new DH_Pager ($_GET, $_SERVER['REQUEST_URI'], 'name', 'ASC');
-		$this->render_admin ('holes', array ('holes' => DH_Hole::get_all ($pager), 'pager' => $pager, 'options' => $this->get_options(), 'base_url' => $base_url, 'base_directory' => $base_directory, 'home' => get_bloginfo ('home')));
+		$this->render_admin ('holes', array ('holes' => DH_Hole::get_all ($pager), 'pager' => $pager, 'options' => $this->get_options(), 'base_url' => $base_url, 'base_directory' => $base_directory, 'home' => get_bloginfo ('url')));
 	}
 	
 	

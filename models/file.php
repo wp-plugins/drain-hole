@@ -946,4 +946,3 @@ class DH_File
 		return @filemtime ($this->file ($hole, $version));
 	}
 }
-?>

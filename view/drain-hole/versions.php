@@ -7,7 +7,6 @@
 				<?php else : ?>
 					<?php echo $version->version; ?>
 				<?php endif; ?>
-				
 				<?php if ($version->reason) echo ' - '.$version->reason; ?>
 			</li>
 		<?php endforeach; ?>

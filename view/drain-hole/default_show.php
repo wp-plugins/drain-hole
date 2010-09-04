@@ -1,5 +1,5 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
-<div style="float: right; width: 200px; margin: 10px; text-align: center">
+<div style="float: right; width: 200px; margin: 10px 0px 10px 20px; text-align: center" class="download-area">
 	<p>$icon$</p>
 
 	<table class="download">
